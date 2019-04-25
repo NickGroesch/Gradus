@@ -3,7 +3,7 @@
 // relative to a major key we will include b7, #1, #2, #4, #5
 // which allows for maximum use of secondary dominants and mixture of major mode into minor
 
-// object maps pitch classes to their midi mod12 equivalent by key
+// Object maps pitch classes to their midi mod12 equivalent by key
 const pitchClassMidi = {
   Gs: {
     Bs: 0,
@@ -244,7 +244,7 @@ const pitchClassMidi = {
     Cb: 11
   }
 };
-// object maps midi note values mod12 to their pitch class equivalents by key
+// Object maps midi note values mod12 to their pitch class equivalents by key
 const midiPitchClass = {
   Fb: ["C", "Db", "Ebb", "Eb", "Fb", "F", "Gb", "G", "Ab", "Bbb", "Bb", "Cb"],
   Cb: ["C", "Db", "D", "Eb", "Fb", "F", "Gb", "G", "Ab", "Bbb", "Bb", "Cb"],
@@ -289,4 +289,35 @@ const midiPitchClass = {
     "As",
     "Ass"
   ]
+};
+
+// We will require translators between midi note values and scientific pitch notation, as well as scientific pitch to lilypond
+
+// transposes a midi array (returns midi array)
+const transposeMidiArray = (inputArray, semitones) => {
+  let newArray = inputArray.map(note => parseInt(note) + parseInt(semitones));
+  return newArray;
+};
+// converts pitch class to midi given a key
+const pitchClassToMidi = (pitchClass, key) => {
+  let x = pitchClassMidi[key][pitchClass];
+  return x;
+};
+// converts a scientificly notated pitch to midi given key
+const pitchToMidi = (pitch, key) => {
+  x = pitch.split(".");
+  // console.log("pctm", pitchClassToMidi(x[0], key));
+  // console.log("math", 12 * (parseInt(x[1]) + 1));
+  return pitchClassToMidi(x[0], key) + 12 * (parseInt(x[1]) + 1);
+};
+// converts a midi note to it's pitch class in a given key
+const pitchClass = (noteIn, key) => {
+  let pClass = noteIn % 12;
+  return midiPitchClass[key][pClass];
+};
+//   converts a midi note to it's scientific pitch
+const evalPitch = (noteIn, key) => {
+  pClass = pitchClass(noteIn, key);
+  octave = Math.floor(noteIn / 12) - 1;
+  return pClass + "." + octave;
 };
