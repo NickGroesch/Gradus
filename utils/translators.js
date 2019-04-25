@@ -4,246 +4,287 @@
 // which allows for maximum use of secondary dominants and mixture of major mode into minor
 
 // Object maps pitch classes to their midi mod12 equivalent by key
+
+// const pitchClassMidi = {
+//   Gs: {
+//     Bs: 0,
+//     Cs: 1,
+//     Css: 2,
+//     Ds: 3,
+//     Dss: 4,
+//     Es: 5,
+//     Fs: 6,
+//     Fss: 7,
+//     Gs: 8,
+//     Gss: 9,
+//     As: 10,
+//     Ass: 11
+//   },
+//   Cs: {
+//     Bs: 0,
+//     Cs: 1,
+//     Css: 2,
+//     Ds: 3,
+//     Dss: 4,
+//     Es: 5,
+//     Fs: 6,
+//     Fss: 7,
+//     Gs: 8,
+//     Gss: 9,
+//     As: 10,
+//     B: 11
+//   },
+//   Fs: {
+//     Bs: 0,
+//     Cs: 1,
+//     Css: 2,
+//     Ds: 3,
+//     E: 4,
+//     Es: 5,
+//     Fs: 6,
+//     Fss: 7,
+//     Gs: 8,
+//     Gss: 9,
+//     As: 10,
+//     B: 11
+//   },
+//   B: {
+//     Bs: 0,
+//     Cs: 1,
+//     Css: 2,
+//     Ds: 3,
+//     E: 4,
+//     Es: 5,
+//     Fs: 6,
+//     Fss: 7,
+//     Gs: 8,
+//     A: 9,
+//     As: 10,
+//     B: 11
+//   },
+//   E: {
+//     Bs: 0,
+//     Cs: 1,
+//     D: 2,
+//     Ds: 3,
+//     E: 4,
+//     Es: 5,
+//     Fs: 6,
+//     Fss: 7,
+//     Gs: 8,
+//     A: 9,
+//     As: 10,
+//     B: 11
+//   },
+//   A: {
+//     Bs: 0,
+//     Cs: 1,
+//     D: 2,
+//     Ds: 3,
+//     E: 4,
+//     Es: 5,
+//     Fs: 6,
+//     G: 7,
+//     Gs: 8,
+//     A: 9,
+//     As: 10,
+//     B: 11
+//   },
+//   D: {
+//     C: 0,
+//     Cs: 1,
+//     D: 2,
+//     Ds: 3,
+//     E: 4,
+//     Es: 5,
+//     Fs: 6,
+//     G: 7,
+//     Gs: 8,
+//     A: 9,
+//     As: 10,
+//     B: 11
+//   },
+//   G: {
+//     C: 0,
+//     Cs: 1,
+//     D: 2,
+//     Ds: 3,
+//     E: 4,
+//     F: 5,
+//     Fs: 6,
+//     G: 7,
+//     Gs: 8,
+//     A: 9,
+//     As: 10,
+//     B: 11
+//   },
+//   C: {
+//     C: 0,
+//     Cs: 1,
+//     D: 2,
+//     Ds: 3,
+//     E: 4,
+//     F: 5,
+//     Fs: 6,
+//     G: 7,
+//     Gs: 8,
+//     A: 9,
+//     Bb: 10,
+//     B: 11
+//   },
+//   F: {
+//     C: 0,
+//     Cs: 1,
+//     D: 2,
+//     Eb: 3,
+//     E: 4,
+//     F: 5,
+//     Fs: 6,
+//     G: 7,
+//     Gs: 8,
+//     A: 9,
+//     Bb: 10,
+//     B: 11
+//   },
+//   Bb: {
+//     C: 0,
+//     Cs: 1,
+//     D: 2,
+//     Eb: 3,
+//     E: 4,
+//     F: 5,
+//     Fs: 6,
+//     G: 7,
+//     Ab: 8,
+//     A: 9,
+//     Bb: 10,
+//     B: 11
+//   },
+//   Eb: {
+//     C: 0,
+//     Db: 1,
+//     D: 2,
+//     Eb: 3,
+//     E: 4,
+//     F: 5,
+//     Fs: 6,
+//     G: 7,
+//     Ab: 8,
+//     A: 9,
+//     Bb: 10,
+//     B: 11
+//   },
+//   Ab: {
+//     C: 0,
+//     Db: 1,
+//     D: 2,
+//     Eb: 3,
+//     E: 4,
+//     F: 5,
+//     Gb: 6,
+//     G: 7,
+//     Ab: 8,
+//     A: 9,
+//     Bb: 10,
+//     B: 11
+//   },
+//   Db: {
+//     C: 0,
+//     Db: 1,
+//     D: 2,
+//     Eb: 3,
+//     E: 4,
+//     F: 5,
+//     Gb: 6,
+//     G: 7,
+//     Ab: 8,
+//     A: 9,
+//     Bb: 10,
+//     Cb: 11
+//   },
+//   Gb: {
+//     C: 0,
+//     Db: 1,
+//     D: 2,
+//     Eb: 3,
+//     Fb: 4,
+//     F: 5,
+//     Gb: 6,
+//     G: 7,
+//     Ab: 8,
+//     A: 9,
+//     Bb: 10,
+//     Cb: 11
+//   },
+//   Cb: {
+//     C: 0,
+//     Db: 1,
+//     D: 2,
+//     Eb: 3,
+//     Fb: 4,
+//     F: 5,
+//     Gb: 6,
+//     G: 7,
+//     Ab: 8,
+//     Bbb: 9,
+//     Bb: 10,
+//     Cb: 11
+//   },
+//   Fb: {
+//     C: 0,
+//     Db: 1,
+//     Ebb: 2,
+//     Eb: 3,
+//     Fb: 4,
+//     F: 5,
+//     Gb: 6,
+//     G: 7,
+//     Ab: 8,
+//     Bbb: 9,
+//     Bb: 10,
+//     Cb: 11
+//   }
+// };
+
+// object maps scientific pitch classes to midi mod 12 (by Key is not necessary)
 const pitchClassMidi = {
-  Gs: {
-    Bs: 0,
-    Cs: 1,
-    Css: 2,
-    Ds: 3,
-    Dss: 4,
-    Es: 5,
-    Fs: 6,
-    Fss: 7,
-    Gs: 8,
-    Gss: 9,
-    As: 10,
-    Ass: 11
-  },
-  Cs: {
-    Bs: 0,
-    Cs: 1,
-    Css: 2,
-    Ds: 3,
-    Dss: 4,
-    Es: 5,
-    Fs: 6,
-    Fss: 7,
-    Gs: 8,
-    Gss: 9,
-    As: 10,
-    B: 11
-  },
-  Fs: {
-    Bs: 0,
-    Cs: 1,
-    Css: 2,
-    Ds: 3,
-    E: 4,
-    Es: 5,
-    Fs: 6,
-    Fss: 7,
-    Gs: 8,
-    Gss: 9,
-    As: 10,
-    B: 11
-  },
-  B: {
-    Bs: 0,
-    Cs: 1,
-    Css: 2,
-    Ds: 3,
-    E: 4,
-    Es: 5,
-    Fs: 6,
-    Fss: 7,
-    Gs: 8,
-    A: 9,
-    As: 10,
-    B: 11
-  },
-  E: {
-    Bs: 0,
-    Cs: 1,
-    D: 2,
-    Ds: 3,
-    E: 4,
-    Es: 5,
-    Fs: 6,
-    Fss: 7,
-    Gs: 8,
-    A: 9,
-    As: 10,
-    B: 11
-  },
-  A: {
-    Bs: 0,
-    Cs: 1,
-    D: 2,
-    Ds: 3,
-    E: 4,
-    Es: 5,
-    Fs: 6,
-    G: 7,
-    Gs: 8,
-    A: 9,
-    As: 10,
-    B: 11
-  },
-  D: {
-    C: 0,
-    Cs: 1,
-    D: 2,
-    Ds: 3,
-    E: 4,
-    Es: 5,
-    Fs: 6,
-    G: 7,
-    Gs: 8,
-    A: 9,
-    As: 10,
-    B: 11
-  },
-  G: {
-    C: 0,
-    Cs: 1,
-    D: 2,
-    Ds: 3,
-    E: 4,
-    F: 5,
-    Fs: 6,
-    G: 7,
-    Gs: 8,
-    A: 9,
-    As: 10,
-    B: 11
-  },
-  C: {
-    C: 0,
-    Cs: 1,
-    D: 2,
-    Ds: 3,
-    E: 4,
-    F: 5,
-    Fs: 6,
-    G: 7,
-    Gs: 8,
-    A: 9,
-    Bb: 10,
-    B: 11
-  },
-  F: {
-    C: 0,
-    Cs: 1,
-    D: 2,
-    Eb: 3,
-    E: 4,
-    F: 5,
-    Fs: 6,
-    G: 7,
-    Gs: 8,
-    A: 9,
-    Bb: 10,
-    B: 11
-  },
-  Bb: {
-    C: 0,
-    Cs: 1,
-    D: 2,
-    Eb: 3,
-    E: 4,
-    F: 5,
-    Fs: 6,
-    G: 7,
-    Ab: 8,
-    A: 9,
-    Bb: 10,
-    B: 11
-  },
-  Eb: {
-    C: 0,
-    Db: 1,
-    D: 2,
-    Eb: 3,
-    E: 4,
-    F: 5,
-    Fs: 6,
-    G: 7,
-    Ab: 8,
-    A: 9,
-    Bb: 10,
-    B: 11
-  },
-  Ab: {
-    C: 0,
-    Db: 1,
-    D: 2,
-    Eb: 3,
-    E: 4,
-    F: 5,
-    Gb: 6,
-    G: 7,
-    Ab: 8,
-    A: 9,
-    Bb: 10,
-    B: 11
-  },
-  Db: {
-    C: 0,
-    Db: 1,
-    D: 2,
-    Eb: 3,
-    E: 4,
-    F: 5,
-    Gb: 6,
-    G: 7,
-    Ab: 8,
-    A: 9,
-    Bb: 10,
-    Cb: 11
-  },
-  Gb: {
-    C: 0,
-    Db: 1,
-    D: 2,
-    Eb: 3,
-    Fb: 4,
-    F: 5,
-    Gb: 6,
-    G: 7,
-    Ab: 8,
-    A: 9,
-    Bb: 10,
-    Cb: 11
-  },
-  Cb: {
-    C: 0,
-    Db: 1,
-    D: 2,
-    Eb: 3,
-    Fb: 4,
-    F: 5,
-    Gb: 6,
-    G: 7,
-    Ab: 8,
-    Bbb: 9,
-    Bb: 10,
-    Cb: 11
-  },
-  Fb: {
-    C: 0,
-    Db: 1,
-    Ebb: 2,
-    Eb: 3,
-    Fb: 4,
-    F: 5,
-    Gb: 6,
-    G: 7,
-    Ab: 8,
-    Bbb: 9,
-    Bb: 10,
-    Cb: 11
-  }
+  C: 0,
+  Cb: 11,
+  Cbb: 10,
+  Cs: 1,
+  Css: 2,
+  D: 2,
+  Db: 1,
+  Dbb: 0,
+  Ds: 3,
+  Dss: 4,
+  E: 4,
+  Eb: 3,
+  Ebb: 2,
+  Es: 5,
+  Ess: 6,
+  F: 5,
+  Fs: 6,
+  Fss: 7,
+  Fb: 4,
+  Fbb: 3,
+  G: 7,
+  Gb: 6,
+  Gbb: 5,
+  Gs: 8,
+  Gss: 9,
+  A: 9,
+  Ab: 8,
+  Abb: 7,
+  As: 10,
+  Ass: 11,
+  B: 11,
+  Bs: 0,
+  Bss: 1,
+  Bb: 10,
+  Bbb: 9
 };
+
 // Object maps midi note values mod12 to their pitch class equivalents by key
 const midiPitchClass = {
   Fb: ["C", "Db", "Ebb", "Eb", "Fb", "F", "Gb", "G", "Ab", "Bbb", "Bb", "Cb"],
@@ -298,17 +339,17 @@ const transposeMidiArray = (inputArray, semitones) => {
   let newArray = inputArray.map(note => parseInt(note) + parseInt(semitones));
   return newArray;
 };
-// converts pitch class to midi given a key
-const pitchClassToMidi = (pitchClass, key) => {
-  let x = pitchClassMidi[key][pitchClass];
+// converts pitch class to midi note value
+const pitchClassToMidi = pitchClass => {
+  let x = pitchClassMidi[pitchClass];
   return x;
 };
-// converts a scientificly notated pitch to midi given key
-const pitchToMidi = (pitch, key) => {
+// converts a scientificly notated pitch to midi
+const pitchToMidi = pitch => {
   x = pitch.split(".");
   // console.log("pctm", pitchClassToMidi(x[0], key));
   // console.log("math", 12 * (parseInt(x[1]) + 1));
-  return pitchClassToMidi(x[0], key) + 12 * (parseInt(x[1]) + 1);
+  return pitchClassToMidi(x[0]) + 12 * (parseInt(x[1]) + 1);
 };
 // converts a midi note to it's pitch class in a given key
 const pitchClass = (noteIn, key) => {
@@ -320,4 +361,37 @@ const evalPitch = (noteIn, key) => {
   pClass = pitchClass(noteIn, key);
   octave = Math.floor(noteIn / 12) - 1;
   return pClass + "." + octave;
+};
+// converts midi to scientific pitch
+const evalPitchArray = (midiArray, key) => {
+  let returnArray = [];
+  midiArray.forEach(noteIn => {
+    let pitch = evalPitch(noteIn, key);
+    returnArray.push(pitch);
+  });
+  return returnArray;
+};
+// we want to work with our data in duel form, both scientific pitch and midi concurrently
+const formatDuel = (midiArray, pitchArray) => {
+  let returnArray = [];
+  midiArray.forEach((value, index) => {
+    let object = { midi: value, pitch: pitchArray[index] };
+    returnArray.push(object);
+  });
+  return returnArray;
+};
+//
+const deltaIntervalArray = midiArray => {
+  let deltaArray = [];
+  for (let i = 0; i + 1 < midiArray.length; i++) {
+    let midiDelta = parseInt(midiArray[i + 1]) - parseInt(midiArray[i]);
+    deltaArray.push(midiDelta);
+  }
+  return deltaArray;
+};
+// we need to be able to measure an interval in both midi and scientific pitch
+
+//
+const deltaDual = duelArray => {
+  console.log;
 };
