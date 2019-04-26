@@ -421,19 +421,38 @@ const measureInterval = (firstDual, secondDual) => {
     "fourth",
     "fifth",
     "sixth",
-    "seventh"
+    "seventh",
+    "octave",
+    "ninth",
+    "tenth"
   ];
   if (pitchDiff < 0) {
     prefix = "desc";
     pitchDiff = Math.abs(pitchDiff);
   }
-  if (pitchDiff > 6) {
+  if (pitchDiff > 9) {
     prefix += " comp";
     pitchDiff = pitchDiff % 7;
   }
-  console.log(prefix, intervalMap[pitchDiff]);
+  let midiDiff = deltaIntervalArray([firstDual.midi, secondDual.midi]);
+
+  let quality = {
+    unison: { 0: "perf", 1: "aug", 11: "dim" },
+    second: { 0: "dim", 1: "min", 2: "maj", 3: "aug" },
+    third: { 4: "maj", 3: "min", 2: "dim", 5: "aug" },
+    fourth: { 5: "perf", 4: "dim", 6: "aug" },
+    fifth: { 7: "perf", 8: "aug", 6: "dim" },
+    sixth: { 9: "maj", 8: "min", 7: "dim", 10: "aug" },
+    seventh: { 11: "maj", 10: "min", 9: "dim", 0: "aug" },
+    octave: { 0: "perf", 1: "aug", 11: "dim" },
+    ninth: { 0: "dim", 1: "min", 2: "maj", 3: "aug" },
+    tenth: { 4: "maj", 3: "min", 2: "dim", 5: "aug" }
+  };
+  let interval = intervalMap[pitchDiff];
+  console.log(midiDiff);
+  console.log(prefix, quality[interval][midiDiff], interval);
 };
-measureInterval({ pitch: "C.4" }, { pitch: "E.2" });
+measureInterval({ pitch: "C.4", midi: 60 }, { pitch: "E.4", midi: 64 });
 //
 const deltaDual = duelArray => {
   console.log;
