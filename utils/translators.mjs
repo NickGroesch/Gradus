@@ -400,16 +400,40 @@ const deltaIntervalArray = midiArray => {
   return deltaArray;
 };
 // to measure intervals we need to assess them in base7
-let test = "Cs.4";
+let test = "E.1";
 
 const pitchBase = pitch => {
   let x = pitch.split(".");
-  console.log("inside", x[0].split());
-  return x;
+  let letter = x[0].split("")[0];
+  let octave = x[1];
+  let pitchMap = { C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6 };
+  let base = pitchMap[letter] + 7 * octave;
+  return base;
 };
-console.log(pitchBase(test));
-// we need to be able to measure an interval in both midi and scientific pitch
-const measureInterval = (firstDual, secondDual) => {};
+// we need to be able to measure an interval in both midi and scientific pitch (for simultaneous firstDual is lower pitch)
+const measureInterval = (firstDual, secondDual) => {
+  let pitchDiff = pitchBase(secondDual.pitch) - pitchBase(firstDual.pitch);
+  let prefix = "asc";
+  let intervalMap = [
+    "unison",
+    "second",
+    "third",
+    "fourth",
+    "fifth",
+    "sixth",
+    "seventh"
+  ];
+  if (pitchDiff < 0) {
+    prefix = "desc";
+    pitchDiff = Math.abs(pitchDiff);
+  }
+  if (pitchDiff > 6) {
+    prefix += " comp";
+    pitchDiff = pitchDiff % 7;
+  }
+  console.log(prefix, intervalMap[pitchDiff]);
+};
+measureInterval({ pitch: "C.4" }, { pitch: "E.2" });
 //
 const deltaDual = duelArray => {
   console.log;
