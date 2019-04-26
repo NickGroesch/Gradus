@@ -346,11 +346,21 @@ const pitchClassToMidi = pitchClass => {
 };
 // converts a scientificly notated pitch to midi
 const pitchToMidi = pitch => {
-  x = pitch.split(".");
+  let x = pitch.split(".");
   // console.log("pctm", pitchClassToMidi(x[0], key));
   // console.log("math", 12 * (parseInt(x[1]) + 1));
   return pitchClassToMidi(x[0]) + 12 * (parseInt(x[1]) + 1);
 };
+// converts a pitch array to midi array
+const pitchArrayToMidi = pitchArray => {
+  let returnArray = [];
+  pitchArray.forEach(pitch => {
+    let midiVal = pitchToMidi(pitch);
+    returnArray.push(midiVal);
+  });
+  return returnArray;
+};
+
 // converts a midi note to it's pitch class in a given key
 const pitchClass = (noteIn, key) => {
   let pClass = noteIn % 12;
@@ -358,8 +368,8 @@ const pitchClass = (noteIn, key) => {
 };
 //   converts a midi note to it's scientific pitch
 const evalPitch = (noteIn, key) => {
-  pClass = pitchClass(noteIn, key);
-  octave = Math.floor(noteIn / 12) - 1;
+  let pClass = pitchClass(noteIn, key);
+  let octave = Math.floor(noteIn / 12) - 1;
   return pClass + "." + octave;
 };
 // converts midi to scientific pitch
@@ -371,8 +381,8 @@ const evalPitchArray = (midiArray, key) => {
   });
   return returnArray;
 };
-// we want to work with our data in duel form, both scientific pitch and midi concurrently
-const formatDuel = (midiArray, pitchArray) => {
+// we want to work with our data in dual form, both scientific pitch and midi concurrently
+const formatDual = (midiArray, pitchArray) => {
   let returnArray = [];
   midiArray.forEach((value, index) => {
     let object = { midi: value, pitch: pitchArray[index] };
@@ -389,9 +399,34 @@ const deltaIntervalArray = midiArray => {
   }
   return deltaArray;
 };
-// we need to be able to measure an interval in both midi and scientific pitch
+// to measure intervals we need to assess them in base7
+let test = "Cs.4";
 
+const pitchBase = pitch => {
+  let x = pitch.split(".");
+  console.log("inside", x[0].split());
+  return x;
+};
+console.log(pitchBase(test));
+// we need to be able to measure an interval in both midi and scientific pitch
+const measureInterval = (firstDual, secondDual) => {};
 //
 const deltaDual = duelArray => {
   console.log;
 };
+
+const translators = {
+  midiPitchClass,
+  pitchClassMidi,
+  transposeMidiArray,
+  pitchClassToMidi,
+  pitchToMidi,
+  pitchClass,
+  pitchArrayToMidi,
+  evalPitch,
+  evalPitchArray,
+  formatDual,
+  deltaIntervalArray
+};
+// WE NEED THIS ON EXCEPT FOR TESTS
+// export default translators;
