@@ -1,3 +1,3 @@
 //Put functions that routes call in here... ex: db.findAll() etc.
 
-//each route will be domain/api/route... remember that
+//controller should only export functions to query the DB
