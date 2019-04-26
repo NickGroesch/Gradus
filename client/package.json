@@ -2,6 +2,7 @@
   "name": "gradus",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001/",
   "dependencies": {
     "@types/webmidi": "^2.0.3",
     "react": "^16.8.6",

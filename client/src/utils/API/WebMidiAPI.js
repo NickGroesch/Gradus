@@ -2,7 +2,7 @@
 //import WebMidi from "webmidi/webmidi.min";
 
 //Requires running "npm install @types/webmidi"
-import WebMidi from "../../../node_modules/webmidi";
+import WebMidi from "webmidi";
 
 //import WebMidi from "../../node_modules/webmidi/webmidi.min.js";
 
