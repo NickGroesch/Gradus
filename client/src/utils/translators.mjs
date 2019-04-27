@@ -455,9 +455,9 @@ const measureInterval = (firstDual, secondDual) => {
     midiDiff = midiDiff % 12;
   }
   let interval = intervalMap[pitchDiff];
-  // console.log(midiDiff);
+  return prefix, quality[interval][midiDiff], interval;
 };
-// measureInterval({ pitch: "C.4", midi: 60 }, { pitch: "E.2", midi: 40 });
+measureInterval({ pitch: "C.4", midi: 60 }, { pitch: "E.2", midi: 40 });
 //
 const deltaDual = dualArray => {
   let dualDeltaArray = [];
