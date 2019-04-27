@@ -430,12 +430,12 @@ const measureInterval = (firstDual, secondDual) => {
     prefix = "desc";
     pitchDiff = Math.abs(pitchDiff);
   }
+  // presently considering allowing the intervals up to tenth, even though octave is a compound unison, etc.
   if (pitchDiff > 9) {
     prefix += " comp";
     pitchDiff = pitchDiff % 7;
   }
   let midiDiff = deltaIntervalArray([firstDual.midi, secondDual.midi]);
-
   let quality = {
     unison: { 0: "perf", 1: "aug", 11: "dim" },
     second: { 0: "dim", 1: "min", 2: "maj", 3: "aug" },
@@ -448,11 +448,16 @@ const measureInterval = (firstDual, secondDual) => {
     ninth: { 0: "dim", 1: "min", 2: "maj", 3: "aug" },
     tenth: { 4: "maj", 3: "min", 2: "dim", 5: "aug" }
   };
+  if (midiDiff < 0) {
+    midiDiff = Math.abs(midiDiff);
+  }
+  if (midiDiff > 11) {
+    midiDiff = midiDiff % 12;
+  }
   let interval = intervalMap[pitchDiff];
-  console.log(midiDiff);
-  console.log(prefix, quality[interval][midiDiff], interval);
+  // console.log(midiDiff);
 };
-measureInterval({ pitch: "C.4", midi: 60 }, { pitch: "E.4", midi: 64 });
+measureInterval({ pitch: "C.4", midi: 60 }, { pitch: "E.2", midi: 40 });
 //
 const deltaDual = duelArray => {
   console.log;
