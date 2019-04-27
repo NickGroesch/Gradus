@@ -26,11 +26,35 @@ let play = [
   "D.5",
   "C.5"
 ];
+let test = [
+  "A.4",
+  "C.5",
+  "C.5",
+  "E.5",
+  "F.5",
+  "Bb.5",
+  "A.5",
+  "G.5",
+  "F.5",
+  "D.5",
+  "C.5",
+  "E.5",
+  "D.5",
+  "E.5",
+  "F.5"
+];
 let midiPlay = translators.pitchArrayToMidi(play);
+let midiTest = translators.pitchArrayToMidi(test);
 midiPlay = translators.transposeMidiArray(midiPlay, -7);
-console.log(midiPlay);
 play = translators.evalPitchArray(midiPlay, "F");
-console.log(play);
+test = translators.evalPitchArray(midiTest, "F");
 let dualPlay = translators.formatDual(midiPlay, play);
-console.log(dualPlay);
-let deltas = translators.deltaDual(dualPlay);
+let dualTest = translators.formatDual(midiTest, test);
+console.log("dP", dualPlay);
+console.log("dT", dualTest);
+let playDeltas = translators.deltaDual(dualPlay);
+let testDeltas = translators.deltaDual(dualTest);
+let intervals = translators.intervalCompare(dualPlay, dualTest);
+console.log("pD", playDeltas);
+console.log("tD", testDeltas);
+console.log("compareIntervals", intervals);
