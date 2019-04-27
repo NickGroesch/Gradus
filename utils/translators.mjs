@@ -412,8 +412,8 @@ const pitchBase = pitch => {
 };
 // we need to be able to measure an interval in both midi and scientific pitch (for simultaneous firstDual is lower pitch)
 const measureInterval = (firstDual, secondDual) => {
-  let pitchDiff = pitchBase(secondDual.pitch) - pitchBase(firstDual.pitch);
-  let prefix = "asc";
+  let pitchDiff = pitchBase(firstDual.pitch) - pitchBase(secondDual.pitch);
+  let prefix = "";
   let intervalMap = [
     "unison",
     "second",
@@ -426,6 +426,9 @@ const measureInterval = (firstDual, secondDual) => {
     "ninth",
     "tenth"
   ];
+  if (pitchDiff > 0) {
+    prefix = "asc";
+  }
   if (pitchDiff < 0) {
     prefix = "desc";
     pitchDiff = Math.abs(pitchDiff);
@@ -466,7 +469,7 @@ const deltaDual = dualArray => {
     let value = measureInterval(dualArray[i + 1], dualArray[i]);
     dualDeltaArray.push(value);
   }
-  return deltaArray;
+  return dualDeltaArray;
 };
 
 const translators = {
@@ -485,4 +488,4 @@ const translators = {
   measureInterval
 };
 // WE NEED THIS ON EXCEPT FOR TESTS
-// export default translators;
+export default translators;
