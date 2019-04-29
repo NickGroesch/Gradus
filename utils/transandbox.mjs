@@ -1,4 +1,4 @@
-import translators from "./translators.mjs";
+const translators = require("./translators.js");
 // have tested
 // .pitchArrayToMidi()
 // &&dependencies: pitchToMidi(), pitchClassToMidi(), pitchClassMidi{}
@@ -7,7 +7,7 @@ import translators from "./translators.mjs";
 // &&dependencies: evalPitch(), pitchClass(), midiPitchClass{}
 // .formatDual()
 
-// TODO: remove dependencies from export
+// TODO: remove dependencies from export??
 
 let play = [
   "C.5",
@@ -58,3 +58,4 @@ let intervals = translators.intervalCompare(dualPlay, dualTest);
 console.log("pD", playDeltas);
 console.log("tD", testDeltas);
 console.log("compareIntervals", intervals);
+// TEST COMMAND $node --experimental-modules transandbox.mjs

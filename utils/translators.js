@@ -225,9 +225,9 @@ const deltaDual = dualArray => {
   let dualDeltaArray = [];
   for (let i = 0; i + 1 < dualArray.length; i++) {
     let value = measureInterval(dualArray[i + 1], dualArray[i]);
-    console.log(`test1of${i}`, dualArray[i + 1]);
-    console.log(`test2of${i}`, dualArray[i]);
-    console.log(`test3of${i}`, value);
+    // console.log(`test1of${i}`, dualArray[i + 1]);
+    // console.log(`test2of${i}`, dualArray[i]);
+    // console.log(`test3of${i}`, value);
     dualDeltaArray.push(value);
   }
   return dualDeltaArray;
@@ -258,4 +258,4 @@ const translators = {
   intervalCompare
 };
 // WE NEED THIS ON EXCEPT FOR TESTS
-export default translators;
+module.exports = translators;

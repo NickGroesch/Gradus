@@ -1,5 +1,5 @@
 import React from "react";
-// import logo from "./logo.svg";
+import Graphs from "./components/graphs";
 import "./App.css";
 import Midi from "./components/MidiTest";
 
@@ -8,7 +8,7 @@ function App() {
     <div>
       hello world
       <div>
-        <Midi />
+        <Graphs />
       </div>
     </div>
   );
