@@ -1,16 +1,18 @@
 import React from "react";
-// import logo from "./logo.svg";
-import "./App.css";
-import Midi from "./components/MidiTest";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Exercise from "./pages/Exercise/index";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
-    <div>
-      hello world
+    <Router>
       <div>
-        <Midi />
+        <Navbar />
+        <Switch>
+          <Route exact path="/exercise" component={Exercise} />
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
 

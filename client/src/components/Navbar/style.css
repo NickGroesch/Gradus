@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+.navbar {
+}
+
+.logo {
+  height: 35px;
+  margin-top: 20px;
+}
+
+.nav-log {
+  display: inline-block;
+  float: right;
+  padding: 20px;
+  background-color: #c7bba5;
+}
