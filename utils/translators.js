@@ -3,249 +3,6 @@
 // relative to a major key we will include b7, #1, #2, #4, #5
 // which allows for maximum use of secondary dominants and mixture of major mode into minor
 
-// Object maps pitch classes to their midi mod12 equivalent by key
-
-// const pitchClassMidi = {
-//   Gs: {
-//     Bs: 0,
-//     Cs: 1,
-//     Css: 2,
-//     Ds: 3,
-//     Dss: 4,
-//     Es: 5,
-//     Fs: 6,
-//     Fss: 7,
-//     Gs: 8,
-//     Gss: 9,
-//     As: 10,
-//     Ass: 11
-//   },
-//   Cs: {
-//     Bs: 0,
-//     Cs: 1,
-//     Css: 2,
-//     Ds: 3,
-//     Dss: 4,
-//     Es: 5,
-//     Fs: 6,
-//     Fss: 7,
-//     Gs: 8,
-//     Gss: 9,
-//     As: 10,
-//     B: 11
-//   },
-//   Fs: {
-//     Bs: 0,
-//     Cs: 1,
-//     Css: 2,
-//     Ds: 3,
-//     E: 4,
-//     Es: 5,
-//     Fs: 6,
-//     Fss: 7,
-//     Gs: 8,
-//     Gss: 9,
-//     As: 10,
-//     B: 11
-//   },
-//   B: {
-//     Bs: 0,
-//     Cs: 1,
-//     Css: 2,
-//     Ds: 3,
-//     E: 4,
-//     Es: 5,
-//     Fs: 6,
-//     Fss: 7,
-//     Gs: 8,
-//     A: 9,
-//     As: 10,
-//     B: 11
-//   },
-//   E: {
-//     Bs: 0,
-//     Cs: 1,
-//     D: 2,
-//     Ds: 3,
-//     E: 4,
-//     Es: 5,
-//     Fs: 6,
-//     Fss: 7,
-//     Gs: 8,
-//     A: 9,
-//     As: 10,
-//     B: 11
-//   },
-//   A: {
-//     Bs: 0,
-//     Cs: 1,
-//     D: 2,
-//     Ds: 3,
-//     E: 4,
-//     Es: 5,
-//     Fs: 6,
-//     G: 7,
-//     Gs: 8,
-//     A: 9,
-//     As: 10,
-//     B: 11
-//   },
-//   D: {
-//     C: 0,
-//     Cs: 1,
-//     D: 2,
-//     Ds: 3,
-//     E: 4,
-//     Es: 5,
-//     Fs: 6,
-//     G: 7,
-//     Gs: 8,
-//     A: 9,
-//     As: 10,
-//     B: 11
-//   },
-//   G: {
-//     C: 0,
-//     Cs: 1,
-//     D: 2,
-//     Ds: 3,
-//     E: 4,
-//     F: 5,
-//     Fs: 6,
-//     G: 7,
-//     Gs: 8,
-//     A: 9,
-//     As: 10,
-//     B: 11
-//   },
-//   C: {
-//     C: 0,
-//     Cs: 1,
-//     D: 2,
-//     Ds: 3,
-//     E: 4,
-//     F: 5,
-//     Fs: 6,
-//     G: 7,
-//     Gs: 8,
-//     A: 9,
-//     Bb: 10,
-//     B: 11
-//   },
-//   F: {
-//     C: 0,
-//     Cs: 1,
-//     D: 2,
-//     Eb: 3,
-//     E: 4,
-//     F: 5,
-//     Fs: 6,
-//     G: 7,
-//     Gs: 8,
-//     A: 9,
-//     Bb: 10,
-//     B: 11
-//   },
-//   Bb: {
-//     C: 0,
-//     Cs: 1,
-//     D: 2,
-//     Eb: 3,
-//     E: 4,
-//     F: 5,
-//     Fs: 6,
-//     G: 7,
-//     Ab: 8,
-//     A: 9,
-//     Bb: 10,
-//     B: 11
-//   },
-//   Eb: {
-//     C: 0,
-//     Db: 1,
-//     D: 2,
-//     Eb: 3,
-//     E: 4,
-//     F: 5,
-//     Fs: 6,
-//     G: 7,
-//     Ab: 8,
-//     A: 9,
-//     Bb: 10,
-//     B: 11
-//   },
-//   Ab: {
-//     C: 0,
-//     Db: 1,
-//     D: 2,
-//     Eb: 3,
-//     E: 4,
-//     F: 5,
-//     Gb: 6,
-//     G: 7,
-//     Ab: 8,
-//     A: 9,
-//     Bb: 10,
-//     B: 11
-//   },
-//   Db: {
-//     C: 0,
-//     Db: 1,
-//     D: 2,
-//     Eb: 3,
-//     E: 4,
-//     F: 5,
-//     Gb: 6,
-//     G: 7,
-//     Ab: 8,
-//     A: 9,
-//     Bb: 10,
-//     Cb: 11
-//   },
-//   Gb: {
-//     C: 0,
-//     Db: 1,
-//     D: 2,
-//     Eb: 3,
-//     Fb: 4,
-//     F: 5,
-//     Gb: 6,
-//     G: 7,
-//     Ab: 8,
-//     A: 9,
-//     Bb: 10,
-//     Cb: 11
-//   },
-//   Cb: {
-//     C: 0,
-//     Db: 1,
-//     D: 2,
-//     Eb: 3,
-//     Fb: 4,
-//     F: 5,
-//     Gb: 6,
-//     G: 7,
-//     Ab: 8,
-//     Bbb: 9,
-//     Bb: 10,
-//     Cb: 11
-//   },
-//   Fb: {
-//     C: 0,
-//     Db: 1,
-//     Ebb: 2,
-//     Eb: 3,
-//     Fb: 4,
-//     F: 5,
-//     Gb: 6,
-//     G: 7,
-//     Ab: 8,
-//     Bbb: 9,
-//     Bb: 10,
-//     Cb: 11
-//   }
-// };
-
 // object maps scientific pitch classes to midi mod 12 (by Key is not necessary)
 const pitchClassMidi = {
   C: 0,
@@ -400,7 +157,7 @@ const deltaIntervalArray = midiArray => {
   return deltaArray;
 };
 // to measure intervals we need to assess them in base7
-let test = "E.1";
+// let test = "E.1";
 
 const pitchBase = pitch => {
   let x = pitch.split(".");
@@ -412,8 +169,8 @@ const pitchBase = pitch => {
 };
 // we need to be able to measure an interval in both midi and scientific pitch (for simultaneous firstDual is lower pitch)
 const measureInterval = (firstDual, secondDual) => {
-  let pitchDiff = pitchBase(secondDual.pitch) - pitchBase(firstDual.pitch);
-  let prefix = "asc";
+  let pitchDiff = pitchBase(firstDual.pitch) - pitchBase(secondDual.pitch);
+  let prefix = "";
   let intervalMap = [
     "unison",
     "second",
@@ -426,6 +183,9 @@ const measureInterval = (firstDual, secondDual) => {
     "ninth",
     "tenth"
   ];
+  if (pitchDiff > 0) {
+    prefix = "asc";
+  }
   if (pitchDiff < 0) {
     prefix = "desc";
     pitchDiff = Math.abs(pitchDiff);
@@ -435,7 +195,7 @@ const measureInterval = (firstDual, secondDual) => {
     prefix += " comp";
     pitchDiff = pitchDiff % 7;
   }
-  let midiDiff = deltaIntervalArray([firstDual.midi, secondDual.midi]);
+  let midiDiff = deltaIntervalArray([secondDual.midi, firstDual.midi]);
   let quality = {
     unison: { 0: "perf", 1: "aug", 11: "dim" },
     second: { 0: "dim", 1: "min", 2: "maj", 3: "aug" },
@@ -448,6 +208,7 @@ const measureInterval = (firstDual, secondDual) => {
     ninth: { 0: "dim", 1: "min", 2: "maj", 3: "aug" },
     tenth: { 4: "maj", 3: "min", 2: "dim", 5: "aug" }
   };
+  let absMidiDiff = midiDiff;
   if (midiDiff < 0) {
     midiDiff = Math.abs(midiDiff);
   }
@@ -456,19 +217,30 @@ const measureInterval = (firstDual, secondDual) => {
   }
   let interval = intervalMap[pitchDiff];
   //   return prefix, quality[interval][midiDiff], interval;
-  console.log(prefix, quality[interval][midiDiff], interval);
+  return [prefix, quality[interval][midiDiff], interval, absMidiDiff];
 };
-measureInterval({ pitch: "C.4", midi: 60 }, { pitch: "E.2", midi: 40 });
+// measureInterval({ pitch: "C.4", midi: 60 }, { pitch: "E.2", midi: 40 });
 //
 const deltaDual = dualArray => {
   let dualDeltaArray = [];
   for (let i = 0; i + 1 < dualArray.length; i++) {
     let value = measureInterval(dualArray[i + 1], dualArray[i]);
+    // console.log(`test1of${i}`, dualArray[i + 1]);
+    // console.log(`test2of${i}`, dualArray[i]);
+    // console.log(`test3of${i}`, value);
     dualDeltaArray.push(value);
   }
-  return deltaArray;
+  return dualDeltaArray;
 };
 
+const intervalCompare = (dualArray1, dualArray2) => {
+  let intervalArray = [];
+  dualArray1.forEach((value, index) => {
+    let interval = measureInterval(dualArray2[index], value);
+    intervalArray.push(interval);
+  });
+  return intervalArray;
+};
 const translators = {
   midiPitchClass,
   pitchClassMidi,
@@ -482,7 +254,8 @@ const translators = {
   formatDual,
   deltaIntervalArray,
   deltaDual,
-  measureInterval
+  measureInterval,
+  intervalCompare
 };
 // WE NEED THIS ON EXCEPT FOR TESTS
-// export default translators;
+module.exports = translators;
