@@ -1,5 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
-function Exercise() {}
+function Exercise() {
+  return <div />;
+}
 
 export default Exercise;
