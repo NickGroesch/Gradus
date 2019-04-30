@@ -23,8 +23,7 @@ class Midi extends Component {
   };
 
   runWebMidi = () => {
-    // Variable which tell us what step of the game we're on.
-    // We'll use this later when we parse noteOn/Off messages
+    //placeholder for an item in state that will log user data - maybe what step they're on in making the music?
     var currentStep = 0;
 
     // Request MIDI access
