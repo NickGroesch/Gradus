@@ -235,12 +235,42 @@ const deltaDual = dualArray => {
 
 const intervalCompare = (dualArray1, dualArray2) => {
   let intervalArray = [];
-  dualArray1.forEach((value, index) => {
-    let interval = measureInterval(dualArray2[index], value);
+  dualArray1.forEach((note, index) => {
+    let interval = measureInterval(dualArray2[index], note);
     intervalArray.push(interval);
   });
   return intervalArray;
 };
+
+const assessMotion = (deltasArray1, deltasArray2) => {
+  let motionArray = []
+  deltasArray1.forEach((delta, index) => {
+    let motion = "yet undefined"
+    // console.log(`arr1[${index}]`, delta[3])
+    // console.log("arr2", deltasArray2[index][3])
+    let move1 = delta[3]
+    let move2 = deltasArray2[index][3]
+    if (move1 === 0 && move2 === 0) {
+      motion = "Not Motion"
+    } else if (move1 == 0 || move2 == 0) {
+      motion = "oblique"
+    } else if ((move1 > 0 && move2 < 0) || move1 < 0 && move2 > 0) {
+      motion = "contrary"
+    } else {
+      // both similar and parallel
+      let interval1 = delta[2]
+      let interval2 = deltasArray2[index][2]
+      // console.log(interval1)
+      // console.log(interval2)
+      if (interval1 === interval2) {
+        motion = "parallel"
+      } else {
+        motion = "similar"
+      }
+    }
+    console.log(index, motion)
+  })
+}
 const translators = {
   midiPitchClass,
   pitchClassMidi,
@@ -255,7 +285,8 @@ const translators = {
   deltaIntervalArray,
   deltaDual,
   measureInterval,
-  intervalCompare
+  intervalCompare,
+  assessMotion
 };
 // WE NEED THIS ON EXCEPT FOR TESTS
 module.exports = translators;
