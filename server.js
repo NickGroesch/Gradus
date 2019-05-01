@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 const routes = require("./serverRoutes");
+require('dotenv').config()
 
 //=====DB/login dependencies
 const mongoose = require('mongoose');
