@@ -41,6 +41,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <div>
+          <Piano />
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/exercise" component={Exercise}>
