@@ -1,13 +1,46 @@
 import React, { Component } from "react";
 import "./virtualPiano.css";
 
+let keyData;
 class Piano extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: ""
+            // message: "",
+            // keysPlayed: [],
+            octaveRange: 0
         }
+        this.octaveClick = this.octaveClick.bind(this);
+        console.log(this)
     }
+
+
+    octaveClick() {
+        this.setState(state => ({
+            octaveRange: state.octaveRange
+        }));
+    }
+    // $("#octave-up").on("click", function() {
+    //     console.log("octave UP");
+    //     // increase keyData by 12
+    // })
+
+    // $("#octave-down").on("click", function () {
+    //     console.log("octave DOWN");
+    //     // decrease keyData by 12
+    // })
+
+    // $(".pianoKey").click(function () {
+    //     // var keyData = $(this)[0].id;
+    //     keyData = $(this)[0].id;
+    //     // keysPlayed.push(keyData);
+    //     // console.log(keysPlayed)
+    //     console.log(keyData);
+    //     return keyData;
+    //     // var audioClip = $("#c_octave1_audio")[0];
+    //     // console.log("the sound: ", audioClip);
+    //     // audioClip.play();
+    // });
 
     render() {
         return (
@@ -33,7 +66,7 @@ class Piano extends Component {
                         <polygon points="455,10 485,10 486,130 456,130 455,10" className="black pianoKey" id="10" />
                     </svg>
                 </div>
-                <button id="octave-up">octave +</button>
+                <button id="octave-up" onClick={this.octaveClick}>octave +</button>
                 <button id="octave-down">octave -</button>
             </div>
         )
