@@ -2,7 +2,7 @@ import React from "react";
 import Graphs from "./components/graphs";
 import "./App.css";
 import Midi from "./components/MidiTest";
-import Piano from "./components/screenPiano";
+import Piano from "./components/virtualPiano/virtualPiano";
 
 function App() {
   return (
