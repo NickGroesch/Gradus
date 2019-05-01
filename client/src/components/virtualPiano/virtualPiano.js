@@ -8,27 +8,22 @@ class Piano extends Component {
         this.state = {
             // message: "",
             // keysPlayed: [],
-            octaveRange: 0
+            octaveCount: 0
         }
-        this.octaveClick = this.octaveClick.bind(this);
-        console.log(this)
+        // this.octaveIncrement = this.octaveIncrement.bind(this);
+        // console.log(this)
     }
 
 
-    octaveClick() {
-        this.setState(state => ({
-            octaveRange: state.octaveRange
-        }));
+    octaveIncrement = () => {
+        this.setState(({ octaveCount: this.state.octaveCount + 12 }));
+        console.log("add 12")
     }
-    // $("#octave-up").on("click", function() {
-    //     console.log("octave UP");
-    //     // increase keyData by 12
-    // })
 
-    // $("#octave-down").on("click", function () {
-    //     console.log("octave DOWN");
-    //     // decrease keyData by 12
-    // })
+    octaveDecrement = () => {
+        this.setState(({ octaveCount: this.state.octaveCount - 12 }));
+        console.log("subtract 12")
+    }
 
     // $(".pianoKey").click(function () {
     //     // var keyData = $(this)[0].id;
@@ -47,7 +42,7 @@ class Piano extends Component {
             <div className="virtual-piano">
                 <div className="svg-container">
                     <svg className="piano">
-                        <polygon points="200,10 230,10 230,100 245,100 245,220 200,220 200,10" className="white pianoKey" data-key="500"
+                        <polygon points="200,10 230,10 230,100 245,100 245,220 200,220 200,10" className="white pianoKey"
                             id="0" />
                         <polygon points="245,100 260,100 260,10 275,10 275,100 290,100 290,220 245,220 245,100"
                             className="white pianoKey" id="2" />
@@ -66,8 +61,8 @@ class Piano extends Component {
                         <polygon points="455,10 485,10 486,130 456,130 455,10" className="black pianoKey" id="10" />
                     </svg>
                 </div>
-                <button id="octave-up" onClick={this.octaveClick}>octave +</button>
-                <button id="octave-down">octave -</button>
+                <button id="octave-up" onClick={this.octaveIncrement}>octave +</button>
+                <button id="octave-down" onClick={this.octaveDecrement}>octave -</button>
             </div>
         )
     }
