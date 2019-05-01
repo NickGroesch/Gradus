@@ -39,25 +39,27 @@ class LogPage extends Component {
   }
 
   render() {
-    <div>
-      <form className="form">
-        <input
-          value={this.state.firstName}
-          name="firstName"
-          onChange={this.handleInputChange}
-          type="text"
-          placeholder="First Name"
-        />
-        <input
-          value={this.state.password}
-          name="password"
-          onChange={this.handleInputChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button onClick={this.routeChange}>Submit</button>
-      </form>
-    </div>;
+    return (
+      <div>
+        <form className="form">
+          <input
+            value={this.state.firstName}
+            name="firstName"
+            onChange={this.handleInputChange}
+            type="text"
+            placeholder="First Name"
+          />
+          <input
+            value={this.state.password}
+            name="password"
+            onChange={this.handleInputChange}
+            type="password"
+            placeholder="Password"
+          />
+          <button onClick={this.routeChange}>Submit</button>
+        </form>
+      </div>
+    );
   }
 }
 
