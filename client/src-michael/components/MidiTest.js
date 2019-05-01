@@ -4,12 +4,26 @@ import React, { Component } from "react";
 
 class Midi extends Component {
   state = {
-    placeholder: 0
+    isConnected: false,
+    MidiArray: []
+  };
+
+  componentDidMount = () => {
+    this.checkConnect();
+  };
+
+  checkConnect = () => {
+    //This is not DRY code... It requests MIDI access here then again in the runWebMidi function
+    navigator.requestMIDIAccess().then(midiAccess => {
+      console.log("MIDIACCESS: ", midiAccess.inputs.size);
+      if (midiAccess.inputs.size > 0) {
+        this.setState({ isConnected: true });
+      }
+    });
   };
 
   runWebMidi = () => {
-    // Variable which tell us what step of the game we're on.
-    // We'll use this later when we parse noteOn/Off messages
+    //placeholder for an item in state that will log user data - maybe what step they're on in making the music?
     var currentStep = 0;
 
     // Request MIDI access
@@ -87,6 +101,8 @@ class Midi extends Component {
       switch (currentStep) {
         case 0:
           console.log("noteOn function ready to go");
+          console.log("Noteon Note:", note);
+          console.log("Noteon Velocity: ", velocity);
           break;
         default:
           console.log("noteOn defaulted");
@@ -99,6 +115,8 @@ class Midi extends Component {
       switch (currentStep) {
         default:
           console.log("noteOff working");
+          console.log("Noteoff Note:", note);
+          console.log("Noteoff Velocity: ", velocity);
           break;
       }
     }
@@ -132,7 +150,7 @@ class Midi extends Component {
   render() {
     this.runWebMidi();
 
-    return <div>{this.state.placeholder}</div>;
+    return <div>Midi connected? {this.state.isConnected.toString()}</div>;
   }
 }
 export default Midi;
