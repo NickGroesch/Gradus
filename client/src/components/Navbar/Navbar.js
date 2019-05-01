@@ -8,8 +8,8 @@ function Navbar() {
       <nav className="navbar">
         <img className="logo" src={logo} href="/" />
 
-        <div className="nav-log signOut">Sign Out</div>
-        <div className="nav-log signUp">Sign Up</div>
+        <a className="nav-log signOut">Sign Out</a>
+        <a className="nav-log signUp">Sign Up</a>
       </nav>
     </div>
   );
