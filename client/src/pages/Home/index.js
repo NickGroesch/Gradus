@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import Midi from "../../components/Midi/MidiTest";
 
-function Home() {
+function Landing() {
   return (
     <div>
       <div className="welcome">Welcome to GRADUS</div>
@@ -21,4 +21,4 @@ function Home() {
     </div>
   );
 }
-export default Home;
+export default Landing;

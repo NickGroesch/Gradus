@@ -6,10 +6,14 @@ function Navbar() {
   return (
     <div>
       <nav className="navbar">
-        <img className="logo" src={logo} href="/" />
+        <img className="logo" alt="" src={logo} href="/" />
 
-        <a className="nav-log signOut">Sign Out</a>
-        <a className="nav-log signUp">Sign Up</a>
+        <a href="/" className="nav-log signOut">
+          Sign Out
+        </a>
+        <a href="/register" className="nav-log signUp">
+          Sign Up
+        </a>
       </nav>
     </div>
   );
