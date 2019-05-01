@@ -1,8 +1,4 @@
 import React from "react";
-// import Graphs from "./components/graphs";
-import "./App.css";
-// import Midi from "./components/MidiTest";
-import Piano from "./components/virtualPiano/virtualPiano";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home/index";
 import Exercise from "./pages/Exercise/index";
@@ -14,8 +10,6 @@ function App() {
   return (
     <Router>
       <div>
-        {/* <Graphs /> */}
-        <Piano />
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
