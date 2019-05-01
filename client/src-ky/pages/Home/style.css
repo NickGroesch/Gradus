@@ -1,0 +1,12 @@
+.welcome {
+  font-family: "Cormorant Unicase", serif;
+  /* font-weight: bold; */
+  font-size: 100px;
+  margin: 30px 0 0 20px;
+}
+
+.how-to {
+  width: 70%;
+  margin: 10px 0 0 30px;
+  line-height: 20px;
+}
