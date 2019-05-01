@@ -31,11 +31,11 @@ module.exports = {
   },
   analyze: (request, res) => {
     let req = request.body.exercise
-    // console.log("backEnd", req)
     let analyticObject = {
       voices: {
         duals: [],
         deltas: [],
+        // WE NEED ABCJS SUPPORT
       }, relations: {
         intervals: [],
         motions: []
@@ -50,7 +50,6 @@ module.exports = {
     let anObV = analyticObject.voices
     let anObR = analyticObject.relations
     let genOb = generativeObject.voices
-    // for each midi line received we convert it to pitches and duals, then assess the deltas
     req.midi.forEach((voice, index) => {
       let pitch = translators.evalPitchArray(voice, req.key)
       let dual = { [`voice${index + 1}`]: translators.formatDual(voice, pitch) }
@@ -60,7 +59,7 @@ module.exports = {
       anObV.deltas.push(delta)
       genOb.deltas.push(delta[`delta${index + 1}`])
     })
-    /// LOOP LOGIC--We must have lower voices first
+    /// LOOP LOGIC--We must have lower voices first!!!
     // let array = ["w", "x", "y", "z", "0"]
     // for (var i = 1; i <= array.length; i++) {
     //   let first = (array[i - 1])
@@ -68,7 +67,7 @@ module.exports = {
     //     let second = (array[j - 1])
     //   }
     // }
-    // LOOP TO GET INTERVALS
+    // here we assess the intervals between each voice pair
     let arrayDuals = generativeObject.voices.duals
     for (var i = 1; i <= arrayDuals.length; i++) {
       let first = (arrayDuals[i - 1])
@@ -78,9 +77,7 @@ module.exports = {
         anObR.intervals.push(intervals)
       }
     }
-    // console.log("an-v", anObV)
-    // console.log("an-r", anObR)
-    // console.log("gen", genOb)
+    // here we assess the relative motions of each voice pair('s deltas)
     let arrayDeltas = generativeObject.voices.deltas
     for (var i = 1; i <= arrayDeltas.length; i++) {
       let first = (arrayDeltas[i - 1])
@@ -90,22 +87,6 @@ module.exports = {
         anObR.motions.push(motions)
       }
     }
-
-
-
-
-
-
-
-
-
-    // console.log("anObV[0]", analyticObject.voices.duals[0])
-    // console.log("anObV[1]", analyticObject.voices.duals[1])
-    // console.log("anObV[0]", analyticObject.voices.deltas[0])
-    // console.log("anObV[1]", analyticObject.voices.deltas[1])
-    // console.log(analyticObject.voices)
-    // console.log(generativeObject.voices)
-    let ok = "ok"
     res.json(analyticObject)
   }
 };
