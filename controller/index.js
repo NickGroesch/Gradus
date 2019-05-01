@@ -46,7 +46,7 @@ module.exports = {
       // anOb.midi.push(voice)
       let pitch = translators.evalPitchArray(voice, req.key)
       // anOb.pitch.push(pitch)
-      let dual = translators.formatDual(voice, pitch)
+      let dual = { [`voice{${index + 1}`]: translators.formatDual(voice, pitch) }
       anOb.duals.push(dual)
     })
     console.log("anOb[0]", analyticObject.voices.duals[0])
