@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+// Sarah Component
+import Piano from "./components/virtualPiano/virtualPiano";
+
 //Mahfouz components
 import Navbar from "./components/Navbar/Navbar";
 import Register from "./components/Register";
@@ -43,7 +46,6 @@ function App() {
           <Route exact path="/exercise" component={Exercise}>
             <Midi />
           </Route>
-
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
