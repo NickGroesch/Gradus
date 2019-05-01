@@ -32,13 +32,13 @@ module.exports = {
   analyze: (request, res) => {
     let req = request.body.exercise
     console.log("backEnd", req)
-    // for each midi line received we convert it to pitches and duals, then assess the deltas
     let analyticObject = {
       voices: {
         duals: [],
         deltas: []
       }
     }
+    // for each midi line received we convert it to pitches and duals, then assess the deltas
     req.midi.forEach((voice, index) => {
       // the voice is midi
       // let midiOb = { [`voice${index + 1}midi`]: voice }
