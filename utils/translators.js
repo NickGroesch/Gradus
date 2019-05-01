@@ -268,8 +268,9 @@ const assessMotion = (deltasArray1, deltasArray2) => {
         motion = "similar"
       }
     }
-    console.log(index, motion)
+    motionArray.push(motion)
   })
+  return motionArray
 }
 const translators = {
   midiPitchClass,

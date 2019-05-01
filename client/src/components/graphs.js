@@ -39,36 +39,47 @@ class Graphs extends Component {
         "E.5",
         "F.5"
       ],
+      exercise: {
+        key: "C", midi:
+          [[64, 62, 60],
+          [67, 71, 72]]
+      },
       cf: [],
       cp: [],
       data: {}
     };
+    // this.x = this.x.bind(this)
   }
 
   getGraphs = () => {
-    API.getGraphs({ play: this.state.play, test: this.state.test }).then(
+    // API.getGraphs({ play: this.state.play, test: this.state.test }).then(
+    //   res => {
+    //     this.setState({ data: res.data });
+    //     console.log(res.data);
+    // }
+    // );
+    // this.createTable();
+    API.analyze({ exercise: this.state.exercise }).then(
       res => {
-        this.setState({ data: res.data });
-        // console.log(this.state);
-        // this.createTable();
+        this.setState({ data: res.data })
+        console.log("frontEnd", res.data)
       }
-    );
+    )
   };
   componentWillMount() {
     this.getGraphs();
   }
 
   createTable() {
-    const { dP, dT, compareIntervals, pD, tD } = this.state.data;
-
+    const { dP, dT, compareIntervals, pD, tD, assessMotion } = this.state.data;
+    // assessMotion(pD, tD)
+    // console.log("definition:", assessMotion)
+    // console.log(this.state.data);
     let tableDOM = "<h1>table</h1>";
-    console.log(this.state.data);
-    // console.log(dP);
     let dualRow = dual => {
       let midiRow = "<tr><td>Midi</td>";
       let pitchRow = "<tr><td>Pitch</td>";
       dual.forEach(value => {
-        // console.log(value);
         midiRow += `<td>${value.midi}</td>`;
         pitchRow += `<td>${value.pitch}</td>`;
       });
@@ -113,11 +124,11 @@ class Graphs extends Component {
 
     tableDOM += `<table><tbody>${dProw.midi}${dProw.pitch}${
       playDeltas.direction
-    }${playDeltas.quality}${playDeltas.interval}<tr><td>x</td></tr>${
+      }${playDeltas.quality}${playDeltas.interval}<tr><td>x</td></tr>${
       intervals.qualities
-    }${intervals.intervals}<tr><td>x</td></tr>${dTrow.midi}${dTrow.pitch}${
+      }${intervals.intervals}<tr><td>x</td></tr>${dTrow.midi}${dTrow.pitch}${
       testDeltas.direction
-    }
+      }
     ${testDeltas.quality}
     ${testDeltas.interval}</tbody></table>`;
     return tableDOM;
@@ -129,15 +140,14 @@ class Graphs extends Component {
 
   render() {
     const { data } = this.state;
-    console.log(data);
+    // console.log(data);
     return (
       <div>
-        {Object.keys(data).length > 0 ? (
+        {/* {Object.keys(data).length > 0 ? (
           <div dangerouslySetInnerHTML={{ __html: this.createTable() }} />
         ) : (
-          ""
-        )}
-        {/* {this.createTable()} */}
+            ""
+          )} */}
       </div>
     );
   }

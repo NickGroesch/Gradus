@@ -9,6 +9,7 @@ function App() {
       hello world
       <div>
         <Graphs />
+        <Midi />
       </div>
     </div>
   );
