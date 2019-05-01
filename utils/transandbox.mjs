@@ -62,4 +62,4 @@ let intervals = translators.intervalCompare(dualPlay, dualTest);
 // console.log(playDeltas);
 // console.log(testDeltas);
 
-translators.assessMotion(playDeltas, testDeltas)
+translators.assessMotion(playDeltas, testDeltas) 

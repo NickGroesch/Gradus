@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+// Nick Component
+import Graph from "./components/graphs"
 // Sarah Component
 import Piano from "./components/virtualPiano/virtualPiano";
 
@@ -23,6 +24,7 @@ import LogPage from "./pages/LogPage/index";
 import Landing from "./pages/Home/index";
 import Exercise from "./pages/Exercise/index";
 import "./index.css";
+import Graphs from "./components/graphs";
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -44,6 +46,7 @@ function App() {
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/exercise" component={Exercise}>
+            <Graphs />
             <Midi />
           </Route>
           <div className="container">

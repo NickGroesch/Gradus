@@ -40,17 +40,37 @@ module.exports = {
     }
     // for each midi line received we convert it to pitches and duals, then assess the deltas
     req.midi.forEach((voice, index) => {
-      // the voice is midi
-      // let midiOb = { [`voice${index + 1}midi`]: voice }
       let anOb = analyticObject.voices
-      // anOb.midi.push(voice)
       let pitch = translators.evalPitchArray(voice, req.key)
-      // anOb.pitch.push(pitch)
-      let dual = { [`voice{${index + 1}`]: translators.formatDual(voice, pitch) }
+      let dual = { [`voice${index + 1}`]: translators.formatDual(voice, pitch) }
       anOb.duals.push(dual)
+      let delta = { [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`]) }
+      anOb.deltas.push(delta)
     })
-    console.log("anOb[0]", analyticObject.voices.duals[0])
-    console.log("anOb[1]", analyticObject.voices.duals[1])
+    /// LOOP LOGIC--We must have lower voices first
+    let array = ["w", "x", "y", "z", "0"]
+    for (var i = 1; i <= array.length; i++) {
+      let first = (array[i - 1])
+      // console.log(first)
+      for (var j = i + 1; j <= array.length; j++) {
+        let second = (array[j - 1])
+        console.log(`${first}-${second}`)
+      }
+    }
+
+
+
+
+
+
+
+
+
+    // console.log("anOb[0]", analyticObject.voices.duals[0])
+    // console.log("anOb[1]", analyticObject.voices.duals[1])
+    // console.log("anOb[0]", analyticObject.voices.deltas[0])
+    // console.log("anOb[1]", analyticObject.voices.deltas[1])
+    console.log(analyticObject.voices)
     let ok = "ok"
     res.json(ok)
   }
