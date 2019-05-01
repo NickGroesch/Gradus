@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-function Home() {
+function Landing() {
   return (
     <div>
       <div className="welcome">Welcome to GRADUS</div>
@@ -19,4 +19,4 @@ function Home() {
     </div>
   );
 }
-export default Home;
+export default Landing;
