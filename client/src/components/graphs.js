@@ -43,7 +43,8 @@ class Graphs extends Component {
         key: "C", midi:
           [[64, 62, 60],
           [67, 71, 72],
-          [72, 74, 76]]
+          [72, 74, 76],
+          [79, 79, 79]]
 
       },
       cf: [],
