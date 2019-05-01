@@ -6,8 +6,7 @@ class Piano extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // message: "",
-            // keysPlayed: [],
+            keysPlayed: [],
             octaveCount: 0
         }
         // this.octaveIncrement = this.octaveIncrement.bind(this);
@@ -25,6 +24,9 @@ class Piano extends Component {
         console.log("subtract 12")
     }
 
+    pianoKeyClick = () => {
+        console.log("piano key clicked");
+    }
     // $(".pianoKey").click(function () {
     //     // var keyData = $(this)[0].id;
     //     keyData = $(this)[0].id;
@@ -43,7 +45,7 @@ class Piano extends Component {
                 <div className="svg-container">
                     <svg className="piano">
                         <polygon points="200,10 230,10 230,100 245,100 245,220 200,220 200,10" className="white pianoKey"
-                            id="0" />
+                            id="0" onClick={this.pianoKeyClick} />
                         <polygon points="245,100 260,100 260,10 275,10 275,100 290,100 290,220 245,220 245,100"
                             className="white pianoKey" id="2" />
                         <polygon points="305,10 335,10 335,220 290,220 290,100 305,100 305,10" className="white pianoKey" id="4" />
