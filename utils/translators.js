@@ -272,6 +272,49 @@ const assessMotion = (deltasArray1, deltasArray2) => {
   })
   return motionArray
 }
+// keySignature needs to convey information about both the key signature and the unaltered pitches
+// abc notation makes this a mess compared to lilypond
+// double sharps and flats will not yet be supported for MVP
+const keySignature = {
+  C: [[], ["A", "B", "C", "D", "E", "F", "G"]],
+  G: [["Fs"], ["C", "G", "D", "A", "E", "B"]],
+  D: [["Fs", "Cs"], ["G", "D", "A", "E", "B"]],
+  A: [["Fs", "Cs", "Gs"], ["D", "A", "E", "B"]],
+  E: [["Fs", "Cs", "Gs", "Ds"], ["A", "E", "B"]],
+  B: [["Fs", "Cs", "Gs", "Ds", "As"], ["E", "B"]],
+  Fs: [["Fs", "Cs", "Gs", "Ds", "As", "Es"], ["B"]],
+  Cs: [["Fs", "Cs", "Gs", "Ds", "As", "Es", "Bs"], []],
+  F: [["Bb"], ["E", "A", "D", "G", "C", "F"]],
+  Bb: [["Bb", "Eb"], ["A", "D", "G", "C", "F"]],
+  Eb: [["Bb", "Eb", "Ab"], ["D", "G", "C", "F"]],
+  Ab: [["Bb", "Eb", "Ab", "Db"], ["G", "C", "F"]],
+  Db: [["Bb", "Eb", "Ab", "Db", "Gb"], ["C", "F"]],
+  Gb: [["Bb", "Eb", "Ab", "Db", "Gb", "Cb"], ["F"]],
+  Cb: [["Bb", "Eb", "Ab", "Db", "Gb", "Cb", "Fb"], []]
+}
+// this function is so named because abc notation format removes musically significant information
+const stupifier = (sciPitch, keySign) => {
+  let abc = sciPitch.split(".")
+  // we remove the accidentals in the key signature if the note belongs to kS[kS][0]
+  if (keySignature[keySign][0].indexOf(abc[0]) >= 0) {
+    abc[0] = abc[0].substring(0, 1)
+    //if it is a normal natural it belongs to kS[kS][1], else we'll pass it on to render an accidental
+  } else if (keySignature[keySign][1].indexOf(abc[0]// HOW CONDITION?
+  )) {
+    // WHAT DO WE DO HERE?
+  }
+  const octaveAdjust = [",,,,", ",,,", ",,", ",", "", "'", "''", "'''", "''''", "'''''"]
+  let abcReturn = abc[0].join(octaveAdjust(parseInt(abc[1])))
+  return abcReturn
+}
+const abcify = (dualsArray, keySign) => {
+  let abcReturn = []
+  dualsArray.forEach(value => {
+    abcReturn.push(stupifier(value, keySign))
+  })
+  return abcReturn
+}
+
 const translators = {
   midiPitchClass,
   pitchClassMidi,
@@ -287,7 +330,10 @@ const translators = {
   deltaDual,
   measureInterval,
   intervalCompare,
-  assessMotion
+  assessMotion,
+  keySignature,
+  stupifier,
+  abcify
 };
 // WE NEED THIS ON EXCEPT FOR TESTS
 module.exports = translators;

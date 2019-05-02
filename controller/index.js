@@ -35,6 +35,7 @@ module.exports = {
       voices: {
         duals: [],
         deltas: [],
+        abc=[]
         // WE NEED ABCJS SUPPORT
       }, relations: {
         intervals: [],
