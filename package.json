@@ -15,15 +15,11 @@
     "mongoose": "^5.3.16",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-<<<<<<< HEAD
-    "validator": "^10.11.0"
-=======
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.0.0",
     "validator": "^10.11.0",
     "webmidi": "^2.3.3"
->>>>>>> master
   },
   "devDependencies": {
     "concurrently": "^4.1.0",

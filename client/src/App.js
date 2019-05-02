@@ -26,7 +26,7 @@ import {
 //Ky components
 import Landing from "./pages/Landing/index";
 import "./index.css";
-// import Graphs from "./components/graphs";
+import Graphs from "./components/graphs";
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -48,7 +48,7 @@ function App() {
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/home" component={Home}>
-            {/* <Graphs /> */}
+            <Graphs />
             {/* <Midi />
             <Abcjs
               abcNotation={
