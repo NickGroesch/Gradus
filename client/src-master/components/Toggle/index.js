@@ -28,7 +28,7 @@ class Toggle extends Component {
           onClick={this.toggle}
           style={{ marginBottom: "1rem" }}
         >
-          <i class="fas fa-plus" />
+          <i class="fas fa-info" />
         </Button>
         {this.state.collapse && <Show />}
       </div>

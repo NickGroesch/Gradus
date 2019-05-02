@@ -1,5 +1,7 @@
 // db.js
+require('dotenv').config()
 
 module.exports = {
-    DB: 'mongodb://localhost:27017/auth'
+    DB: process.env.MONGO
 }
+console.log(process.env.MONGO)

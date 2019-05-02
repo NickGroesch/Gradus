@@ -5,18 +5,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Piano from "./components/virtualPiano/virtualPiano";
 
 //Mahfouz components
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components//Navbar";
 import Register from "./components/Register";
 // import Home from "./components/Home";
-import Login from "./components/LogIn/Login";
+import Login from "./components/Login";
 import { Provider } from "react-redux";
 import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./setAuthToken";
-import {
-  setCurrentUser,
-  logoutUser
-} from "./components/actions/authentication";
+import { setCurrentUser, logoutUser } from "./actions/authentication";
 
 //Michael components
 import Midi from "./components/Midi/MidiTest";
