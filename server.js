@@ -14,11 +14,11 @@ const users = require('./serverRoutes/user');
 //React always uses Port 3000
 //var PORT = process.env.PORT || "production"; //for later
 
-//======Mongoose=====
-mongoose.connect(config.DB, { useNewUrlParser: true }).then(
-  () => { console.log('Database is connected') },
-  err => { console.log('Can not connect to the database' + err) }
-);
+//======Mongoose=====LOCALLY COMMENTED OUT
+// mongoose.connect(config.DB, { useNewUrlParser: true }).then(
+//   () => { console.log('Database is connected') },
+//   err => { console.log('Can not connect to the database' + err) }
+// );
 
 // const app = express();
 app.use(passport.initialize());
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/api/users', users);
-
+app.use('/', routes)
 app.get('/', function (req, res) {
   res.send('hello');
 });
