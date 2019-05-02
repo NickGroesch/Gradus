@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// Nick Component
-import Graph from "./components/graphs"
+
 // Sarah Component
 import Piano from "./components/virtualPiano/virtualPiano";
 
@@ -21,14 +20,12 @@ import {
 
 //Michael components
 import Midi from "./components/Midi/MidiTest";
-import Abcjs from "react-abcjs";
 
 //Ky components
 import LogPage from "./pages/LogPage/index";
 import Landing from "./pages/Landing/index";
 import Exercise from "./pages/Exercise/index";
 import "./index.css";
-import Graphs from "./components/graphs";
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -50,17 +47,7 @@ function App() {
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/exercise" component={Exercise}>
-            <Graphs />
             <Midi />
-            <Abcjs
-              abcNotation={
-                //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-                "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
-              }
-              parserParams={{}}
-              engraverParams={{ responsive: "resize" }}
-              renderParams={{ viewportHorizontal: true }}
-            />
           </Route>
           <div className="container">
             <Route exact path="/register" component={Register} />

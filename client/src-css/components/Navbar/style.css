@@ -1,0 +1,28 @@
+.navbar {
+}
+
+.logo {
+  height: 35px;
+  margin-top: 20px;
+}
+
+.nav-log {
+  width: 150px;
+  text-align: center;
+  display: inline-block;
+  float: right;
+  padding: 20px;
+  color: black;
+}
+
+.nav-log.signUp {
+  background-color: #ebeadd;
+}
+
+.nav-log.signIn {
+  background-color: #c7bba5;
+}
+a:hover {
+  font-weight: bold;
+  color: black;
+}
