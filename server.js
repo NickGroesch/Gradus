@@ -1,14 +1,14 @@
 var express = require("express");
 var app = express();
 const routes = require("./serverRoutes");
-require('dotenv').config()
+require("dotenv").config();
 
 //=====DB/login dependencies
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const config = require('./db');
-const users = require('./serverRoutes/user');
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const passport = require("passport");
+const config = require("./db");
+const users = require("./serverRoutes/user");
 //=====DB/login dependencies
 
 //React always uses Port 3000
@@ -22,15 +22,15 @@ const users = require('./serverRoutes/user');
 
 // const app = express();
 app.use(passport.initialize());
-require('./passport')(passport);
+require("./passport")(passport);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/api/users', users);
-app.use('/', routes)
-app.get('/', function (req, res) {
-  res.send('hello');
+app.use("/api/users", users);
+app.use("/", routes);
+app.get("/", function(req, res) {
+  res.send("hello");
 });
 //=====Mongoose======
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Nick Component
-// import Graph from "./components/graphs";
+// import Graphs from "./components/graphs";
 // // Sarah Component
 // import Piano from "./components/virtualPiano/virtualPiano";
 
@@ -50,7 +50,7 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/home" component={Home}>
             {/* <Router exact path="/exercise" component={Exercise} /> */}
-            <Graphs />
+            {/* <Graphs /> */}
             {/* <Midi />
             <Abcjs
               abcNotation={

@@ -3,7 +3,7 @@ const translators = require("../utils/translators");
 
 // Defining methods for the booksController
 module.exports = {
-  returnGraph: function (req, res) {
+  returnGraph: function(req, res) {
     // console.log(req.body);
     let play = req.body.play;
     let test = req.body.test;
@@ -30,36 +30,41 @@ module.exports = {
     res.json(data);
   },
   analyze: (request, res) => {
-    let req = request.body.exercise
+    let req = request.body.exercise;
     let analyticObject = {
       voices: {
         duals: [],
-        deltas: [],
-        abc=[]
+        deltas: []
+        // abc=[]
         // WE NEED ABCJS SUPPORT
-      }, relations: {
+      },
+      relations: {
         intervals: [],
         motions: []
       }
-    }
+    };
     let generativeObject = {
       voices: {
         duals: [],
         deltas: []
       }
-    }
-    let anObV = analyticObject.voices
-    let anObR = analyticObject.relations
-    let genOb = generativeObject.voices
+    };
+    let anObV = analyticObject.voices;
+    let anObR = analyticObject.relations;
+    let genOb = generativeObject.voices;
     req.midi.forEach((voice, index) => {
-      let pitch = translators.evalPitchArray(voice, req.key)
-      let dual = { [`voice${index + 1}`]: translators.formatDual(voice, pitch) }
-      anObV.duals.push(dual)
-      genOb.duals.push(dual[`voice${index + 1}`])
-      let delta = { [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`]) }
-      anObV.deltas.push(delta)
-      genOb.deltas.push(delta[`delta${index + 1}`])
-    })
+      let pitch = translators.evalPitchArray(voice, req.key);
+      let dual = {
+        [`voice${index + 1}`]: translators.formatDual(voice, pitch)
+      };
+      anObV.duals.push(dual);
+      genOb.duals.push(dual[`voice${index + 1}`]);
+      let delta = {
+        [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`])
+      };
+      anObV.deltas.push(delta);
+      genOb.deltas.push(delta[`delta${index + 1}`]);
+    });
     /// LOOP LOGIC--We must have lower voices first!!!
     // let array = ["w", "x", "y", "z", "0"]
     // for (var i = 1; i <= array.length; i++) {
@@ -69,26 +74,30 @@ module.exports = {
     //   }
     // }
     // here we assess the intervals between each voice pair
-    let arrayDuals = generativeObject.voices.duals
+    let arrayDuals = generativeObject.voices.duals;
     for (var i = 1; i <= arrayDuals.length; i++) {
-      let first = (arrayDuals[i - 1])
+      let first = arrayDuals[i - 1];
       for (var j = i + 1; j <= arrayDuals.length; j++) {
-        let second = (arrayDuals[j - 1])
-        let intervals = { [`intervals${i}-${j}`]: translators.intervalCompare(first, second) }
-        anObR.intervals.push(intervals)
+        let second = arrayDuals[j - 1];
+        let intervals = {
+          [`intervals${i}-${j}`]: translators.intervalCompare(first, second)
+        };
+        anObR.intervals.push(intervals);
       }
     }
     // here we assess the relative motions of each voice pair('s deltas)
-    let arrayDeltas = generativeObject.voices.deltas
+    let arrayDeltas = generativeObject.voices.deltas;
     for (var i = 1; i <= arrayDeltas.length; i++) {
-      let first = (arrayDeltas[i - 1])
+      let first = arrayDeltas[i - 1];
       for (var j = i + 1; j <= arrayDeltas.length; j++) {
-        let second = (arrayDeltas[j - 1])
-        let motions = { [`motions${i}-${j}`]: translators.assessMotion(first, second) }
-        anObR.motions.push(motions)
+        let second = arrayDeltas[j - 1];
+        let motions = {
+          [`motions${i}-${j}`]: translators.assessMotion(first, second)
+        };
+        anObR.motions.push(motions);
       }
     }
-    res.json(analyticObject)
+    res.json(analyticObject);
   }
 };
 // console.log(translators.assessMotion)
