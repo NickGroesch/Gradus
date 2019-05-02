@@ -26,6 +26,7 @@ import {
 //Ky components
 import Landing from "./pages/Landing/index";
 import "./index.css";
+
 // import Graphs from "./components/graphs";
 
 if (localStorage.jwtToken) {
@@ -48,7 +49,8 @@ function App() {
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/home" component={Home}>
-            {/* <Graphs /> */}
+            {/* <Router exact path="/exercise" component={Exercise} /> */}
+            <Graphs />
             {/* <Midi />
             <Abcjs
               abcNotation={
