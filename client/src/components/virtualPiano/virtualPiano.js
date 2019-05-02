@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./virtualPiano.css";
 
 class Piano extends Component {
+
     state = {
         // displays current notes that user has chosen
         keysPlayed: [],
@@ -19,8 +20,6 @@ class Piano extends Component {
         // double check what the current octave count is, in order to see if it changed later
         console.log(`Octave count pre-update: ${this.state.octaveCount}`);
 
-        //=================================
-        // if (this.state.octaveCount > 0 || this.state.octaveCount < 200) {
         // create a callback function to reset the octave state and then reset the state id #s
         this.setState((prevState, props) => ({
             octaveCount: (prevState.octaveCount + 12)
@@ -31,14 +30,6 @@ class Piano extends Component {
             // match keyID in state to newID created from mapping
             this.setState(({ keyID: newID }));
         });
-        // } else if (this.state.octaveCount < 0) {
-        //     this.state.octaveCount = 0
-        // } else if (this.state.octaveCount > 200) {
-        //     this.setState((prevState, props) => ({
-        //         octaveCount: (prevState.octaveCount)
-        //     }))
-        // }
-        //================================
     };
 
 
@@ -56,9 +47,14 @@ class Piano extends Component {
     }
 
     // grabs current id of piano key that is clicked
-    pianoKeyClick = () => {
-        console.log("new key ids: ", this.state.keyID)
+    pianoKeyClick = (e) => {
+        console.log(`i want the id ${e.target.id}`)
+        this.setState({
+            keysPlayed: [...this.state.keysPlayed, e.target.id]
+        })
     }
+
+
 
     render() {
         return (
@@ -84,6 +80,9 @@ class Piano extends Component {
                         <polygon points="455,10 485,10 486,130 456,130 455,10" className="black pianoKey" id={this.state.keyID[10]} onClick={this.pianoKeyClick} />
                     </svg>
                 </div>
+
+                {/* see keys played in real-time */}
+                <div>Current Keys Played: {this.state.keysPlayed.toString()}</div>
                 {/* see octave count in real-time */}
                 <div>Current Octave Count: {this.state.octaveCount}</div>
                 {/* <button id="octave-up" onClick={this.octaveIncrement}>octave +</button> */}
@@ -100,5 +99,4 @@ class Piano extends Component {
 export default Piano;
 
 // TO DO
-// display array chosen to user
 // change css state from active onclick to passive onclick
