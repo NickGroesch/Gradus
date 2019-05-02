@@ -1,32 +1,28 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// Nick Component
-// import Graph from "./components/graphs";
-// // Sarah Component
-// import Piano from "./components/virtualPiano/virtualPiano";
+
+// Sarah Component
+import Piano from "./components/virtualPiano/virtualPiano";
 
 //Mahfouz components
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/Navbar";
 import Register from "./components/Register";
-import Home from "./pages/Home/Home";
-import Login from "./components/LogIn/Login";
+// import Home from "./components/Home";
+import Login from "./components/Login";
 import { Provider } from "react-redux";
 import store from "./store";
 import jwt_decode from "jwt-decode";
-import setAuthToken from "./components/actions/setAuthToken";
-import {
-  setCurrentUser,
-  logoutUser
-} from "./components/actions/authentication";
+import setAuthToken from "./setAuthToken";
+import { setCurrentUser, logoutUser } from "./actions/authentication";
 
 //Michael components
-// import Midi from "./components/Midi/MidiTest";
-// import Abcjs from "react-abcjs";
+import Midi from "./components/Midi/MidiTest";
 
 //Ky components
+import LogPage from "./pages/LogPage/index";
 import Landing from "./pages/Landing/index";
+import Exercise from "./pages/Exercise/index";
 import "./index.css";
-// import Graphs from "./components/graphs";
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -47,18 +43,8 @@ function App() {
         <div>
           <Navbar />
           <Route exact path="/" component={Landing} />
-          <Route exact path="/home" component={Home}>
-            {/* <Graphs /> */}
-            {/* <Midi />
-            <Abcjs
-              abcNotation={
-                //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-                "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
-              }
-              parserParams={{}}
-              engraverParams={{ responsive: "resize" }}
-              renderParams={{ viewportHorizontal: true }}
-            /> */}
+          <Route exact path="/exercise" component={Exercise}>
+            <Midi />
           </Route>
           <div className="container">
             <Route exact path="/register" component={Register} />
@@ -66,8 +52,21 @@ function App() {
           </div>
         </div>
       </Router>
-    </Provider >
+    </Provider>
     //Mahfouz app
+
+    //===================================
+    //Ky App
+    // <Router>
+    //   <div>
+    //     <Navbar />
+    //     <Switch>
+    //       <Route exact path="/" component={Home} />
+    //       <Route exact path="/logPage" component={LogPage} />
+    //       <Route exact path="/exercise" component={Exercise} />
+    //     </Switch>
+    //   </div>
+    // </Router>
   );
 }
 
