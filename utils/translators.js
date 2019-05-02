@@ -294,6 +294,7 @@ const keySignature = {
 }
 // this function is so named because abc notation format removes musically significant information
 const stupifier = (sciPitch, keySign) => {
+  // console.log("trans", sciPitch)
   let abc = sciPitch.split(".")
   // we remove the accidentals in the key signature if the note belongs to kS[kS][0]
   if (keySignature[keySign][0].indexOf(abc[0]) >= 0) {
@@ -304,13 +305,13 @@ const stupifier = (sciPitch, keySign) => {
     // WHAT DO WE DO HERE?
   }
   const octaveAdjust = [",,,,", ",,,", ",,", ",", "", "'", "''", "'''", "''''", "'''''"]
-  let abcReturn = abc[0].join(octaveAdjust(parseInt(abc[1])))
+  let abcReturn = abc[0].concat(octaveAdjust[parseInt(abc[1])])
   return abcReturn
 }
 const abcify = (dualsArray, keySign) => {
   let abcReturn = []
   dualsArray.forEach(value => {
-    abcReturn.push(stupifier(value, keySign))
+    abcReturn.push(stupifier(value.pitch, keySign))
   })
   return abcReturn
 }
