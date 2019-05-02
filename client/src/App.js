@@ -18,7 +18,7 @@ import { setCurrentUser, logoutUser } from "./actions/authentication";
 
 //Michael components
 import Midi from "./components/Midi/MidiTest";
-import Abcjs from "react-abcjs";
+// import Abcjs from "react-abcjs";
 
 //Ky components
 import LogPage from "./pages/LogPage/index";
@@ -45,28 +45,28 @@ function App() {
       <Router>
         <div>
           <Piano />
-          <Navbar />
+          {/* <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/exercise" component={Exercise}>
             <Graphs />
             <Midi />
-            <Abcjs
-              abcNotation={
-                //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-                "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
-              }
-              parserParams={{}}
-              engraverParams={{ responsive: "resize" }}
-              renderParams={{ viewportHorizontal: true }}
-            />
-          </Route>
+            {/* <Abcjs */}
+          {/* abcNotation={ */}
+          {/* //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line */}
+          {/* "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|" */}
+          {/* } */}
+          {/* parserParams={{}} */}
+          {/* engraverParams={{ responsive: "resize" }} */}
+          {/* renderParams={{ viewportHorizontal: true }} */}
+          {/* /> */}
+          {/* </Route>
           <div className="container">
             <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-          </div>
+            <Route exact path="/login" component={Login} /> */}
+          {/* </div> */}
         </div>
       </Router>
-    </Provider>
+    </Provider >
     //Mahfouz app
 
     //===================================
