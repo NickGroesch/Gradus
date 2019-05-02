@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Nick Component
-import Graph from "./components/graphs";
+// import Graph from "./components/graphs";
 // // Sarah Component
 // import Piano from "./components/virtualPiano/virtualPiano";
 
@@ -21,7 +21,7 @@ import {
 
 //Michael components
 // import Midi from "./components/Midi/MidiTest";
-import Abcjs from "react-abcjs";
+// import Abcjs from "react-abcjs";
 
 //Ky components
 import Landing from "./pages/Landing/index";
@@ -49,7 +49,7 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/home" component={Home}>
             <Graphs />
-            <Midi />
+            {/* <Midi />
             <Abcjs
               abcNotation={
                 //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
@@ -58,7 +58,7 @@ function App() {
               parserParams={{}}
               engraverParams={{ responsive: "resize" }}
               renderParams={{ viewportHorizontal: true }}
-            />
+            /> */}
           </Route>
           <div className="container">
             <Route exact path="/register" component={Register} />
@@ -66,7 +66,7 @@ function App() {
           </div>
         </div>
       </Router>
-    </Provider >
+    </Provider>
     //Mahfouz app
   );
 }
