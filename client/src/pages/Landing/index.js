@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import Piano from "./../../components/virtualPiano/virtualPiano"
 
 function Landing() {
   return (
@@ -16,6 +17,7 @@ function Landing() {
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
       </div>
+      <Piano />
     </div>
   );
 }

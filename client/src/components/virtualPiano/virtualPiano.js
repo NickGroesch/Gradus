@@ -8,35 +8,38 @@ class Piano extends Component {
         // which octave we are currently working on (multiple of 12)
         octaveCount: 0,
         // starting value of each key in the presented octave
-        keyID: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        keyID: [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71]
     };
 
     constructor(props) {
         super(props);
     };
 
-    // double checks what the octave count is at the time
-    octaveDidUpdate() {
-        console.log(`Octave Count Post-Update: ${this.state.octaveCount}`)
-    }
-
     octaveIncrement = () => {
         // double check what the current octave count is, in order to see if it changed later
-        console.log(`Octave count pre-update: ${this.state.octaveCount}`)
+        console.log(`Octave count pre-update: ${this.state.octaveCount}`);
 
+        //=================================
+        // if (this.state.octaveCount > 0 || this.state.octaveCount < 200) {
         // create a callback function to reset the octave state and then reset the state id #s
         this.setState((prevState, props) => ({
             octaveCount: (prevState.octaveCount + 12)
         }), () => {
-            console.log("Set state lifecycle as finished and call this callback function.")
-
             // map keyID to newID to reset id #s to match new octave
-            let newID = this.state.keyID.map(x => x + this.state.octaveCount);
+            let newID = this.state.keyID.map(x => x + 12);
 
             // match keyID in state to newID created from mapping
             this.setState(({ keyID: newID }));
         });
-    }
+        // } else if (this.state.octaveCount < 0) {
+        //     this.state.octaveCount = 0
+        // } else if (this.state.octaveCount > 200) {
+        //     this.setState((prevState, props) => ({
+        //         octaveCount: (prevState.octaveCount)
+        //     }))
+        // }
+        //================================
+    };
 
 
     octaveDecrement = () => {
@@ -46,7 +49,7 @@ class Piano extends Component {
         }));
 
         // map keyID to octave count values
-        let newID = this.state.keyID.map(x => x - this.state.octaveCount);
+        let newID = this.state.keyID.map(x => x - 12);
 
         // match the keyID state to newID array
         this.setState(({ keyID: newID }));
@@ -83,8 +86,12 @@ class Piano extends Component {
                 </div>
                 {/* see octave count in real-time */}
                 <div>Current Octave Count: {this.state.octaveCount}</div>
-                <button id="octave-up" onClick={this.octaveIncrement}>octave +</button>
-                <button id="octave-down" onClick={this.octaveDecrement}>octave -</button>
+                {/* <button id="octave-up" onClick={this.octaveIncrement}>octave +</button> */}
+                <button id="octave-up" onClick={this.state.octaveCount < 100 ? this.octaveIncrement : this.state.octaveCount = 96}>octave +</button>
+
+                {/* <button id="octave-down" onClick={this.octaveDecrement}>octave -</button> */}
+                <button id="octave-down" onClick={this.state.octaveCount > -60 ? this.octaveDecrement : this.state.octaveCount = -60}>octave -</button>
+
             </div>
         )
     }
