@@ -40,11 +40,13 @@ class Graphs extends Component {
         "F.5"
       ],
       exercise: {
-        key: "C", midi:
+        key: "C",
+        midi:
           [[64, 62, 60],
           [67, 71, 72],
           [72, 74, 76],
-          [79, 79, 79]]
+          [79, 79, 79]],
+        // which is cantus firmus?
 
       },
       cf: [],
