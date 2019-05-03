@@ -20,14 +20,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-
-
-<<<<<<< HEAD
-//======Mongoose=====LOCALLY COMMENTED OUT
-// mongoose.connect(config.DB, { useNewUrlParser: true }).then(
-//   () => { console.log('Database is connected') },
-//   err => { console.log('Can not connect to the database' + err) }
-// );
 var databaseURI = "mongodb://localhost/Gradus";
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
@@ -38,10 +30,6 @@ var db = mongoose.connection;
 db.on("error", err => console.log("mongoose error :", err));
 db.once("open", () => console.log("mongoose connection successful"));
 
-=======
->>>>>>> master
-
-// const app = express();
 app.use(passport.initialize());
 require('./passport')(passport);
 
