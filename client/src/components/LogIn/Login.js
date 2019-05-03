@@ -60,7 +60,10 @@ class Login extends Component {
       >
         <h2>Welcome Back</h2>
         <p style={{ marginBottom: "20px" }}>
-          Are you new to Gradus? <a href="/">Sign Up</a>
+          Are you new to Gradus?{" "}
+          <a className="signUp-link" href="/">
+            Sign Up
+          </a>
         </p>
 
         <form onSubmit={this.handleSubmit}>

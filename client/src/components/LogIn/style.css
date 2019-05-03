@@ -9,3 +9,8 @@ h2 {
   font-family: "Cormorant Unicase", serif;
   font-size: 60px;
 }
+
+.signUp-link {
+  color: #0143cf;
+  text-decoration: underline;
+}

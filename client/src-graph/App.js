@@ -1,7 +1,9 @@
 import React from "react";
-import Graphs from "./components/graphs";
+// import Graphs from "./graphs";
+import Display from "./Display-Graph";
+
 function App() {
-  return <Graphs />;
+  return <Display />;
 }
 
 export default App;

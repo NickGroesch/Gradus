@@ -1,4 +1,4 @@
-import API from "../utils/API/APIroute1";
+import API from "./utils/API/APIroute1";
 import React, { Component } from "react";
 
 class Graphs extends Component {
@@ -41,13 +41,8 @@ class Graphs extends Component {
       ],
       exercise: {
         key: "C",
-        midi:
-          [[64, 62, 60],
-          [67, 71, 72],
-          [72, 74, 76],
-          [79, 79, 79]],
+        midi: [[64, 62, 60], [67, 71, 72], [72, 74, 76], [79, 79, 79]]
         // which is cantus firmus?
-
       },
       cf: [],
       cp: [],
@@ -64,13 +59,12 @@ class Graphs extends Component {
     // }
     // );
     // this.createTable();
-    API.analyze({ exercise: this.state.exercise }).then(
-      res => {
-        this.setState({ data: res.data })
-        console.log("frontEnd", res.data)
-      }
-    )
+    API.analyze({ exercise: this.state.exercise }).then(res => {
+      this.setState({ data: res.data });
+      // console.log("frontEnd", res.data);
+    });
   };
+
   componentWillMount() {
     this.getGraphs();
   }
@@ -129,11 +123,11 @@ class Graphs extends Component {
 
     tableDOM += `<table><tbody>${dProw.midi}${dProw.pitch}${
       playDeltas.direction
-      }${playDeltas.quality}${playDeltas.interval}<tr><td>x</td></tr>${
+    }${playDeltas.quality}${playDeltas.interval}<tr><td>x</td></tr>${
       intervals.qualities
-      }${intervals.intervals}<tr><td>x</td></tr>${dTrow.midi}${dTrow.pitch}${
+    }${intervals.intervals}<tr><td>x</td></tr>${dTrow.midi}${dTrow.pitch}${
       testDeltas.direction
-      }
+    }
     ${testDeltas.quality}
     ${testDeltas.interval}</tbody></table>`;
     return tableDOM;
@@ -145,7 +139,12 @@ class Graphs extends Component {
 
   render() {
     const { data } = this.state;
-    // console.log(data);
+    console.log("data", data.relations);
+
+    // const relationData = data.relations.map(intervals => {
+    //   return <li>{intervals.length}</li>;
+    // });
+
     return (
       <div>
         {/* {Object.keys(data).length > 0 ? (
