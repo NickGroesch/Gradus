@@ -12,14 +12,16 @@ class Midi extends Component {
 
   componentDidMount = () => {
     this.checkConnect();
+    var testArray = [];
+    this.runWebMidi();
   };
 
   checkConnect = () => {
-    //This is not DRY code... It requests MIDI access here then again in the runWebMidi function
     navigator.requestMIDIAccess().then(midiAccess => {
       console.log("MIDIACCESS: ", midiAccess.inputs);
       if (midiAccess.inputs.size > 0) {
         this.setState({ isConnected: true });
+        return true;
       } else {
         console.log("No Midi Connected");
       }
@@ -32,6 +34,7 @@ class Midi extends Component {
     for (var input of midiAccess.inputs.values()) {
       input.onmidimessage = this.getMIDIMessage;
     }
+    console.log(midiAccess.inputs);
   };
 
   onMIDIFailure = () => {
@@ -90,7 +93,14 @@ class Midi extends Component {
     console.log("noteOn function ready to go");
     console.log("Noteon Note:", note);
     console.log("Noteon Velocity: ", velocity);
-    this.state.MidiArray.push(note);
+
+    let stateMidi = this.state.MidiArray;
+
+    console.log(stateMidi);
+
+    this.setState({ MidiArray: this.state.MidiArray.concat(note) });
+    // this.setState({ MidiArray: stateMidi });
+
     console.log(this.state.MidiArray);
   };
 
@@ -100,7 +110,7 @@ class Midi extends Component {
   };
 
   runWebMidi = () => {
-    if (this.state.isConnected === true) {
+    if (this.checkConnect) {
       navigator
         .requestMIDIAccess()
         .then(this.onMIDISuccess, this.onMIDIFailure);
@@ -109,22 +119,20 @@ class Midi extends Component {
 
   render() {
     return (
-      this.runWebMidi(),
-      (
-        <div id="container">
-          <div>Midi connected? {this.state.isConnected.toString()}</div>
-          <div>Notes: {this.state.MidiArray}</div>
-          <Abcjs
-            abcNotation={
-              //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-              "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
-            }
-            parserParams={{}}
-            engraverParams={{ responsive: "resize" }}
-            renderParams={{ viewportHorizontal: true }}
-          />
-        </div>
-      )
+      <div id="container">
+        {/* {this.runWebMidi()} */}
+        <div>Midi connected? {this.state.isConnected.toString()}</div>
+        <div>Notes: {this.state.MidiArray}</div>
+        <Abcjs
+          abcNotation={
+            //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+            "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
+          }
+          parserParams={{}}
+          engraverParams={{ responsive: "resize" }}
+          renderParams={{ viewportHorizontal: true }}
+        />
+      </div>
     );
   }
 }

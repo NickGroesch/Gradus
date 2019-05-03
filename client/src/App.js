@@ -20,7 +20,11 @@ import Home from "./pages/Home/Home";
 // } from "./components/actions/authentication";
 
 //Michael components
+<<<<<<< HEAD
 // import Midi from "./components/Midi/MidiTest";
+=======
+import Midi from "./components/Midi/MidiTest";
+>>>>>>> master
 import Abcjs from "react-abcjs";
 
 //Ky components
@@ -42,6 +46,7 @@ import Graphs from "./components/graphs";
 
 function App() {
   return (
+<<<<<<< HEAD
     // <Provider store={store}>
     <Router>
       {/* <div> */}
@@ -70,6 +75,25 @@ function App() {
   {/* </Provider > */ }
   {/* //Mahfouz app */ }
 
+=======
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/home" component={Home}>
+            <Graphs />
+            <Midi />
+          </Route>
+          <div className="container">
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </div>
+        </div>
+      </Router>
+    </Provider>
+  );
+>>>>>>> master
 }
 
 export default App;
