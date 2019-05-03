@@ -62,6 +62,31 @@ class Graphs extends Component {
     API.analyze({ exercise: this.state.exercise }).then(res => {
       this.setState({ data: res.data });
       console.log("frontEnd", res.data);
+      let info = res.data.voices.deltas;
+      let voicesDelta = [];
+      // let voicesDeltaNum = [];
+      for (var i = 0; i < info.length; i++) {
+        // console.log(info[i]);
+        // console.log("voicesDelta.push(info[i].delta" + (i + 1) + ")");
+        eval("voicesDelta.push(info[i].delta" + (i + 1) + ")");
+      }
+
+      for (var i = 0; i < voicesDelta.length; i++) {
+        for (var j = 0; j < voicesDelta[i].length; j++) {
+          //console.log(voicesDelta[i][j]);
+          // let delta = voicesDelta[i][j];
+          // delta = delta.slice(0, 3);
+          // console.log(delta);
+          for (var k = 0; k < voicesDelta[i][j].length; k++) {
+            const toPrint = voicesDelta[i][j][k];
+            if (typeof toPrint === "string") {
+              console.log(toPrint);
+            }
+          }
+        }
+      }
+      // console.log(voicesDelta);
+      // for (var j = 0; j < voicesDelta.length; j++) {}
     });
   };
 
