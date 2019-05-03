@@ -1,5 +1,7 @@
 import API from "../utils/API/APIroute1";
 import React, { Component } from "react";
+import Abcjs from "react-abcjs";
+
 
 class Graphs extends Component {
   constructor(props) {
@@ -67,7 +69,7 @@ class Graphs extends Component {
     API.analyze({ exercise: this.state.exercise }).then(
       res => {
         this.setState({ data: res.data })
-        console.log("frontEnd", res.data)
+        console.log("frontEnd", this.state.data)
       }
     )
   };
@@ -142,12 +144,26 @@ class Graphs extends Component {
     //   console.log(data[key]);
     // }
   }
-
-  render() {
+  displayData() {
     const { data } = this.state;
-    // console.log(data);
+    // console.log("render", data);
+  }
+  render() {
+    // const { data } = this.state;
+    // console.log("render", data);
     return (
       <div>
+        {this.displayData()}
+        <Abcjs
+          abcNotation={
+            //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+            "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
+            // this.state.abc
+          }
+          parserParams={{}}
+          engraverParams={{ responsive: "resize" }}
+          renderParams={{ viewportHorizontal: true }}
+        />
         {/* {Object.keys(data).length > 0 ? (
           <div dangerouslySetInnerHTML={{ __html: this.createTable() }} />
         ) : (

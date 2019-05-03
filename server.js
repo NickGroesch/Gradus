@@ -19,6 +19,16 @@ const users = require('./serverRoutes/user');
 //   () => { console.log('Database is connected') },
 //   err => { console.log('Can not connect to the database' + err) }
 // );
+var databaseURI = "mongodb://localhost/Gradus";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+} else {
+  mongoose.connect(databaseURI, { useNewUrlParser: true });
+}
+var db = mongoose.connection;
+db.on("error", err => console.log("mongoose error :", err));
+db.once("open", () => console.log("mongoose connection successful"));
+
 
 // const app = express();
 app.use(passport.initialize());
