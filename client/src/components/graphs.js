@@ -67,19 +67,15 @@ class Graphs extends Component {
     for (let i = abcData.length - 1; i >= 0; i--) {
       abcHeader.concat(`V:${i + 1} clef=treble name= "Voice${i + 1}"\n`)
       // having created the staff we will create the contents of the staff and add them to the score body
-      console.log("data", abcData[i])
       let abcVoice = `[V:${i + 1}] `
       abcData[i][`abc${i + 1}`].forEach((value, index) => {
         let note = `${value}|`
         // abcVoice = abcVoice.concat("X")
         abcVoice = abcVoice.concat(note)
       })
-      console.log("voice", abcVoice)
       abcBody = abcBody.concat(abcVoice)
     }
-    console.log("body after loops", abcBody)
     let abcScore = abcHeader.concat(abcBody)
-    console.log(abcScore)
     this.setState({ abcjs: abcScore })
   }
 
