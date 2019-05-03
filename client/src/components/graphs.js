@@ -1,5 +1,7 @@
 import API from "../utils/API/APIroute1";
 import React, { Component } from "react";
+import Abcjs from "react-abcjs";
+
 
 class Graphs extends Component {
   constructor(props) {
@@ -51,9 +53,30 @@ class Graphs extends Component {
       },
       cf: [],
       cp: [],
-      data: {}
+      flag: false,
+      data: {},
+      abcjs: ""
     };
     // this.x = this.x.bind(this)
+  }
+  setAbc() {
+    let abcHeader = `X:1\nT:Counterpoint\nM:4/4\nK:${this.state.exercise.key}\nL:1/1\n`
+    let abcBody = ""
+    let abcData = this.state.data.voices.abc
+    // for each voice present in the abcData we will alter the header to create a staff for it
+    for (let i = abcData.length - 1; i >= 0; i--) {
+      abcHeader.concat(`V:${i + 1} clef=treble name= "Voice${i + 1}"\n`)
+      // having created the staff we will create the contents of the staff and add them to the score body
+      let abcVoice = `[V:${i + 1}] `
+      abcData[i][`abc${i + 1}`].forEach((value, index) => {
+        let note = `${value}|`
+        // abcVoice = abcVoice.concat("X")
+        abcVoice = abcVoice.concat(note)
+      })
+      abcBody = abcBody.concat(abcVoice)
+    }
+    let abcScore = abcHeader.concat(abcBody)
+    this.setState({ abcjs: abcScore })
   }
 
   getGraphs = () => {
@@ -67,13 +90,21 @@ class Graphs extends Component {
     API.analyze({ exercise: this.state.exercise }).then(
       res => {
         this.setState({ data: res.data })
-        console.log("frontEnd", res.data)
+        this.setState({ flag: true })
+        console.log("frontEnd", this.state.data)
+        this.setAbc()
+        // console.log("frontEnd", this.state.data.voices.duals)
       }
     )
   };
-  componentWillMount() {
-    this.getGraphs();
+  // componentWillMount() {
+  //   this.getGraphs();
+  // }
+  componentDidMount() {
+    this.getGraphs()
+    // console.log(this.state.data)
   }
+
 
   createTable() {
     const { dP, dT, compareIntervals, pD, tD, assessMotion } = this.state.data;
@@ -142,12 +173,37 @@ class Graphs extends Component {
     //   console.log(data[key]);
     // }
   }
+  kyTable() {
+    let table = []
+    this.state.data.voices.duals.forEach((v, i) => {
+      console.log(v, i)
+    })
 
-  render() {
+  }
+
+  displayData() {
     const { data } = this.state;
-    // console.log(data);
+    console.log(data.voices.duals[0]);
+  }
+  render() {
     return (
       <div>
+        {this.state.flag ? <div>success
+        {/* {this.kyTable()} */}
+          <Abcjs
+            abcNotation={
+              //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+              this.state.abcjs
+              // this.state.abc
+            }
+            parserParams={{}}
+            engraverParams={{ responsive: "resize" }}
+            renderParams={{ viewportHorizontal: true }}
+          />
+        </div>
+          : <p>failure</p>}
+        {/* // [0].voice1[1].pitch} */}
+        {/* {this.displayData()} */}
         {/* {Object.keys(data).length > 0 ? (
           <div dangerouslySetInnerHTML={{ __html: this.createTable() }} />
         ) : (
