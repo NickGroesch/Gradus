@@ -46,7 +46,8 @@ class Graphs extends Component {
       },
       cf: [],
       cp: [],
-      data: {}
+      data: {},
+      deltaString: []
     };
     // this.x = this.x.bind(this)
   }
@@ -71,20 +72,19 @@ class Graphs extends Component {
         eval("voicesDelta.push(info[i].delta" + (i + 1) + ")");
       }
 
+      let deltaString = [];
       for (var i = 0; i < voicesDelta.length; i++) {
         for (var j = 0; j < voicesDelta[i].length; j++) {
-          //console.log(voicesDelta[i][j]);
-          // let delta = voicesDelta[i][j];
-          // delta = delta.slice(0, 3);
-          // console.log(delta);
-          for (var k = 0; k < voicesDelta[i][j].length; k++) {
-            const toPrint = voicesDelta[i][j][k];
-            if (typeof toPrint === "string") {
-              console.log(toPrint);
-            }
-          }
+          // console.log(voicesDelta[i][j]);
+          let delta = voicesDelta[i][j];
+          delta = delta.slice(2, 3);
+          delta = delta.toString();
+
+          deltaString.push(delta);
         }
       }
+      console.log(deltaString);
+      this.setState({ deltaString: deltaString });
       // console.log(voicesDelta);
       // for (var j = 0; j < voicesDelta.length; j++) {}
     });
@@ -167,6 +167,8 @@ class Graphs extends Component {
     // console.log(data);
     return (
       <div>
+        Current delta:
+        <tr>{this.state.deltaString}</tr>
         {/* {Object.keys(data).length > 0 ? (
           <div dangerouslySetInnerHTML={{ __html: this.createTable() }} />
         ) : (
