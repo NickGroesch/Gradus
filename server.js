@@ -29,9 +29,9 @@ app.use(bodyParser.json());
 
 app.use('/api/users', users);
 app.use('/', routes)
-app.get('/', function (req, res) {
-  res.send('hello');
-});
+// app.get('/', function (req, res) {
+//   res.send('hello');
+// });
 //=====Mongoose======
 
 //If server Port changes you must change the proxy key in the client-side package.json
