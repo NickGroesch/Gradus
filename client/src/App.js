@@ -20,8 +20,8 @@ import {
 } from "./components/actions/authentication";
 
 //Michael components
-// import Midi from "./components/Midi/MidiTest";
-// import Abcjs from "react-abcjs";
+import Midi from "./components/Midi/MidiTest";
+import Abcjs from "react-abcjs";
 
 //Ky components
 import Landing from "./pages/Landing/index";
@@ -49,16 +49,7 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/home" component={Home}>
             <Graphs />
-            {/* <Midi />
-            <Abcjs
-              abcNotation={
-                //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-                "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
-              }
-              parserParams={{}}
-              engraverParams={{ responsive: "resize" }}
-              renderParams={{ viewportHorizontal: true }}
-            /> */}
+            <Midi />
           </Route>
           <div className="container">
             <Route exact path="/register" component={Register} />
@@ -66,8 +57,7 @@ function App() {
           </div>
         </div>
       </Router>
-    </Provider >
-    //Mahfouz app
+    </Provider>
   );
 }
 
