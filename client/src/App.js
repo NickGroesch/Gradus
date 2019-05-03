@@ -44,13 +44,13 @@ function App() {
   return (
     // <Provider store={store}>
     <Router>
-      <div>
-        {/* <Navbar /> */}
-        {/* <Route exact path="/" component={Landing} /> */}
-        {/* <Route exact path="/home" component={Home}> */}
-        <Graphs />
-        {/* <Midi /> */}
-        {/* <Abcjs
+      {/* <div> */}
+      {/* <Navbar /> */}
+      {/* <Route exact path="/" component={Landing} /> */}
+      {/* <Route exact path="/home" component={Home}> */}
+      <Graphs />
+      {/* <Midi /> */}
+      {/* <Abcjs
           abcNotation={
             //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
             "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
@@ -60,16 +60,16 @@ function App() {
           engraverParams={{ responsive: "resize" }}
           renderParams={{ viewportHorizontal: true }}
         /> */}
-        {/* </Route> */}
-        <div className="container">
-          {/* <Route exact path="/register" component={Register} /> */}
-          {/* <Route exact path="/login" component={Login} /> */}
-        </div>
+      {/* </Route> */}
+      <div className="container">
+        {/* <Route exact path="/register" component={Register} /> */}
+        {/* <Route exact path="/login" component={Login} /> */}
       </div>
     </Router>
-    // </Provider >
-    //Mahfouz app
-  );
+  )
+  {/* </Provider > */ }
+  {/* //Mahfouz app */ }
+
 }
 
 export default App;
