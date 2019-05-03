@@ -77,16 +77,15 @@ class Graphs extends Component {
         for (var j = 0; j < voicesDelta[i].length; j++) {
           // console.log(voicesDelta[i][j]);
           let delta = voicesDelta[i][j];
-          delta = delta.slice(2, 3);
-          delta = delta.toString();
-
+          delta = delta.slice(0, 3);
+          console.log(delta);
+          // delta = delta.toString();
           deltaString.push(delta);
         }
       }
-      console.log(deltaString);
-      this.setState({ deltaString: deltaString });
-      // console.log(voicesDelta);
-      // for (var j = 0; j < voicesDelta.length; j++) {}
+      // console.log(deltaString);
+      // console.log(deltaString);
+      // this.setState({ deltaString: deltaString });
     });
   };
 
@@ -168,7 +167,7 @@ class Graphs extends Component {
     return (
       <div>
         Current delta:
-        <tr>{this.state.deltaString}</tr>
+        {/* <tr>{this.state.deltaString}</tr> */}
         {/* {Object.keys(data).length > 0 ? (
           <div dangerouslySetInnerHTML={{ __html: this.createTable() }} />
         ) : (
