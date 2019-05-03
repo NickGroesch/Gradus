@@ -1,5 +1,6 @@
 //import API from "../utils/API/WebMidiAPI";
 import React, { Component } from "react";
+import Abcjs from "react-abcjs";
 //import webmidi from "webmidi";
 
 class Midi extends Component {
@@ -32,11 +33,6 @@ class Midi extends Component {
       input.onmidimessage = this.getMIDIMessage;
     }
   };
-
-  // handleInputChange = event => {
-  //   const { placeholder, value } = event.target;
-  //   this.setState({ [placeholder]: value });
-  // };
 
   onMIDIFailure = () => {
     console.log("Error: Could not access MIDI devices.");
@@ -94,19 +90,13 @@ class Midi extends Component {
     console.log("noteOn function ready to go");
     console.log("Noteon Note:", note);
     console.log("Noteon Velocity: ", velocity);
-    //noteArray.push(note);
-    //console.log("NOTEARRAY: ", noteArray);
     this.state.MidiArray.push(note);
     console.log(this.state.MidiArray);
-
-    //This is what I want to do to have a constantly updating list of values on screen
-    // React.DestroyElement(value = this.state.MidiArray)
   };
 
   noteOff = (note, velocity) => {
     console.log("noteOff working");
     console.log("Noteoff Note:", note);
-    console.log("Noteoff Velocity: ", velocity);
   };
 
   runWebMidi = () => {
@@ -124,6 +114,15 @@ class Midi extends Component {
         <div id="container">
           <div>Midi connected? {this.state.isConnected.toString()}</div>
           <div>Notes: {this.state.MidiArray}</div>
+          <Abcjs
+            abcNotation={
+              //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+              "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
+            }
+            parserParams={{}}
+            engraverParams={{ responsive: "resize" }}
+            renderParams={{ viewportHorizontal: true }}
+          />
         </div>
       )
     );
