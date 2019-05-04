@@ -1,44 +1,44 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Nick Component
-// import Graph from "./components/graphs";
+import Graph from "./components/graphs";
 // // Sarah Component
 // import Piano from "./components/virtualPiano/virtualPiano";
 
 //Mahfouz components
-import Navbar from "./components/Navbar/Navbar";
-import Register from "./components/Register";
+// import Navbar from "./components/Navbar/Navbar";
+// import Register from "./components/Register";
 import Home from "./pages/Home/Home";
-import Login from "./components/LogIn/Login";
-import { Provider } from "react-redux";
-import store from "./store";
-import jwt_decode from "jwt-decode";
-import setAuthToken from "./components/actions/setAuthToken";
-import {
-  setCurrentUser,
-  logoutUser
-} from "./components/actions/authentication";
+// import Login from "./components/LogIn/Login";
+// import { Provider } from "react-redux";
+// import store from "./store";
+// import jwt_decode from "jwt-decode";
+// import setAuthToken from "./components/actions/setAuthToken";
+// import {
+//   setCurrentUser,
+//   logoutUser
+// } from "./components/actions/authentication";
 
 //Michael components
-// import Midi from "./components/Midi/MidiTest";
-// import Abcjs from "react-abcjs";
+import Midi from "./components/Midi/MidiTest";
+import Abcjs from "react-abcjs";
 
 //Ky components
 import Landing from "./pages/Landing/index";
 import "./index.css";
 import Graphs from "./components/graphs";
 
-if (localStorage.jwtToken) {
-  setAuthToken(localStorage.jwtToken);
-  const decoded = jwt_decode(localStorage.jwtToken);
-  store.dispatch(setCurrentUser(decoded));
+// if (localStorage.jwtToken) {
+//   setAuthToken(localStorage.jwtToken);
+//   const decoded = jwt_decode(localStorage.jwtToken);
+//   store.dispatch(setCurrentUser(decoded));
 
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    store.dispatch(logoutUser());
-    window.location.href = "/login";
-  }
-}
+//   const currentTime = Date.now() / 1000;
+//   if (decoded.exp < currentTime) {
+//     store.dispatch(logoutUser());
+//     window.location.href = "/login";
+//   }
+// }
 
 function App() {
   return (
@@ -49,16 +49,7 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/home" component={Home}>
             <Graphs />
-            {/* <Midi />
-            <Abcjs
-              abcNotation={
-                //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-                "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
-              }
-              parserParams={{}}
-              engraverParams={{ responsive: "resize" }}
-              renderParams={{ viewportHorizontal: true }}
-            /> */}
+            <Midi />
           </Route>
           <div className="container">
             <Route exact path="/register" component={Register} />
@@ -66,8 +57,7 @@ function App() {
           </div>
         </div>
       </Router>
-    </Provider >
-    //Mahfouz app
+    </Provider>
   );
 }
 

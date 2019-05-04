@@ -31,7 +31,7 @@ module.exports = {
   },
   analyze: (request, res) => {
     let req = request.body.exercise
-    console.log(req)
+    // console.log(req)
     let analyticObject = {
       voices: {
         duals: [],
@@ -52,7 +52,7 @@ module.exports = {
     let anObV = analyticObject.voices
     let anObR = analyticObject.relations
     let genOb = generativeObject.voices
-    // here we convert each voice to a dual, TODO AN ABC ARRAY, and assess its deltas
+    // WORKING here we convert each voice to a dual, TODO AN ABC ARRAY, and assess its deltas
     req.midi.forEach((voice, index) => {
       let pitch = translators.evalPitchArray(voice, req.key)
       let dual = { [`voice${index + 1}`]: translators.formatDual(voice, pitch) }
@@ -64,6 +64,22 @@ module.exports = {
       let abcVoice = { [`abc${index + 1}`]: translators.abcify(dual[`voice${index + 1}`], req.key) }
       anObV.abc.push(abcVoice)
     })
+    // EXPERIMENT
+    // req.midi.forEach((voice, index) => {
+    //   let pitch = translators.evalPitchArray(voice, req.key)
+    //   let dual = [`voice${index + 1}`]
+    //   dual.push(translators.formatDual(voice, pitch))
+    //   anObV.duals.push(dual)
+    //   genOb.duals.push(dual[1])
+    // let delta = { [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`]) }
+    // anObV.deltas.push(delta)
+    // genOb.deltas.push(delta[`delta${index + 1}`])
+    // let abcVoice = { [`abc${index + 1}`]: translators.abcify(dual[`voice${index + 1}`], req.key) }
+    // anObV.abc.push(abcVoice)
+    // })
+
+
+
     /// LOOP LOGIC--We must have lower voices first!!!
     // let array = ["w", "x", "y", "z", "0"]
     // for (var i = 1; i <= array.length; i++) {

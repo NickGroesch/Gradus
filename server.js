@@ -10,17 +10,26 @@ const passport = require('passport');
 const config = require('./db');
 const users = require('./serverRoutes/user');
 //=====DB/login dependencies
+if (process.env.NODE_ENV === 'production') {
+  // Exprees will serve up production assets
+  app.use(express.static('client/build'));
+  // Express serve up index.html file if it doesn't recognize route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
-//React always uses Port 3000
-//var PORT = process.env.PORT || "production"; //for later
+var databaseURI = "mongodb://localhost/Gradus";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+} else {
+  mongoose.connect(databaseURI, { useNewUrlParser: true });
+}
+var db = mongoose.connection;
+db.on("error", err => console.log("mongoose error :", err));
+db.once("open", () => console.log("mongoose connection successful"));
 
-//======Mongoose=====LOCALLY COMMENTED OUT
-// mongoose.connect(config.DB, { useNewUrlParser: true }).then(
-//   () => { console.log('Database is connected') },
-//   err => { console.log('Can not connect to the database' + err) }
-// );
-
-// const app = express();
 app.use(passport.initialize());
 require('./passport')(passport);
 
@@ -29,26 +38,17 @@ app.use(bodyParser.json());
 
 app.use('/api/users', users);
 app.use('/', routes)
-app.get('/', function (req, res) {
-  res.send('hello');
-});
-//=====Mongoose======
 
-//If server Port changes you must change the proxy key in the client-side package.json
-// var PORT = process.env.PORT || 3001;
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-// static heroku serve
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
-// Add routes, both API and view
-// app.use("/", routes);
+var databaseURI = "mongodb://localhost/Gradus";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseURI);
+}
+var db = mongoose.connection;
+db.on("error", err => console.log("mongoose error :", err));
+db.once("open", () => console.log("mongoose connection successful"));
 
-// //app.listen always goes at the end of your code
-// app.listen(PORT, function() {
-//   console.log("App listening on PORT:" + PORT);
-// });
 
 const PORT = process.env.PORT || 5000;
 
