@@ -20,7 +20,20 @@ const keyComb = (testArray, key) => {
     })
     return results
 }
-// console.log(comb)
-// test
-console.log(keyComb([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75], "E"))
-// Cantus
+// tests
+// console.log(keyComb([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75], "E"))// should fail [1,3,6,8,10]
+
+// // Cantus Tests
+// Length- cantus create only. submit.
+const lengthCF = (midiArray) => {
+    let result = "length passes"
+    if (!(midiArray.length < 17 && midiArray.length > 7)) {
+        result = "CF Length must be between 8-16 notes"
+    }
+    return result
+}
+console.log(lengthCF([64, 65, 66, 67, 68, 69, 70,]))//fail
+console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71]))//pass
+console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]))//pass
+console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80]))//fail
+
