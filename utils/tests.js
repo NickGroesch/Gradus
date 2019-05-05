@@ -18,10 +18,11 @@ const keyComb = (testArray, key) => {
             results.push(index)
         }
     })
+    if (!results.length) { results[0] = "key check pass" }
     return results
 }
-// tests
-// console.log(keyComb([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75], "E"))// should fail [1,3,6,8,10]
+// console.log(keyComb([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75], "E"))// fail [1,3,6,8,10]
+// console.log(keyComb([64, 66, 68, 69, 71, 73, 75], "E"))// pass 
 
 // // Cantus Tests
 // Length- cantus create only. submit.
@@ -32,8 +33,31 @@ const lengthCF = (midiArray) => {
     }
     return result
 }
-console.log(lengthCF([64, 65, 66, 67, 68, 69, 70,]))//fail
-console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71]))//pass
-console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]))//pass
-console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80]))//fail
+// console.log(lengthCF([64, 65, 66, 67, 68, 69, 70,]))//fail
+// console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71]))//pass
+// console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]))//pass
+// console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80]))//fail
 
+const deltaRange = deltaArray => {
+    let result = []
+    deltaArray.forEach((delta, index) => {
+        console.log(delta)
+        if (Math.abs(delta[3][0]) > 12) {
+            result.push(`delta ${index} greater than octave`)
+        }
+    })
+    if (!result.length) { result[0] = "all deltas within octave" }
+    return result
+}
+let deltaRangeTestPass = [
+    ["", "", "", [12]],
+    ["", "", "", [0]],
+    ["", "", "", [-12]]
+]
+let deltaRangeTestFail = [
+    ["", "", "", [13]],
+    ["", "", "", [0]],
+    ["", "", "", [-13]]
+]
+console.log(deltaRange(deltaRangeTestPass))//pass
+console.log(deltaRange(deltaRangeTestFail))//fail [0,2]
