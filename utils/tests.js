@@ -41,7 +41,6 @@ const lengthCF = (midiArray) => {
 const deltaRange = deltaArray => {
     let result = []
     deltaArray.forEach((delta, index) => {
-        console.log(delta)
         if (Math.abs(delta[3][0]) > 12) {
             result.push(`delta ${index} greater than octave`)
         }
@@ -59,5 +58,32 @@ let deltaRangeTestFail = [
     ["", "", "", [0]],
     ["", "", "", [-13]]
 ]
-console.log(deltaRange(deltaRangeTestPass))//pass
-console.log(deltaRange(deltaRangeTestFail))//fail [0,2]
+// console.log(deltaRange(deltaRangeTestPass))//pass
+// console.log(deltaRange(deltaRangeTestFail))//fail [0,2]
+
+const deltaDissonantLeaps = deltaArray => {
+    let result = []
+    deltaArray.forEach((delta, index) => {
+        if (delta[1] == "dim" || delta[1] == "aug") {
+            result.push(`delta ${index} is ${delta[1]} ${delta[2]}`)
+        }
+        if (delta[2] == "seventh") {
+            result.push(`delta ${index} is a seventh`)
+        }
+    })
+    if (!result.length) { result[0] = "pass: no dissonant leaps/ chromatic 1/2steps" }
+    return result
+}
+let deltaDissLeapTestPass = [
+    ["", "perf", "octave", [12]],
+    ["", "maj", "third", [-4]],
+    ["", "min", "third", [3]]
+]
+let deltaDissLeapTestFail = [
+    ["", "dim", "octave", [11]],
+    ["", "aug", "unison", [1]],
+    ["", "perf", "unison", [0]],
+    ["", "minor", "seventh", [-10]]
+]
+console.log(deltaDissonantLeaps(deltaDissLeapTestPass))//pass
+console.log(deltaDissonantLeaps(deltaDissLeapTestFail))// fail [0,1,3]
