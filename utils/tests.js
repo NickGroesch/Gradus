@@ -309,3 +309,163 @@ const detectVoiceCrossing = (dualArray1, dualArray2) => {
 // console.log(detectVoiceCrossing(voiceCrossingFail1, voiceCrossingFail2))//fail [2,4]
 // console.log(detectVoiceCrossing(voiceCrossingPass1, voiceCrossingPass2))//pass
 // console.log(detectVoiceCrossing(voiceCrossingPass2, voiceCrossingPass1))//fail everywhere
+
+// vertical spacing only runs on adjacent voices,
+const verticalSpacingRed = (intervalArray) => {
+    let result = [false, []]
+    for (var i = 0; i < intervalArray.length; i++) {
+        if (intervalArray[i][3][0] > 21) {
+            result[1].push(`interval ${i} is way too big`)
+        }
+    }
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "pass: no range issues"
+    }
+    return result
+}
+// let verticalSpacingRedFail = [
+//     ["", "perf", "unison", [0]],
+//     ["", "aug", "unison", [21]],
+//     ["", "perf", "unison", [22]],
+//     ["", "minor", "seventh", [10]],
+//     ["", "aug", "fourth", [6]],
+//     ["", "perf", "fourth", [23]],
+//     ["", "perf", "unison", [0]],
+//     ["", "major", "second", [2]],
+//     ["", "perf", "unison", [0]]
+// ]
+// let verticalSpacingRedPass = [
+//     ["", "perf", "unison", [0]],
+//     ["", "minor", "seventh", [21]],
+//     ["", "aug", "fourth", [20]],
+//     ["", "perf", "fourth", [5]],
+//     ["", "major", "second", [2]],
+//     ["", "perf", "unison", [0]]
+// ]
+// console.log(verticalSpacingRed(verticalSpacingRedPass))//pass
+// console.log(verticalSpacingRed(verticalSpacingRedFail))//fail [2,5]
+const verticalSpacingYellow = (intervalArray) => {
+    let result = [false, []]
+    for (var i = 0; i < intervalArray.length; i++) {
+        if (intervalArray[i][3][0] > 16) {
+            result[1].push(`interval ${i} is a bit big`)
+        }
+    }
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "pass: no range issues"
+    }
+    return result
+}
+// let verticalSpacingYellowFail = [
+//     ["", "perf", "unison", [0]],
+//     ["", "aug", "unison", [17]],
+//     ["", "perf", "unison", [16]],
+//     ["", "minor", "seventh", [10]],
+//     ["", "aug", "fourth", [6]],
+//     ["", "perf", "fourth", [18]],
+//     ["", "perf", "unison", [0]],
+//     ["", "major", "second", [2]],
+//     ["", "perf", "unison", [0]]
+// ]
+// let verticalSpacingYellowPass = [
+//     ["", "perf", "unison", [0]],
+//     ["", "minor", "seventh", [16]],
+//     ["", "aug", "fourth", [16]],
+//     ["", "perf", "fourth", [5]],
+//     ["", "major", "second", [2]],
+//     ["", "perf", "unison", [0]]
+// ]
+// console.log(verticalSpacingYellow(verticalSpacingYellowPass))//pass
+// console.log(verticalSpacingYellow(verticalSpacingYellowFail))//fail [1,5]
+
+const parallel5or8 = (intervalArray, motionArray) => {
+    let result = [false, []]
+    motionArray.forEach((value, index) => {
+        if (value == "parallel" && intervalArray[index + 1][2] == "fifth") {
+            result[1].push(`PARALLEL FIFTHS from pos. ${index} `)
+        }
+        if (value == "parallel" && intervalArray[index + 1][2] == "octave") {
+            result[1].push(`PARALLEL OCTAVES from pos. ${index} `)
+        }
+    })
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "pass: no parallel fifths or octaves"
+    }
+    return result
+}
+const direct5or8 = (intervalArray, motionArray) => {
+    let result = [false, []]
+    motionArray.forEach((value, index) => {
+        if (value == "similar" && intervalArray[index + 1][2] == "fifth") {
+            result[1].push(`direct octave at pos. ${index + 1} `)
+        }
+        if (value == "similar" && intervalArray[index + 1][2] == "octave") {
+            result[1].push(`direct octave at pos. ${index + 1} `)
+        }
+    })
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "pass: no parallel fifths or octaves"
+    }
+    return result
+}
+
+// let parallel5or8PassInt = [
+//     ["", "perf", "unison", [0]],
+//     ["", "minor", "seventh", [16]],
+//     ["", "aug", "sixth", [16]],
+//     ["", "perf", "sixth", [5]],
+//     ["", "major", "third", [2]],
+//     ["", "perf", "third", [0]]
+// ]
+// let parallel5or8FailInt = [
+//     ["", "perf", "octave", [12]],
+//     ["", "perf", "octave", [12]],
+//     ["", "perf", "fifth", [7]],
+//     ["", "perf", "fifth", [7]],
+//     ["", "perf", "octave", [12]],
+//     ["", "perf", "octave", [12]]
+// ]
+// let parallel5or8FailMot = ["contrary", "similar", "parallel", "oblique", "parallel"]
+// let parallel5or8PassMot = ["contrary", "similar", "parallel", "oblique", "parallel"]
+// console.log(parallel5or8(parallel5or8PassInt, parallel5or8PassMot))//pass
+// console.log(parallel5or8(parallel5or8FailInt, parallel5or8FailMot))//fail [2,4]
+
+// the independence functions
+const independenceYellow = motionArray => {
+    let result = [false, []]
+    for (let i = 1; i < motionArray.length; i++) {
+        if (motionArray[i - 1] == "parallel" && motionArray[i] == "parallel") {
+            result[1].push(`from pos. ${i - 1} to pos. ${i + 1} lacks independence`)
+        }
+    }
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "it's a'ight: not too parallel"
+    }
+    return result
+}
+const independenceRed = motionArray => {
+    let result = [false, []]
+    for (let i = 1; i < motionArray.length - 1; i++) {
+        if (motionArray[i - 1] == "parallel" && motionArray[i] == "parallel" && motionArray[i + 1] == "parallel") {
+            result[1].push(`write independant lines!: parallel from pos. ${i - 1} to ${i + 2}`)
+        }
+    }
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "it's not way too parallel"
+    }
+    return result
+}
+// let independence3 = ["contrary", "similar", "parallel", "oblique", "similar"]
+// let independence4 = ["similar", "parallel", "parallel", "oblique", "similar"]
+// let independence5 = ["contrary", "parallel", "parallel", "parallel", "similar"]
+
+// console.log(independanceYellow(independence3))//pass
+// console.log(independanceYellow(independence4))//fail
+// console.log(independanceRed(independence4))//pass
+// console.log(independanceRed(independence5))//fail
