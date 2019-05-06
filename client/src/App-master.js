@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Nick Component
 import Graph from "./components/graphs";
 // // Sarah Component
-// import Piano from "./components/virtualPiano/virtualPiano";
+import Piano from "./components/virtualPiano/virtualPiano";
 
 //Mahfouz components
 import Navbar from "./components/Navbar/Navbar";
@@ -11,7 +11,7 @@ import Register from "./components/Register";
 import Home from "./pages/Home/Home";
 import Login from "./components/LogIn/Login";
 import { Provider } from "react-redux";
-import store from "./components/actions/store";
+// import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./components/actions/setAuthToken";
 import {
@@ -41,7 +41,24 @@ if (localStorage.jwtToken) {
 }
 
 function App() {
-  return <Graphs />;
+  return (
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/home" component={Home}>
+            <Graphs />
+            <Midi />
+          </Route>
+          <div className="container">
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </div>
+        </div>
+      </Router>
+    </Provider>
+  );
 }
 
 export default App;
