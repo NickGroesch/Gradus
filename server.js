@@ -7,20 +7,60 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+<<<<<<< HEAD
 const config = require("./db");
 const users = require("./serverRoutes/user");
+=======
+//const config = require("./db");
+const users = require("./serverRoutes/user");
+
+>>>>>>> master
 //=====DB/login dependencies
+if (process.env.NODE_ENV === "production") {
+  // Exprees will serve up production assets
+  app.use(express.static("client/build"));
+  // Express serve up index.html file if it doesn't recognize route
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
-//React always uses Port 3000
-//var PORT = process.env.PORT || "production"; //for later
+app.use(function(req, res, next) {
+  // Website you wish to allow to
+  //either localhost:3000 or heroku deployed link (https://guarded-sands-13025.herokuapp.com)
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
-//======Mongoose=====LOCALLY COMMENTED OUT
-// mongoose.connect(config.DB, { useNewUrlParser: true }).then(
-//   () => { console.log('Database is connected') },
-//   err => { console.log('Can not connect to the database' + err) }
-// );
+  // Request methods you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
 
-// const app = express();
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  // Pass to next layer of middleware
+  next();
+});
+
+var databaseURI = "mongodb://localhost/Gradus";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+} else {
+  mongoose.connect(databaseURI, { useNewUrlParser: true });
+}
+var db = mongoose.connection;
+db.on("error", err => console.log("mongoose error :", err));
+db.once("open", () => console.log("mongoose connection successful"));
+
 app.use(passport.initialize());
 require("./passport")(passport);
 
@@ -29,6 +69,7 @@ app.use(bodyParser.json());
 
 app.use("/api/users", users);
 app.use("/", routes);
+<<<<<<< HEAD
 app.get("/", function(req, res) {
   res.send("hello");
 });
@@ -49,6 +90,18 @@ app.get("/", function(req, res) {
 // app.listen(PORT, function() {
 //   console.log("App listening on PORT:" + PORT);
 // });
+=======
+
+var databaseURI = "mongodb://localhost/Gradus";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseURI);
+}
+var db = mongoose.connection;
+db.on("error", err => console.log("mongoose error :", err));
+db.once("open", () => console.log("mongoose connection successful"));
+>>>>>>> master
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Nick Component
-// import Graphs from "./components/graphs";
+import Graph from "./components/graphs";
 // // Sarah Component
 // import Piano from "./components/virtualPiano/virtualPiano";
 
@@ -11,7 +11,7 @@ import Register from "./components/Register";
 import Home from "./pages/Home/Home";
 import Login from "./components/LogIn/Login";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./components/actions/store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./components/actions/setAuthToken";
 import {
@@ -20,8 +20,8 @@ import {
 } from "./components/actions/authentication";
 
 //Michael components
-// import Midi from "./components/Midi/MidiTest";
-// import Abcjs from "react-abcjs";
+import Midi from "./components/Midi/MidiTest";
+import Abcjs from "react-abcjs";
 
 //Ky components
 import Landing from "./pages/Landing/index";
@@ -51,17 +51,7 @@ function App() {
           <Route exact path="/home" component={Home}>
             {/* <Toggle text={Graphs} /> */}
             <Graphs />
-
-            {/* <Midi />
-            <Abcjs
-              abcNotation={
-                //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-                "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
-              }
-              parserParams={{}}
-              engraverParams={{ responsive: "resize" }}
-              renderParams={{ viewportHorizontal: true }}
-            /> */}
+            <Midi />
           </Route>
           <div className="container">
             <Route exact path="/register" component={Register} />
@@ -70,7 +60,6 @@ function App() {
         </div>
       </Router>
     </Provider>
-    //Mahfouz app
   );
 }
 

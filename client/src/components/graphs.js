@@ -1,6 +1,7 @@
 import API from "../utils/API/APIroute1";
 import React, { Component } from "react";
 import "./graphs.css";
+import Abcjs from "react-abcjs";
 
 class Graphs extends Component {
   constructor(props) {
@@ -52,9 +53,33 @@ class Graphs extends Component {
       deltaC2: [],
       deltaC3: [],
       midi: [],
-      pitch: []
+      pitch: [],
+      flag: false,
+      data: {},
+      abcjs: ""
     };
     // this.x = this.x.bind(this)
+  }
+  setAbc() {
+    let abcHeader = `X:1\nT:Counterpoint\nM:4/4\nK:${
+      this.state.exercise.key
+    }\nL:1/1\n`;
+    let abcBody = "";
+    let abcData = this.state.data.voices.abc;
+    // for each voice present in the abcData we will alter the header to create a staff for it
+    for (let i = abcData.length - 1; i >= 0; i--) {
+      abcHeader.concat(`V:${i + 1} clef=treble name= "Voice${i + 1}"\n`);
+      // having created the staff we will create the contents of the staff and add them to the score body
+      let abcVoice = `[V:${i + 1}] `;
+      abcData[i][`abc${i + 1}`].forEach((value, index) => {
+        let note = `${value}|`;
+        // abcVoice = abcVoice.concat("X")
+        abcVoice = abcVoice.concat(note);
+      });
+      abcBody = abcBody.concat(abcVoice);
+    }
+    let abcScore = abcHeader.concat(abcBody);
+    this.setState({ abcjs: abcScore });
   }
 
   getGraphs = () => {
@@ -206,45 +231,33 @@ class Graphs extends Component {
   //   // }
   // }
 
-  render() {
+  displayData() {
     const { data } = this.state;
-    // console.log(data);
+    console.log(data.voices.duals[0]);
+  }
+  render() {
     return (
       <div>
-        <table>
-          <tr>
-            <th>Dir.</th>
-            <th>Qual.</th>
-            <th>Int.</th>
-            <th>Midi</th>
-            <th>Pitch</th>
-          </tr>
-          <td className="map-col">
-            {this.state.deltaC1.map(column => (
-              <tr>{column}</tr>
-            ))}
-          </td>
-          <td className="map-col">
-            {this.state.deltaC2.map(column => (
-              <tr>{column}</tr>
-            ))}
-          </td>
-          <td className="map-col">
-            {this.state.deltaC3.map(column => (
-              <tr>{column}</tr>
-            ))}
-          </td>
-          <td className="map-col">
-            {this.state.midi.map(column => (
-              <tr>{column}</tr>
-            ))}
-          </td>
-          <td className="map-col">
-            {this.state.pitch.map(column => (
-              <tr>{column}</tr>
-            ))}
-          </td>
-        </table>
+        {this.state.flag ? (
+          <div>
+            success
+            {/* {this.kyTable()} */}
+            <Abcjs
+              abcNotation={
+                //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+                this.state.abcjs
+                // this.state.abc
+              }
+              parserParams={{}}
+              engraverParams={{ responsive: "resize" }}
+              renderParams={{ viewportHorizontal: true }}
+            />
+          </div>
+        ) : (
+          <p>failure</p>
+        )}
+        {/* // [0].voice1[1].pitch} */}
+        {/* {this.displayData()} */}
         {/* {Object.keys(data).length > 0 ? (
           <div dangerouslySetInnerHTML={{ __html: this.createTable() }} />
         ) : (
