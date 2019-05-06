@@ -156,3 +156,156 @@ const noRepetition = (dualArray) => {
 // ]
 // console.log(noRepetition(repCFtestPass))//pass 
 // console.log(noRepetition(repCFtestFail))// fail(pos2)
+
+const verticalDissonanceBass = (intervalArray) => {
+    let result = [false, []]
+    intervalArray.forEach((interval, index) => {
+        if (interval[1] == "dim" || interval[1] == "aug") {
+            result[1].push(`interval ${index} is ${interval[1]} ${interval[2]}`)
+        }
+        if (interval[2] == "seventh" || interval[2] == "second" || interval[2] == "ninth" || interval[2] == "fourth") {
+            result[1].push(`interval ${index} is a seventh`)
+        }
+
+        if (!result[1].length) {
+            result[0] = true
+            result[1] = "pass: no vertical dissonances"
+        }
+    })
+    return result
+}
+// let dissonantIntervalPass = [
+//     ["", "perf", "octave", [12]],
+//     ["", "maj", "third", [-4]],
+//     ["", "min", "third", [3]],
+//     // ["", "perf", "fourth", [5]]
+// ]
+// let dissonantIntervalFail = [
+//     ["", "dim", "octave", [11]],
+//     ["", "aug", "unison", [1]],
+//     ["", "perf", "unison", [0]],
+//     ["", "minor", "seventh", [-10]],
+//     ["", "perf", "fourth", [5]],
+//     ["", "minor", "sixth", [8]],
+//     ["", "major", "second", [2]],
+//     ["", "major", "ninth", [14]]
+// ]
+// console.log(verticalDissonanceBass(dissonantIntervalPass))//pass
+// console.log(verticalDissonanceBass(dissonantIntervalFail))// fail [0,1,3,4,6,7]
+
+const verticalDissonanceUpper = (intervalArray) => {
+    let result = [false, []]
+    intervalArray.forEach((interval, index) => {
+        if (interval[1] == "dim" || interval[1] == "aug") {
+            result[1].push(`interval ${index} is ${interval[1]} ${interval[2]}`)
+        }
+        if (interval[2] == "seventh" || interval[2] == "second" || interval[2] == "ninth") {
+            result[1].push(`interval ${index} is a seventh`)
+        }
+
+        if (!result[1].length) {
+            result[0] = true
+            result[1] = "pass: no vertical dissonances"
+        }
+    })
+    return result
+}
+// let dissonantIntervalUpperPass = [
+//     ["", "perf", "octave", [12]],
+//     ["", "maj", "third", [-4]],
+//     ["", "min", "third", [3]],
+//     ["", "perf", "fourth", [5]]
+// ]
+// let dissonantIntervalUpperFail = [
+//     ["", "dim", "octave", [11]],
+//     ["", "aug", "unison", [1]],
+//     ["", "perf", "unison", [0]],
+//     ["", "minor", "seventh", [-10]],
+//     ["", "aug", "fourth", [6]],
+//     ["", "perf", "fourth", [5]],
+//     ["", "minor", "sixth", [8]],
+//     ["", "major", "second", [2]],
+//     ["", "major", "ninth", [14]]
+// ]
+// console.log(verticalDissonanceUpper(dissonantIntervalUpperPass))//pass
+// console.log(verticalDissonanceUpper(dissonantIntervalUpperFail))// fail [0,1,3,4,7,8]
+
+const detectUnisons = (intervalArray) => {
+    let result = [false, []]
+    for (var i = 1; i < intervalArray.length - 1; i++) {
+        if (intervalArray[i][2] == "unison") {
+            result[1].push(`interval ${i} is a prohibited unison`)
+        }
+    }
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "pass: no prohibited unisons"
+    }
+    return result
+}
+// let detectUnisonsFail = [
+//     ["", "perf", "unison", [0]],
+//     ["", "aug", "unison", [1]],
+//     ["", "perf", "unison", [0]],
+//     ["", "minor", "seventh", [-10]],
+//     ["", "aug", "fourth", [6]],
+//     ["", "perf", "fourth", [5]],
+//     ["", "perf", "unison", [0]],
+//     ["", "major", "second", [2]],
+//     ["", "perf", "unison", [0]]
+// ]
+// let detectUnisonsPass = [
+//     ["", "perf", "unison", [0]],
+//     ["", "minor", "seventh", [-10]],
+//     ["", "aug", "fourth", [6]],
+//     ["", "perf", "fourth", [5]],
+//     ["", "major", "second", [2]],
+//     ["", "perf", "unison", [0]]
+// ]
+// console.log(detectUnisons(detectUnisonsPass))//pass
+// console.log(detectUnisons(detectUnisonsFail))//fail [1,2,6]
+
+const detectVoiceCrossing = (dualArray1, dualArray2) => {
+    let result = [false, []]
+    dualArray1.forEach((value, index) => {
+        if (value.midi > dualArray2[index].midi) {
+            result[1].push(`voice crossed at pos. ${index}`)
+        }
+    })
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "pass: no voice crossing"
+    }
+    return result
+}
+// let voiceCrossingFail1 = [
+//     { midi: 60 },
+//     { midi: 58 },
+//     { midi: 68 },
+//     { midi: 68 },
+//     { midi: 75 }
+// ]
+// let voiceCrossingFail2 = [
+//     { midi: 61 },
+//     { midi: 58 },
+//     { midi: 67 },
+//     { midi: 68 },
+//     { midi: 74 }
+// ]
+// let voiceCrossingPass1 = [
+//     { midi: 60 },
+//     { midi: 58 },
+//     { midi: 68 },
+//     { midi: 68 },
+//     { midi: 75 }
+// ]
+// let voiceCrossingPass2 = [
+//     { midi: 61 },
+//     { midi: 59 },
+//     { midi: 69 },
+//     { midi: 69 },
+//     { midi: 76 }
+// ]
+// console.log(detectVoiceCrossing(voiceCrossingFail1, voiceCrossingFail2))//fail [2,4]
+// console.log(detectVoiceCrossing(voiceCrossingPass1, voiceCrossingPass2))//pass
+// console.log(detectVoiceCrossing(voiceCrossingPass2, voiceCrossingPass1))//fail everywhere
