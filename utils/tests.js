@@ -48,16 +48,16 @@ const deltaRange = deltaArray => {
     if (!result.length) { result[0] = "all deltas within octave" }
     return result
 }
-// let deltaRangeTestPass = [
-//     ["", "", "", [12]],
-//     ["", "", "", [0]],
-//     ["", "", "", [-12]]
-// ]
-// let deltaRangeTestFail = [
-//     ["", "", "", [13]],
-//     ["", "", "", [0]],
-//     ["", "", "", [-13]]
-// ]
+let deltaRangeTestPass = [
+    ["", "", "", [12]],
+    ["", "", "", [0]],
+    ["", "", "", [-12]]
+]
+let deltaRangeTestFail = [
+    ["", "", "", [13]],
+    ["", "", "", [0]],
+    ["", "", "", [-13]]
+]
 // console.log(deltaRange(deltaRangeTestPass))//pass
 // console.log(deltaRange(deltaRangeTestFail))//fail [0,2]
 
