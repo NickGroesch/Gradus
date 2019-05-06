@@ -74,7 +74,8 @@ class Graphs extends Component {
       for (var i = 0; i < infoDelta.length; i++) {
         // console.log(info[i]);
         // console.log("voicesDelta.push(info[i].delta" + (i + 1) + ")");
-        eval("voicesDelta.push(infoDelta[i].delta" + (i + 1) + ")");
+
+        voicesDelta.push(infoDelta[i][`delta${i + 1}`]);
       }
 
       let deltaC1 = [];
@@ -112,7 +113,8 @@ class Graphs extends Component {
       let voicesDuals = [];
       for (var k = 0; k < infoDuals.length; k++) {
         // console.log(infoDuals[i]);
-        eval("voicesDuals.push(infoDuals[k].voice" + (k + 1) + ")");
+        // eval("voicesDuals.push(infoDuals[k].voice" + (k + 1) + ")");
+        voicesDuals.push(infoDuals[k][`voice${k + 1}`]);
       }
       // console.log(voicesDuals);
       let midi = [];
@@ -120,13 +122,15 @@ class Graphs extends Component {
       for (var h = 0; h < voicesDuals.length; h++) {
         // console.log(voicesDuals[i]);
         for (var m = 0; m < voicesDuals[h].length; m++) {
-          console.log(voicesDuals[h][m].midi);
+          // console.log(voicesDuals[h][m].midi);
           midi.push(voicesDuals[h][m].midi);
           pitch.push(voicesDuals[h][m].pitch);
         }
       }
       this.setState({ midi: midi });
       this.setState({ pitch: pitch });
+
+      console.log("state", this.state);
     });
   };
 
