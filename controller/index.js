@@ -3,40 +3,35 @@ const translators = require("../utils/translators");
 
 // Defining methods for the booksController
 module.exports = {
-  returnGraph: function(req, res) {
-    // console.log(req.body);
-    let play = req.body.play;
-    let test = req.body.test;
-    // console.log("It works");
-    let midiPlay = translators.pitchArrayToMidi(play);
-    let midiTest = translators.pitchArrayToMidi(test);
-    midiPlay = translators.transposeMidiArray(midiPlay, -7);
-    play = translators.evalPitchArray(midiPlay, "F");
-    test = translators.evalPitchArray(midiTest, "F");
-    let dualPlay = translators.formatDual(midiPlay, play);
-    let dualTest = translators.formatDual(midiTest, test);
-    let playDeltas = translators.deltaDual(dualPlay);
-    let testDeltas = translators.deltaDual(dualTest);
-    let intervals = translators.intervalCompare(dualPlay, dualTest);
-    let data = {
-      pD: playDeltas,
-      tD: testDeltas,
-      compareIntervals: intervals,
-      dP: dualPlay,
-      dT: dualTest,
-      assessMotion: translators.assessMotion
-    };
-    // console.log(req);
-    res.json(data);
-  },
+  // returnGraph: function (req, res) {
+  //   // console.log(req.body);
+  //   let play = req.body.play;
+  //   let test = req.body.test;
+  //   // console.log("It works");
+  //   let midiPlay = translators.pitchArrayToMidi(play);
+  //   let midiTest = translators.pitchArrayToMidi(test);
+  //   midiPlay = translators.transposeMidiArray(midiPlay, -7);
+  //   play = translators.evalPitchArray(midiPlay, "F");
+  //   test = translators.evalPitchArray(midiTest, "F");
+  //   let dualPlay = translators.formatDual(midiPlay, play);
+  //   let dualTest = translators.formatDual(midiTest, test);
+  //   let playDeltas = translators.deltaDual(dualPlay);
+  //   let testDeltas = translators.deltaDual(dualTest);
+  //   let intervals = translators.intervalCompare(dualPlay, dualTest);
+  //   let data = {
+  //     pD: playDeltas,
+  //     tD: testDeltas,
+  //     compareIntervals: intervals,
+  //     dP: dualPlay,
+  //     dT: dualTest,
+  //     assessMotion: translators.assessMotion
+  //   };
+  //   // console.log(req);
+  //   res.json(data);
+  // },
   analyze: (request, res) => {
-<<<<<<< HEAD
     let req = request.body.exercise;
-    console.log(req);
-=======
-    let req = request.body.exercise
     // console.log(req)
->>>>>>> master
     let analyticObject = {
       voices: {
         duals: [],
@@ -54,12 +49,11 @@ module.exports = {
         duals: [],
         deltas: []
       }
-<<<<<<< HEAD
     };
     let anObV = analyticObject.voices;
     let anObR = analyticObject.relations;
     let genOb = generativeObject.voices;
-    // here we convert each voice to a dual, TODO AN ABC ARRAY, and assess its deltas
+    // WORKING here we convert each voice to duals, an abc, and assess its deltas
     req.midi.forEach((voice, index) => {
       let pitch = translators.evalPitchArray(voice, req.key);
       let dual = {
@@ -80,23 +74,6 @@ module.exports = {
       };
       anObV.abc.push(abcVoice);
     });
-=======
-    }
-    let anObV = analyticObject.voices
-    let anObR = analyticObject.relations
-    let genOb = generativeObject.voices
-    // WORKING here we convert each voice to a dual, TODO AN ABC ARRAY, and assess its deltas
-    req.midi.forEach((voice, index) => {
-      let pitch = translators.evalPitchArray(voice, req.key)
-      let dual = { [`voice${index + 1}`]: translators.formatDual(voice, pitch) }
-      anObV.duals.push(dual)
-      genOb.duals.push(dual[`voice${index + 1}`])
-      let delta = { [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`]) }
-      anObV.deltas.push(delta)
-      genOb.deltas.push(delta[`delta${index + 1}`])
-      let abcVoice = { [`abc${index + 1}`]: translators.abcify(dual[`voice${index + 1}`], req.key) }
-      anObV.abc.push(abcVoice)
-    })
     // EXPERIMENT
     // req.midi.forEach((voice, index) => {
     //   let pitch = translators.evalPitchArray(voice, req.key)
@@ -111,9 +88,6 @@ module.exports = {
     // anObV.abc.push(abcVoice)
     // })
 
-
-
->>>>>>> master
     /// LOOP LOGIC--We must have lower voices first!!!
     // let array = ["w", "x", "y", "z", "0"]
     // for (var i = 1; i <= array.length; i++) {
