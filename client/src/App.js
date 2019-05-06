@@ -6,6 +6,7 @@ import Graph from "./components/graphs";
 // import Piano from "./components/virtualPiano/virtualPiano";
 
 import Exercise from "./pages/Exercise/index"
+import ExCard from "./components/Exercise-Card/ExCard"
 
 //Mahfouz components
 import Navbar from "./components/Navbar/Navbar";

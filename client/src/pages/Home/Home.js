@@ -1,31 +1,40 @@
 // Home.js
 
 import React, { Component } from 'react';
+import ExCard from '../../components/Exercise-Card/ExCard';
 
 
-export default class Home extends Component {
+class Home extends Component {
 
+    constructor(props) {
+        super(props);
+        this.hidden = this.hidden.bind(this);
+        this.state = { collapse: false };
+    }
+
+    hidden() {
+        this.setState(state => ({ collapse: !state.collapse }));
+    }
 
     render() {
         return (
-
-            <div className="btn-group">
-                <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Course Work
-            </button>
-
-                <div>
-                    <button
-                        onclick>PICK</button>
-                </div>
-
-                <div className="dropdown-menu dropdown-menu-right">
-                    <button className="dropdown-item" type="button">Action</button>
-                    <button className="dropdown-item" type="button">Another action</button>
-                    <button className="dropdown-item" type="button">Something else here</button>
-                </div>
+            <div>
+                <button id="pickButton" onClick={this.hidden}>PICK</button>
+                {this.state.collapse && <ListCard />}
             </div>
-
         );
     }
 }
+
+function ListCard() {
+    return (
+        <div>
+            <ExCard />
+            <ExCard />
+            <ExCard />
+        </div>
+    )
+
+}
+
+export default Home;
