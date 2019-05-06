@@ -1,5 +1,9 @@
 const translators = require("./translators")
 // General tests (key, etc)
+// results will be an array composed of a boolean pass/fail, an array of relevant log messages, and
+// where applicable an array of positions that would be highlighted in the interactive data display 
+
+
 const keyComb = (testArray, key) => {
     // use the pitch class to tune a comb of nondiatonic pitch classes. tests midi array
     let tonic = translators.pitchClassMidi[key]
@@ -11,11 +15,12 @@ const keyComb = (testArray, key) => {
         wrap(tonic, 8),
         wrap(tonic, 10),
     ]
-    let results = [false, []]
+    let results = [false, [], []]
     testArray.forEach((midiNote, i) => {
         if (comb.includes(midiNote % 12)) {
             let index = `key check fail position ${i} `
             results[1].push(index)
+            results[2].push(i)
         }
     })
     if (!results[1].length) {
@@ -42,10 +47,11 @@ const lengthCF = (dualArray) => {
 // console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80]))//fail
 
 const deltaRange = deltaArray => {
-    let result = [true, []]
+    let result = [true, [], []]
     deltaArray.forEach((delta, index) => {
         if (Math.abs(delta[3][0]) > 12) {
             result[1].push(`delta ${index} greater than octave`)
+            result[2].push(index)
         }
     })
     if (!result[1].length) { result[1] = "all deltas within octave" } else { result[0] = false }
@@ -65,13 +71,16 @@ const deltaRange = deltaArray => {
 // console.log(deltaRange(deltaRangeTestFail))//fail [0,2]
 
 const deltaDissonantLeaps = deltaArray => {
-    let result = [false, []]
+    let result = [false, [], []]
     deltaArray.forEach((delta, index) => {
         if (delta[1] == "dim" || delta[1] == "aug") {
             result[1].push(`delta ${index} is ${delta[1]} ${delta[2]}`)
+            result[2].push(index)
         }
         if (delta[2] == "seventh") {
             result[1].push(`delta ${index} is a seventh`)
+            result[2].push(index)
+
         }
     })
     if (!result[1].length) {
@@ -127,10 +136,11 @@ const rangeCF = (dualArray) => {
 // console.log(rangeCF(rangeCFtestFail))// fail
 
 const noRepetition = (dualArray) => {
-    let result = [false, []]
+    let result = [false, [], []]
     for (let i = 0; i < dualArray.length - 1; i++) {
         if (dualArray[i].midi == dualArray[i + 1].midi) {
             result[1].push(`note at pos. ${i} is immediately repeated`)
+            result[2].push(i + 1)
         }
     }
     if (!result[1].length) {
@@ -158,20 +168,22 @@ const noRepetition = (dualArray) => {
 // console.log(noRepetition(repCFtestFail))// fail(pos2)
 
 const verticalDissonanceBass = (intervalArray) => {
-    let result = [false, []]
+    let result = [false, [], []]
     intervalArray.forEach((interval, index) => {
         if (interval[1] == "dim" || interval[1] == "aug") {
             result[1].push(`interval ${index} is ${interval[1]} ${interval[2]}`)
+            result[2].push(index)
         }
         if (interval[2] == "seventh" || interval[2] == "second" || interval[2] == "ninth" || interval[2] == "fourth") {
             result[1].push(`interval ${index} is a seventh`)
+            result[2].push(index)
         }
 
-        if (!result[1].length) {
-            result[0] = true
-            result[1] = "pass: no vertical dissonances"
-        }
     })
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "pass: no vertical dissonances"
+    }
     return result
 }
 // let dissonantIntervalPass = [
@@ -194,20 +206,21 @@ const verticalDissonanceBass = (intervalArray) => {
 // console.log(verticalDissonanceBass(dissonantIntervalFail))// fail [0,1,3,4,6,7]
 
 const verticalDissonanceUpper = (intervalArray) => {
-    let result = [false, []]
+    let result = [false, [], []]
     intervalArray.forEach((interval, index) => {
         if (interval[1] == "dim" || interval[1] == "aug") {
             result[1].push(`interval ${index} is ${interval[1]} ${interval[2]}`)
+            result[2].push(index)
         }
         if (interval[2] == "seventh" || interval[2] == "second" || interval[2] == "ninth") {
             result[1].push(`interval ${index} is a seventh`)
-        }
-
-        if (!result[1].length) {
-            result[0] = true
-            result[1] = "pass: no vertical dissonances"
+            result[2].push(index)
         }
     })
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "pass: no vertical dissonances"
+    }
     return result
 }
 // let dissonantIntervalUpperPass = [
@@ -231,10 +244,11 @@ const verticalDissonanceUpper = (intervalArray) => {
 // console.log(verticalDissonanceUpper(dissonantIntervalUpperFail))// fail [0,1,3,4,7,8]
 
 const detectUnisons = (intervalArray) => {
-    let result = [false, []]
+    let result = [false, [], []]
     for (var i = 1; i < intervalArray.length - 1; i++) {
         if (intervalArray[i][2] == "unison") {
             result[1].push(`interval ${i} is a prohibited unison`)
+            result[2].push(i)
         }
     }
     if (!result[1].length) {
@@ -266,10 +280,11 @@ const detectUnisons = (intervalArray) => {
 // console.log(detectUnisons(detectUnisonsFail))//fail [1,2,6]
 
 const detectVoiceCrossing = (dualArray1, dualArray2) => {
-    let result = [false, []]
+    let result = [false, [], []]
     dualArray1.forEach((value, index) => {
         if (value.midi > dualArray2[index].midi) {
-            result[1].push(`voice crossed at pos. ${index}`)
+            result[1].push(`voices crossed at pos. ${index}`)
+            result[2].push(index)
         }
     })
     if (!result[1].length) {
@@ -312,10 +327,11 @@ const detectVoiceCrossing = (dualArray1, dualArray2) => {
 
 // vertical spacing only runs on adjacent voices,
 const verticalSpacingRed = (intervalArray) => {
-    let result = [false, []]
+    let result = [false, [], []]
     for (var i = 0; i < intervalArray.length; i++) {
         if (intervalArray[i][3][0] > 21) {
             result[1].push(`interval ${i} is way too big`)
+            result[2].push(i)
         }
     }
     if (!result[1].length) {
@@ -346,10 +362,11 @@ const verticalSpacingRed = (intervalArray) => {
 // console.log(verticalSpacingRed(verticalSpacingRedPass))//pass
 // console.log(verticalSpacingRed(verticalSpacingRedFail))//fail [2,5]
 const verticalSpacingYellow = (intervalArray) => {
-    let result = [false, []]
+    let result = [false, [], []]
     for (var i = 0; i < intervalArray.length; i++) {
         if (intervalArray[i][3][0] > 16) {
             result[1].push(`interval ${i} is a bit big`)
+            result[2].push(i)
         }
     }
     if (!result[1].length) {
@@ -381,13 +398,15 @@ const verticalSpacingYellow = (intervalArray) => {
 // console.log(verticalSpacingYellow(verticalSpacingYellowFail))//fail [1,5]
 
 const parallel5or8 = (intervalArray, motionArray) => {
-    let result = [false, []]
+    let result = [false, [], []]
     motionArray.forEach((value, index) => {
         if (value == "parallel" && intervalArray[index + 1][2] == "fifth") {
             result[1].push(`PARALLEL FIFTHS from pos. ${index} `)
+            result[2].push(index)
         }
         if (value == "parallel" && intervalArray[index + 1][2] == "octave") {
             result[1].push(`PARALLEL OCTAVES from pos. ${index} `)
+            result[2].push(index)
         }
     })
     if (!result[1].length) {
@@ -434,12 +453,13 @@ const direct5or8 = (intervalArray, motionArray) => {
 // console.log(parallel5or8(parallel5or8PassInt, parallel5or8PassMot))//pass
 // console.log(parallel5or8(parallel5or8FailInt, parallel5or8FailMot))//fail [2,4]
 
-// the independence functions
+// the independence functions (too much parallel)
 const independenceYellow = motionArray => {
-    let result = [false, []]
+    let result = [false, [], []]
     for (let i = 1; i < motionArray.length; i++) {
         if (motionArray[i - 1] == "parallel" && motionArray[i] == "parallel") {
             result[1].push(`from pos. ${i - 1} to pos. ${i + 1} lacks independence`)
+            result[2].push(i)
         }
     }
     if (!result[1].length) {
@@ -449,10 +469,11 @@ const independenceYellow = motionArray => {
     return result
 }
 const independenceRed = motionArray => {
-    let result = [false, []]
+    let result = [false, [], []]
     for (let i = 1; i < motionArray.length - 1; i++) {
         if (motionArray[i - 1] == "parallel" && motionArray[i] == "parallel" && motionArray[i + 1] == "parallel") {
             result[1].push(`write independant lines!: parallel from pos. ${i - 1} to ${i + 2}`)
+            result[2].push(i + 1)
         }
     }
     if (!result[1].length) {
@@ -465,7 +486,7 @@ const independenceRed = motionArray => {
 // let independence4 = ["similar", "parallel", "parallel", "oblique", "similar"]
 // let independence5 = ["contrary", "parallel", "parallel", "parallel", "similar"]
 
-// console.log(independanceYellow(independence3))//pass
-// console.log(independanceYellow(independence4))//fail
-// console.log(independanceRed(independence4))//pass
-// console.log(independanceRed(independence5))//fail
+// console.log(independenceYellow(independence3))//pass
+// console.log(independenceYellow(independence4))//fail
+// console.log(independenceRed(independence4))//pass
+// console.log(independenceRed(independence5))//fail
