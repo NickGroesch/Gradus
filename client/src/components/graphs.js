@@ -1,5 +1,6 @@
 import API from "../utils/API/APIroute1";
 import React, { Component } from "react";
+import "./graphs.css";
 
 class Graphs extends Component {
   constructor(props) {
@@ -47,7 +48,11 @@ class Graphs extends Component {
       cf: [],
       cp: [],
       data: {},
-      deltaString: []
+      deltaC1: [],
+      deltaC2: [],
+      deltaC3: [],
+      midi: [],
+      pitch: []
     };
     // this.x = this.x.bind(this)
   }
@@ -63,29 +68,65 @@ class Graphs extends Component {
     API.analyze({ exercise: this.state.exercise }).then(res => {
       this.setState({ data: res.data });
       console.log("frontEnd", res.data);
-      let info = res.data.voices.deltas;
+      let infoDelta = res.data.voices.deltas;
       let voicesDelta = [];
       // let voicesDeltaNum = [];
-      for (var i = 0; i < info.length; i++) {
+      for (var i = 0; i < infoDelta.length; i++) {
         // console.log(info[i]);
         // console.log("voicesDelta.push(info[i].delta" + (i + 1) + ")");
-        eval("voicesDelta.push(info[i].delta" + (i + 1) + ")");
+        eval("voicesDelta.push(infoDelta[i].delta" + (i + 1) + ")");
       }
 
-      let deltaString = [];
+      let deltaC1 = [];
+      let deltaC2 = [];
+      let deltaC3 = [];
       for (var i = 0; i < voicesDelta.length; i++) {
         for (var j = 0; j < voicesDelta[i].length; j++) {
           // console.log(voicesDelta[i][j]);
           let delta = voicesDelta[i][j];
-          delta = delta.slice(0, 3);
-          console.log(delta);
-          // delta = delta.toString();
-          deltaString.push(delta);
+          delta = delta.slice(0, 1);
+          // console.log("delta1", delta);
+          delta = delta.toString();
+          deltaC1.push(delta);
+
+          let delta2 = voicesDelta[i][j];
+          delta2 = delta2.slice(1, 2);
+          // console.log("delta2", delta2);
+          delta2 = delta2.toString();
+          deltaC2.push(delta2);
+
+          let delta3 = voicesDelta[i][j];
+          delta3 = delta3.slice(2, 3);
+          // console.log("delta3", delta3);
+          delta3 = delta3.toString();
+          deltaC3.push(delta3);
         }
       }
-      // console.log(deltaString);
-      // console.log(deltaString);
-      // this.setState({ deltaString: deltaString });
+      this.setState({ deltaC1: deltaC1 });
+      this.setState({ deltaC2: deltaC2 });
+      this.setState({ deltaC3: deltaC3 });
+      // -----------------------
+
+      // Getting Midi and Pitch
+      let infoDuals = res.data.voices.duals;
+      let voicesDuals = [];
+      for (var k = 0; k < infoDuals.length; k++) {
+        // console.log(infoDuals[i]);
+        eval("voicesDuals.push(infoDuals[k].voice" + (k + 1) + ")");
+      }
+      // console.log(voicesDuals);
+      let midi = [];
+      let pitch = [];
+      for (var h = 0; h < voicesDuals.length; h++) {
+        // console.log(voicesDuals[i]);
+        for (var m = 0; m < voicesDuals[h].length; m++) {
+          console.log(voicesDuals[h][m].midi);
+          midi.push(voicesDuals[h][m].midi);
+          pitch.push(voicesDuals[h][m].pitch);
+        }
+      }
+      this.setState({ midi: midi });
+      this.setState({ pitch: pitch });
     });
   };
 
@@ -166,8 +207,40 @@ class Graphs extends Component {
     // console.log(data);
     return (
       <div>
-        Current delta:
-        {/* <tr>{this.state.deltaString}</tr> */}
+        <table>
+          <tr>
+            <th>Dir.</th>
+            <th>Qual.</th>
+            <th>Int.</th>
+            <th>Midi</th>
+            <th>Pitch</th>
+          </tr>
+          <td className="map-col">
+            {this.state.deltaC1.map(column => (
+              <tr>{column}</tr>
+            ))}
+          </td>
+          <td className="map-col">
+            {this.state.deltaC2.map(column => (
+              <tr>{column}</tr>
+            ))}
+          </td>
+          <td className="map-col">
+            {this.state.deltaC3.map(column => (
+              <tr>{column}</tr>
+            ))}
+          </td>
+          <td className="map-col">
+            {this.state.midi.map(column => (
+              <tr>{column}</tr>
+            ))}
+          </td>
+          <td className="map-col">
+            {this.state.pitch.map(column => (
+              <tr>{column}</tr>
+            ))}
+          </td>
+        </table>
         {/* {Object.keys(data).length > 0 ? (
           <div dangerouslySetInnerHTML={{ __html: this.createTable() }} />
         ) : (

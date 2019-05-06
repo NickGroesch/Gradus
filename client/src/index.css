@@ -7,3 +7,11 @@
 body {
   font-family: "Roboto Mono", monospace;
 }
+
+.map-col {
+  padding: 10px;
+}
+
+th {
+  padding: 5px;
+}
