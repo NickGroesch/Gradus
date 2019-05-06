@@ -1,7 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import Graphs from "./components/graphs";
-=======
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Nick Component
 import Graph from "./components/graphs";
@@ -43,7 +40,6 @@ if (localStorage.jwtToken) {
   }
 }
 
->>>>>>> master
 function App() {
   return <Graphs />;
 }
