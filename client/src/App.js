@@ -5,19 +5,21 @@ import Graph from "./components/graphs";
 // // Sarah Component
 // import Piano from "./components/virtualPiano/virtualPiano";
 
+import Exercise from "./pages/Exercise/index"
+
 //Mahfouz components
-// import Navbar from "./components/Navbar/Navbar";
-// import Register from "./components/Register";
+import Navbar from "./components/Navbar/Navbar";
+import Register from "./components/Register";
 import Home from "./pages/Home/Home";
-// import Login from "./components/LogIn/Login";
-// import { Provider } from "react-redux";
-// import store from "./store";
-// import jwt_decode from "jwt-decode";
-// import setAuthToken from "./components/actions/setAuthToken";
-// import {
-//   setCurrentUser,
-//   logoutUser
-// } from "./components/actions/authentication";
+import Login from "./components/LogIn/Login";
+import { Provider } from "react-redux";
+import store from "./components/actions/store";
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./components/actions/setAuthToken";
+import {
+  setCurrentUser,
+  logoutUser
+} from "./components/actions/authentication";
 
 //Michael components
 import Midi from "./components/Midi/MidiTest";
@@ -47,14 +49,16 @@ function App() {
         <div>
           <Navbar />
           <Route exact path="/" component={Landing} />
-          <Route exact path="/home" component={Home}>
-            <Graphs />
-            <Midi />
-          </Route>
+          <Route exact path="/home" component={Home} />
+
+
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>
+          <Route exact path="/pick-exercise" component={Exercise} />
+
+
         </div>
       </Router>
     </Provider>
