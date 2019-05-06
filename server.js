@@ -7,8 +7,9 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const config = require("./db");
+//const config = require("./db");
 const users = require("./serverRoutes/user");
+
 //=====DB/login dependencies
 if (process.env.NODE_ENV === "production") {
   // Exprees will serve up production assets
@@ -20,19 +21,10 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-var databaseURI = "mongodb://localhost/Gradus";
-if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
-} else {
-  mongoose.connect(databaseURI, { useNewUrlParser: true });
-}
-var db = mongoose.connection;
-db.on("error", err => console.log("mongoose error :", err));
-db.once("open", () => console.log("mongoose connection successful"));
-
 app.use(function(req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  // Website you wish to allow to
+  //either localhost:3000 or heroku deployed link (https://guarded-sands-13025.herokuapp.com)
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
   // Request methods you wish to allow
   res.setHeader(
@@ -53,6 +45,16 @@ app.use(function(req, res, next) {
   // Pass to next layer of middleware
   next();
 });
+
+var databaseURI = "mongodb://localhost/Gradus";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+} else {
+  mongoose.connect(databaseURI, { useNewUrlParser: true });
+}
+var db = mongoose.connection;
+db.on("error", err => console.log("mongoose error :", err));
+db.once("open", () => console.log("mongoose connection successful"));
 
 app.use(passport.initialize());
 require("./passport")(passport);
