@@ -5,6 +5,9 @@ import Graph from "./components/graphs";
 // // Sarah Component
 // import Piano from "./components/virtualPiano/virtualPiano";
 
+import Exercise from "./pages/Exercise/index"
+import ExCard from "./components/Exercise-Card/ExCard"
+
 //Mahfouz components
 import Navbar from "./components/Navbar/Navbar";
 import Register from "./components/Register";
@@ -47,14 +50,16 @@ function App() {
         <div>
           <Navbar />
           <Route exact path="/" component={Landing} />
-          <Route exact path="/home" component={Home}>
-            <Graphs />
-            <Midi />
-          </Route>
+          <Route exact path="/home" component={Home} />
+
+
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>
+          <Route exact path="/pick-exercise" component={Exercise} />
+
+
         </div>
       </Router>
     </Provider>
