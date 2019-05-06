@@ -1,5 +1,3 @@
-// Home.js
-
 import React, { Component } from 'react';
 import ExCard from '../../components/Exercise-Card/ExCard';
 
