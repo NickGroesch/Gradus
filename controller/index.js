@@ -3,32 +3,32 @@ const translators = require("../utils/translators");
 
 // Defining methods for the booksController
 module.exports = {
-  returnGraph: function (req, res) {
-    // console.log(req.body);
-    let play = req.body.play;
-    let test = req.body.test;
-    // console.log("It works");
-    let midiPlay = translators.pitchArrayToMidi(play);
-    let midiTest = translators.pitchArrayToMidi(test);
-    midiPlay = translators.transposeMidiArray(midiPlay, -7);
-    play = translators.evalPitchArray(midiPlay, "F");
-    test = translators.evalPitchArray(midiTest, "F");
-    let dualPlay = translators.formatDual(midiPlay, play);
-    let dualTest = translators.formatDual(midiTest, test);
-    let playDeltas = translators.deltaDual(dualPlay);
-    let testDeltas = translators.deltaDual(dualTest);
-    let intervals = translators.intervalCompare(dualPlay, dualTest);
-    let data = {
-      pD: playDeltas,
-      tD: testDeltas,
-      compareIntervals: intervals,
-      dP: dualPlay,
-      dT: dualTest,
-      assessMotion: translators.assessMotion
-    };
-    // console.log(req);
-    res.json(data);
-  },
+  // returnGraph: function (req, res) {
+  //   // console.log(req.body);
+  //   let play = req.body.play;
+  //   let test = req.body.test;
+  //   // console.log("It works");
+  //   let midiPlay = translators.pitchArrayToMidi(play);
+  //   let midiTest = translators.pitchArrayToMidi(test);
+  //   midiPlay = translators.transposeMidiArray(midiPlay, -7);
+  //   play = translators.evalPitchArray(midiPlay, "F");
+  //   test = translators.evalPitchArray(midiTest, "F");
+  //   let dualPlay = translators.formatDual(midiPlay, play);
+  //   let dualTest = translators.formatDual(midiTest, test);
+  //   let playDeltas = translators.deltaDual(dualPlay);
+  //   let testDeltas = translators.deltaDual(dualTest);
+  //   let intervals = translators.intervalCompare(dualPlay, dualTest);
+  //   let data = {
+  //     pD: playDeltas,
+  //     tD: testDeltas,
+  //     compareIntervals: intervals,
+  //     dP: dualPlay,
+  //     dT: dualTest,
+  //     assessMotion: translators.assessMotion
+  //   };
+  //   // console.log(req);
+  //   res.json(data);
+  // },
   analyze: (request, res) => {
     let req = request.body.exercise
     // console.log(req)
@@ -52,7 +52,7 @@ module.exports = {
     let anObV = analyticObject.voices
     let anObR = analyticObject.relations
     let genOb = generativeObject.voices
-    // WORKING here we convert each voice to a dual, TODO AN ABC ARRAY, and assess its deltas
+    // WORKING here we convert each voice to duals, an abc, and assess its deltas
     req.midi.forEach((voice, index) => {
       let pitch = translators.evalPitchArray(voice, req.key)
       let dual = { [`voice${index + 1}`]: translators.formatDual(voice, pitch) }

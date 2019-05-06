@@ -2,17 +2,23 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const Exercise = new Schema({
+const ExerciseSchema = new Schema({
     name: {
         type: String,
         required: true
     },
     creator: String,
-    cantus: { type: Array, required: true },
+    cantus: {
+        type: Schema.Types.ObjectId,
+        ref: "cantusfirmus"
+    },
     // for cp array [(upper/lower),species]
-    counterpoints: { type: array, required: true }
+    counterpoints: {
+        type:
+            Array, required: true
+    }
 });
 
-const Exercise = mongoose.model('exercises', UserSchema);
+const Exercise = mongoose.model('exercises', ExerciseSchema);
 
 module.exports = Exercise;
