@@ -11,7 +11,7 @@ import Graph from "./components/graphs";
 import Home from "./pages/Home/Home";
 // import Login from "./components/LogIn/Login";
 // import { Provider } from "react-redux";
-// import store from "./store";
+// import store from "./components/actions/store";
 // import jwt_decode from "jwt-decode";
 // import setAuthToken from "./components/actions/setAuthToken";
 // import {
