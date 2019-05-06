@@ -7,7 +7,12 @@ class Midi extends Component {
   state = {
     isConnected: false,
     MidiArray: [],
-    step: 0
+    step: 0,
+
+    // These 3 are for rendering Abcjs staff
+    title: "",
+    composer: "",
+    key: ""
   };
 
   componentDidMount = () => {
@@ -117,12 +122,45 @@ class Midi extends Component {
     }
   };
 
+  // handleInputChange(e) {
+  //   this.setState({
+  //     [e.target.name]: e.target.value
+  //   });
+  // }
+
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   const user = {
+  //     email: this.state.email,
+  //     password: this.state.password
+  //   };
+  //   this.props.loginUser(user);
+  // }
+
   render() {
     return (
-      <div id="container">
-        {/* {this.runWebMidi()} */}
+      <div className="container">
+        {/* Check MIDI connection and log notes */}
         <div>Midi connected? {this.state.isConnected.toString()}</div>
         <div>Notes: {this.state.MidiArray}</div>
+
+        {/* Set Title, Composer, and Key of exercise */}
+        <div className="container userInput">
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <input
+                type="input"
+                placeholder="Title"
+                className="title"
+                name="title"
+                onChange={this.handleInputChange}
+                value={this.state.title}
+              />
+            </div>
+          </form>
+        </div>
+
+        {/* Render Abcjs music staff */}
         <Abcjs
           abcNotation={
             //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line

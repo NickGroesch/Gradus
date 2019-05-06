@@ -41,7 +41,24 @@ if (localStorage.jwtToken) {
 }
 
 function App() {
-  return <Graphs />;
+  return (
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/home" component={Home}>
+            <Graphs />
+            <Midi />
+          </Route>
+          <div className="container">
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </div>
+        </div>
+      </Router>
+    </Provider>
+  );
 }
 
 export default App;
