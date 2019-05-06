@@ -11,14 +11,17 @@ const keyComb = (testArray, key) => {
         wrap(tonic, 8),
         wrap(tonic, 10),
     ]
-    let results = []
+    let results = [false, []]
     testArray.forEach((midiNote, i) => {
         if (comb.includes(midiNote % 12)) {
             let index = `key check fail position ${i} `
-            results.push(index)
+            results[1].push(index)
         }
     })
-    if (!results.length) { results[0] = "key check pass" }
+    if (!results[1].length) {
+        results[0] = true
+        results[1] = "key check pass"
+    }
     return results
 }
 // console.log(keyComb([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75], "E"))// fail [1,3,6,8,10]
@@ -27,9 +30,9 @@ const keyComb = (testArray, key) => {
 // // Cantus Tests
 // Length- cantus create only. submit.
 const lengthCF = (dualArray) => {
-    let result = "length passes"
+    let result = [true, "length passes"]
     if (!(dualArray.length < 17 && dualArray.length > 7)) {
-        result = "CF Length must be between 8-16 notes"
+        result = [false, "CF Length must be between 8-16 notes"]
     }
     return result
 }
@@ -39,39 +42,42 @@ const lengthCF = (dualArray) => {
 // console.log(lengthCF([64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80]))//fail
 
 const deltaRange = deltaArray => {
-    let result = []
+    let result = [true, []]
     deltaArray.forEach((delta, index) => {
         if (Math.abs(delta[3][0]) > 12) {
-            result.push(`delta ${index} greater than octave`)
+            result[1].push(`delta ${index} greater than octave`)
         }
     })
-    if (!result.length) { result[0] = "all deltas within octave" }
+    if (!result[1].length) { result[1] = "all deltas within octave" } else { result[0] = false }
     return result
 }
-let deltaRangeTestPass = [
-    ["", "", "", [12]],
-    ["", "", "", [0]],
-    ["", "", "", [-12]]
-]
-let deltaRangeTestFail = [
-    ["", "", "", [13]],
-    ["", "", "", [0]],
-    ["", "", "", [-13]]
-]
+// let deltaRangeTestPass = [
+//     ["", "", "", [12]],
+//     ["", "", "", [0]],
+//     ["", "", "", [-12]]
+// ]
+// let deltaRangeTestFail = [
+//     ["", "", "", [13]],
+//     ["", "", "", [0]],
+//     ["", "", "", [-13]]
+// ]
 // console.log(deltaRange(deltaRangeTestPass))//pass
 // console.log(deltaRange(deltaRangeTestFail))//fail [0,2]
 
 const deltaDissonantLeaps = deltaArray => {
-    let result = []
+    let result = [false, []]
     deltaArray.forEach((delta, index) => {
         if (delta[1] == "dim" || delta[1] == "aug") {
-            result.push(`delta ${index} is ${delta[1]} ${delta[2]}`)
+            result[1].push(`delta ${index} is ${delta[1]} ${delta[2]}`)
         }
         if (delta[2] == "seventh") {
-            result.push(`delta ${index} is a seventh`)
+            result[1].push(`delta ${index} is a seventh`)
         }
     })
-    if (!result.length) { result[0] = "pass: no dissonant leaps/ chromatic 1/2steps" }
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "pass: no dissonant leaps/ chromatic 1/2steps"
+    }
     return result
 }
 // let deltaDissLeapTestPass = [
@@ -88,7 +94,7 @@ const deltaDissonantLeaps = deltaArray => {
 // console.log(deltaDissonantLeaps(deltaDissLeapTestPass))//pass
 // console.log(deltaDissonantLeaps(deltaDissLeapTestFail))// fail [0,1,3]
 const rangeCF = (dualArray) => {
-    let result = ""
+    let result = [true, []]
     let low = [127, 0]
     let high = [0, 0]
     dualArray.forEach((value, index) => {
@@ -97,7 +103,10 @@ const rangeCF = (dualArray) => {
         if (value.midi > high[0]) { high = [value.midi, index] }
     })
     let range = high[0] - low[0]
-    if (range > 16) { result = `range exceeds a tenth` } else { result = `range acceptable (${low[0]} at pos. ${low[1]} to ${high[0]} at pos. ${high[1]}) ` }
+    if (range > 16) {
+        result[0] = false
+        result[1] = `range exceeds a tenth`
+    } else { result[1] = `range acceptable (low ${low[0]} at pos. ${low[1]} to high ${high[0]} at pos. ${high[1]}) ` }
     return result
 }
 // let rangeCFtestPass = [
@@ -116,3 +125,34 @@ const rangeCF = (dualArray) => {
 // ]
 // console.log(rangeCF(rangeCFtestPass))//pass (high:3, low:(1))
 // console.log(rangeCF(rangeCFtestFail))// fail
+
+const noRepetition = (dualArray) => {
+    let result = [false, []]
+    for (let i = 0; i < dualArray.length - 1; i++) {
+        if (dualArray[i].midi == dualArray[i + 1].midi) {
+            result[1].push(`note at pos. ${i} is immediately repeated`)
+        }
+    }
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "no repetition detected"
+    }
+    return result
+}
+// let repCFtestPass = [
+//     { midi: 60 },
+//     { midi: 58 },
+//     { midi: 68 },
+//     { midi: 74 },
+//     { midi: 72 },
+
+// ]
+// let repCFtestFail = [
+//     { midi: 60 },
+//     { midi: 58 },
+//     { midi: 68 },
+//     { midi: 68 },
+//     { midi: 75 }
+// ]
+// console.log(noRepetition(repCFtestPass))//pass 
+// console.log(noRepetition(repCFtestFail))// fail(pos2)
