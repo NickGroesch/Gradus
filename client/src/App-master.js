@@ -3,10 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Nick Component
 import Graph from "./components/graphs";
 // // Sarah Component
-// import Piano from "./components/virtualPiano/virtualPiano";
-
-import Exercise from "./pages/Exercise/index"
-import ExCard from "./components/Exercise-Card/ExCard"
+import Piano from "./components/virtualPiano/virtualPiano";
 
 //Mahfouz components
 import Navbar from "./components/Navbar/Navbar";
@@ -14,7 +11,7 @@ import Register from "./components/Register";
 import Home from "./pages/Home/Home";
 import Login from "./components/LogIn/Login";
 import { Provider } from "react-redux";
-import store from "./components/actions/store";
+// import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./components/actions/setAuthToken";
 import {
@@ -50,16 +47,14 @@ function App() {
         <div>
           <Navbar />
           <Route exact path="/" component={Landing} />
-          <Route exact path="/home" component={Home} />
-
-
+          <Route exact path="/home" component={Home}>
+            <Graphs />
+            <Midi />
+          </Route>
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>
-          <Route exact path="/pick-exercise" component={Exercise} />
-
-
         </div>
       </Router>
     </Provider>
