@@ -18,5 +18,12 @@ export default {
   counterpointSuite: (data) => {
     console.log("CPsuite clientAPI", data)
     return axios.post("api/graphs/counterpointSuite", data)
+    // console.log(data);
+
+  },
+  findAll: function () {
+
+    return axios.get("/api/database");
+
   }
 };

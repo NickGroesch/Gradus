@@ -4,12 +4,22 @@ import Abcjs from "react-abcjs";
 //import webmidi from "webmidi";
 
 class Midi extends Component {
-  state = {
-    isConnected: false,
-    MidiArray: [],
-    step: 0
-  };
+  constructor() {
+    super();
+    this.state = {
+      isConnected: false,
+      MidiArray: [],
+      noteArray: [],
+      exampleMIDI: ["a", "b", "b", "d"],
 
+      //for rendering Abcjs staff
+      title: "",
+      composer: "",
+      key: ""
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
   componentDidMount = () => {
     this.checkConnect();
     var testArray = [];
@@ -66,6 +76,7 @@ class Midi extends Component {
       case 144: // note on
         if (velocity > 0) {
           this.noteOn(note, velocity);
+          // this.mapMidiValues();
         } else {
           this.noteOff(note, velocity);
         }
@@ -73,6 +84,7 @@ class Midi extends Component {
       case 145: // note on
         if (velocity > 0) {
           this.noteOn(note, velocity);
+          this.mapMidiValues();
         } else {
           this.noteOff(note, velocity);
         }
@@ -104,6 +116,23 @@ class Midi extends Component {
     console.log(this.state.MidiArray);
   };
 
+  mapMidiValues = () => {
+    console.log(this.state.noteArray);
+    this.setState({
+      noteArray: this.state.MidiArray.map(this.convertToNote)
+    });
+    console.log(this.state.noteArray);
+  };
+
+  convertToNote = midiValue => {
+    switch (midiValue) {
+      case midiValue > 55:
+        return "C";
+      default:
+        return "G";
+    }
+  };
+
   noteOff = (note, velocity) => {
     console.log("noteOff working");
     console.log("Noteoff Note:", note);
@@ -117,16 +146,95 @@ class Midi extends Component {
     }
   };
 
+  clearClick = () => {
+    this.setState({
+      MidiArray: []
+    });
+  };
+
+  //BackClick removes last input but doesn't show it on screen until another input clicked
+  backClick = () => {
+    this.state.MidiArray.pop();
+    this.setState({
+      MidiArray: this.state.MidiArray
+    });
+    console.log(this.state.MidiArray);
+  };
+
+  handleInputChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const staff = {
+      title: this.state.title,
+      composer: this.state.composer,
+      key: this.state.key
+    };
+    console.log(`Creating staff... \n
+    creating title: ${staff.title}... \n
+    creating composer: ${staff.composer}... \n
+    creating key: ${staff.key}... \n
+    staff complete!`);
+  }
+
   render() {
     return (
-      <div id="container">
-        {/* {this.runWebMidi()} */}
+      <div className="container">
+        <div>
+          <button onClick={this.clearClick}>Clear</button>
+          <button onClick={this.backClick}>Back</button>
+        </div>
+
+        {/* Check MIDI connection and log notes */}
         <div>Midi connected? {this.state.isConnected.toString()}</div>
         <div>Notes: {this.state.MidiArray}</div>
+
+        {/* Set Title, Composer, and Key of exercise */}
+        <div className="container userStaffInput">
+          <h2>Start Exercise</h2>
+          <form onSubmit={this.handleSubmit}>
+            <label>Title</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="Masterpiece in G"
+              onChange={this.handleInputChange}
+              value={this.state.title}
+            // ref={userInput => (this.state.exercise.title = userInput)}
+            />
+            <label>Composer</label>
+            <input
+              type="text"
+              name="composer"
+              placeholder="Trad."
+              onChange={this.handleInputChange}
+            // ref={userInput => (this.state.composer = userInput)}
+            />
+            <label>Key</label>
+            <input
+              type="text"
+              name="key"
+              placeholder="G"
+              onChange={this.handleInputChange}
+            // ref={userInput => (this.state.key = userInput)}
+            />
+            <input type="submit" />
+          </form>
+        </div>
+
+        {/* Render Abcjs music staff */}
         <Abcjs
           abcNotation={
-            //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-            "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
+            //X: 1 stave L: note length T: title of rendered staff M: time C: composer K: key(G in this case) "|": bar line
+            `X:1\nL:1/1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this.state
+              .composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${this.state
+                .noteArray[0] || "A"}`
+            //Is it really as easy as going through each element of the array?
+            //c'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|`
           }
           parserParams={{}}
           engraverParams={{ responsive: "resize" }}

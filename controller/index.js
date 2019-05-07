@@ -5,7 +5,7 @@ const testSuites = require("../utils/testSuites")
 // Defining methods for the booksController
 module.exports = {
   analyze: (request, res) => {
-    let req = request.body.exercise
+    let req = request.body.exercise;
     // console.log(req)
     let analyticObject = {
       key: req.key,
@@ -14,20 +14,21 @@ module.exports = {
         deltas: [],
         abc: []
         // WE NEED ABCJS SUPPORT
-      }, relations: {
+      },
+      relations: {
         intervals: [],
         motions: []
       }
-    }
+    };
     let generativeObject = {
       voices: {
         duals: [],
         deltas: []
       }
-    }
-    let anObV = analyticObject.voices
-    let anObR = analyticObject.relations
-    let genOb = generativeObject.voices
+    };
+    let anObV = analyticObject.voices;
+    let anObR = analyticObject.relations;
+    let genOb = generativeObject.voices;
     // WORKING here we convert each voice to duals, an abc, and assess its deltas
     req.midi.forEach((voice, index) => {
       let pitch = translators.evalPitchArray(voice, req.key)
@@ -41,23 +42,27 @@ module.exports = {
       anObV.abc.push(abcVoice)
     })
     // here we assess the intervals between each voice pair
-    let arrayDuals = generativeObject.voices.duals
+    let arrayDuals = generativeObject.voices.duals;
     for (var i = 1; i <= arrayDuals.length; i++) {
-      let first = (arrayDuals[i - 1])
+      let first = arrayDuals[i - 1];
       for (var j = i + 1; j <= arrayDuals.length; j++) {
-        let second = (arrayDuals[j - 1])
-        let intervals = { [`intervals${i}-${j}`]: translators.intervalCompare(first, second) }
-        anObR.intervals.push(intervals)
+        let second = arrayDuals[j - 1];
+        let intervals = {
+          [`intervals${i}-${j}`]: translators.intervalCompare(first, second)
+        };
+        anObR.intervals.push(intervals);
       }
     }
     // here we assess the relative motions of each voice pair('s deltas)
-    let arrayDeltas = generativeObject.voices.deltas
+    let arrayDeltas = generativeObject.voices.deltas;
     for (var i = 1; i <= arrayDeltas.length; i++) {
-      let first = (arrayDeltas[i - 1])
+      let first = arrayDeltas[i - 1];
       for (var j = i + 1; j <= arrayDeltas.length; j++) {
-        let second = (arrayDeltas[j - 1])
-        let motions = { [`motions${i}-${j}`]: translators.assessMotion(first, second) }
-        anObR.motions.push(motions)
+        let second = arrayDeltas[j - 1];
+        let motions = {
+          [`motions${i}-${j}`]: translators.assessMotion(first, second)
+        };
+        anObR.motions.push(motions);
       }
     }
     res.json(analyticObject)

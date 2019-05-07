@@ -1,12 +1,53 @@
 .welcome {
   font-family: "Cormorant Unicase", serif;
-  /* font-weight: bold; */
+  font-weight: 500;
   font-size: 100px;
-  margin: 30px 0 0 20px;
+  margin: 50px 0 0 20px;
+  line-height: 110px;
 }
 
-.how-to {
+.intro {
   width: 70%;
-  margin: 10px 0 0 30px;
+  margin: 10px 0 100px 30px;
   line-height: 20px;
+}
+
+.info-box {
+  width: 50%;
+  height: 400px;
+  line-height: 20px;
+  float: left;
+  border: solid black 1px;
+  border-left: 0;
+}
+
+ol {
+  margin: 30px 20px 0 60px;
+  display: list-item;
+  margin-bottom: 20px;
+}
+li {
+  list-style-type: decimal;
+  margin: 10px;
+}
+
+.title {
+  font-family: "Cormorant Unicase", serif;
+  font-weight: 500;
+  padding: 30px;
+  font-size: 50px;
+  border-bottom: solid black 1px;
+}
+
+.about-body {
+  margin: 30px 20px 0 30px;
+}
+
+.portfolio-link {
+  color: black;
+  margin-right: 20px;
+  text-decoration: underline;
+}
+.portfolio-link:hover {
+  color: #0143cf;
 }
