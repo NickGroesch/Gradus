@@ -58,7 +58,13 @@ class Login extends Component {
         className="container logIn-box"
         style={{ marginTop: "50px", width: "700px" }}
       >
-        <h2 style={{ marginBottom: "40px" }}>Login</h2>
+        <h2>Welcome Back</h2>
+        <p style={{ marginBottom: "20px" }}>
+          Are you new to Gradus?{" "}
+          <a className="signUp-link" href="/">
+            Sign Up
+          </a>
+        </p>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <input
