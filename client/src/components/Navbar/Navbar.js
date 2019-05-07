@@ -18,7 +18,7 @@ class Navbar extends Component {
   render() {
     const { isAuthenticated, user } = this.props.auth;
     const authLinks = (
-      <div>
+      <React.Fragment>
         <a
           href="#"
           className="nav-log signIn"
@@ -36,17 +36,17 @@ class Navbar extends Component {
         <a className="nav-log dashboard" href="/home">
           Dashboard
         </a>
-      </div>
+      </React.Fragment>
     );
     const guestLinks = (
-      <section>
+      <React.Fragment>
         <a className="nav-log signIn" href="/login">
           Sign In
         </a>
         <a className="nav-log signUp" href="/register">
           Sign Up
         </a>
-      </section>
+      </React.Fragment>
     );
     return (
       <nav>

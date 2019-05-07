@@ -8,12 +8,13 @@
 
 .intro {
   width: 70%;
-  margin: 10px 0 0 30px;
+  margin: 10px 0 100px 30px;
   line-height: 20px;
 }
 
-.how-to {
-  width: 55%;
+.info-box {
+  width: 50%;
+  height: 400px;
   line-height: 20px;
   float: left;
   border: solid black 1px;
@@ -21,8 +22,7 @@
 }
 
 ol {
-  margin: 10px 0 0 60px;
-  width: 92%;
+  margin: 30px 20px 0 60px;
   display: list-item;
   margin-bottom: 20px;
 }
@@ -34,8 +34,20 @@ li {
 .title {
   font-family: "Cormorant Unicase", serif;
   font-weight: 500;
-  padding: 20px;
+  padding: 30px;
   font-size: 50px;
-  padding: 20px;
   border-bottom: solid black 1px;
+}
+
+.about-body {
+  margin: 30px 20px 0 30px;
+}
+
+.portfolio-link {
+  color: black;
+  margin-right: 20px;
+  text-decoration: underline;
+}
+.portfolio-link:hover {
+  color: #0143cf;
 }

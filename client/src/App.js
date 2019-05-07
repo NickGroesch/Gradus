@@ -31,6 +31,7 @@ import Landing from "./pages/Landing/index";
 import "./index.css";
 import Graphs from "./components/graphs";
 // import Toggle from "./components/Toggle/index";
+import Footer from "./components/Footer/index";
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -60,6 +61,7 @@ function App() {
           <Route exact path="/pick-exercise" component={Exercise} />
         </div>
       </Router>
+      <Footer />
     </Provider>
   );
 }
