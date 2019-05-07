@@ -1,12 +1,17 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 // Nick Component
 import Graph from "./components/graphs";
 // // Sarah Component
 // import Piano from "./components/virtualPiano/virtualPiano";
 
-import Exercise from "./pages/Exercise/index"
-import ExCard from "./components/Exercise-Card/ExCard"
+import Exercise from "./pages/Exercise/index";
+import ExCard from "./components/Exercise-Card/ExCard";
 
 //Mahfouz components
 import Navbar from "./components/Navbar/Navbar";
@@ -30,6 +35,8 @@ import Abcjs from "react-abcjs";
 import Landing from "./pages/Landing/index";
 import "./index.css";
 import Graphs from "./components/graphs";
+// import Toggle from "./components/Toggle/index";
+import Footer from "./components/Footer/index";
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -43,17 +50,22 @@ if (localStorage.jwtToken) {
   }
 }
 export const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    localStorage.getItem("jwtToken") ? (
-      <Component {...props} />
-    ) : (
-        <Redirect to={{
-          pathname: '/login',
-          state: { from: props.location }
-        }} />
+  <Route
+    {...rest}
+    render={props =>
+      localStorage.getItem("jwtToken") ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { from: props.location }
+          }}
+        />
       )
-  )} />
-)
+    }
+  />
+);
 
 function App() {
   return (
@@ -64,16 +76,14 @@ function App() {
           <Route exact path="/" component={Landing} />
           <PrivateRoute exact path="/home" component={Home} />
 
-
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>
           <PrivateRoute exact path="/pick-exercise" component={Exercise} />
-
-
         </div>
       </Router>
+      <Footer />
     </Provider>
   );
 }

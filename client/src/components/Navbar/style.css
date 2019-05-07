@@ -1,4 +1,6 @@
 .navbar {
+  width: 150px;
+  height: 66px;
 }
 
 .logo {
@@ -6,8 +8,11 @@
   margin-top: 20px;
 }
 
+nav {
+}
 .nav-log {
   width: 150px;
+  height: 66px;
   text-align: center;
   display: inline-block;
   float: right;
@@ -22,6 +27,11 @@
 .nav-log.signIn {
   background-color: #c7bba5;
 }
+
+.nav-log.dashboard {
+  background-color: #ebeadd;
+}
+
 a:hover {
   font-weight: bold;
   color: black;
