@@ -2,7 +2,7 @@ import React from "react";
 import Graphs from "../../components/graphs"
 import Midi from "../../components/Midi/MidiTest"
 import Piano from "./../../components/virtualPiano/virtualPiano"
-
+import "./style.css"
 function Exercise() {
   return (
     <div>
