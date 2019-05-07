@@ -1,22 +1,10 @@
 
-<<<<<<< HEAD
-function Exercise() {
-  return (
-    <div>
-      {/* <a href="/home">Dashboard</a> */}
-      <h1>EXERCISE</h1>
-      {/* <Graphs /> */}
-      <Midi />
-      <Piano />
-    </div>
-  );
-=======
 import React, { Component } from "react";
 import Graphs from "../../components/graphs";
 import Midi from "../../components/Midi/MidiTest";
 import Piano from "./../../components/virtualPiano/virtualPiano";
 import "./style.css"
-  
+
 function renderInput() {
   navigator.requestMIDIAccess().then(midiAccess => {
     if (midiAccess.inputs.size > 0) {
@@ -69,7 +57,6 @@ class Exercise extends Component {
       );
     }
   }
->>>>>>> master
 }
 
 export default Exercise;
