@@ -9,6 +9,7 @@ class Midi extends Component {
     this.state = {
       isConnected: false,
       MidiArray: [],
+      noteArray: [],
       exampleMIDI: ["a", "b", "b", "d"],
 
       //for rendering Abcjs staff
@@ -75,6 +76,7 @@ class Midi extends Component {
       case 144: // note on
         if (velocity > 0) {
           this.noteOn(note, velocity);
+          // this.mapMidiValues();
         } else {
           this.noteOff(note, velocity);
         }
@@ -82,6 +84,7 @@ class Midi extends Component {
       case 145: // note on
         if (velocity > 0) {
           this.noteOn(note, velocity);
+          this.mapMidiValues();
         } else {
           this.noteOff(note, velocity);
         }
@@ -111,6 +114,23 @@ class Midi extends Component {
     // this.setState({ MidiArray: stateMidi });
 
     console.log(this.state.MidiArray);
+  };
+
+  mapMidiValues = () => {
+    console.log(this.state.noteArray);
+    this.setState({
+      noteArray: this.state.MidiArray.map(this.convertToNote)
+    });
+    console.log(this.state.noteArray);
+  };
+
+  convertToNote = midiValue => {
+    switch (midiValue) {
+      case midiValue > 55:
+        return "C";
+      default:
+        return "G";
+    }
   };
 
   noteOff = (note, velocity) => {
@@ -209,11 +229,18 @@ class Midi extends Component {
         {/* Render Abcjs music staff */}
         <Abcjs
           abcNotation={
+<<<<<<< HEAD
             //X: 1 stave T: title of rendered staff M: time C: composer K: key(G in this case) "|": bar line
             `X:1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this.state
               .composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${
             this.state.exampleMIDI[20] || "z"
             }`
+=======
+            //X: 1 stave L: note length T: title of rendered staff M: time C: composer K: key(G in this case) "|": bar line
+            `X:1\nL:1/1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this.state
+              .composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${this.state
+              .noteArray[0] || "A"}`
+>>>>>>> master
             //Is it really as easy as going through each element of the array?
             //c'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|`
           }
