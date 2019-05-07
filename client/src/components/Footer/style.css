@@ -1,0 +1,20 @@
+.footer {
+  width: 100%;
+  padding: 10px;
+  background-color: #ad8e79;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+}
+
+.footer-type {
+  font-family: "Cormorant Unicase", serif;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.git-link {
+  /* font-family: "Roboto Mono", monospace; */
+  font-size: 18px;
+  color: black;
+}
