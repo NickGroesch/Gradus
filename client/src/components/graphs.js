@@ -45,7 +45,7 @@ class Graphs extends Component {
         key: "C",
         midi:
           // [[60, 67, 69, 67, 60, 62, 62, 60]]
-          [[64, 62, 60],
+          [[64, 67, 60],
           [67, 71, 72],
           [72, 74, 76],
           [79, 79, 79]],
@@ -94,12 +94,13 @@ class Graphs extends Component {
         this.setState({ flag: true })
         console.log("frontEnd", this.state.data)
         this.setAbc()
-        // cantus tests
+        // // cantus tests
         // API.cantusFirmusSuite({ cantus: this.state.data }).then(
         //   res => console.log(res.data)
         // )
+
         // counterpoint tests
-        API.counterpointSuite({ anOb: this.state.data })
+        API.counterpointSuite({ anOb: this.state.data }).then(res => console.log(res.data))
         // console.log("frontEnd", this.state.data.voices.duals)
       }
     )

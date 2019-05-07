@@ -248,7 +248,7 @@ const verticalDissonanceBass = (intervalArray) => {
             result[2].push(index)
         }
         if (interval[2] == "seventh" || interval[2] == "second" || interval[2] == "ninth" || interval[2] == "fourth") {
-            result[1].push(`interval ${index} is a seventh`)
+            result[1].push(`interval ${index} is a ${interval[2]}`)
             result[2].push(index)
         }
 
