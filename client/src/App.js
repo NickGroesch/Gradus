@@ -81,9 +81,9 @@ function App() {
             <Route exact path="/login" component={Login} />
           </div>
           <PrivateRoute exact path="/pick-exercise" component={Exercise} />
+          <Footer />
         </div>
       </Router>
-      <Footer />
     </Provider>
   );
 }
