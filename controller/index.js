@@ -63,8 +63,12 @@ module.exports = {
     res.json(analyticObject)
   },
   cantusSuite: (request, res) => {
-    console.log("where is it?", request.body)
     results = testSuites.cantusFirmusSuite(request.body.cantus)
+    res.json(results)
+  },
+  counterpointSuite: (request, res) => {
+    console.log("where is it?", request.body)
+    results = testSuites.counterpointSuite(request.body.anOb)
     res.json(results)
   }
 };

@@ -33,15 +33,19 @@ const cantusFirmusSuite = anOb => {
 
 // full counterpoint tests -- WILL WE NEED TO MAKE A ROUGHLY EQUIVALENT testOB to the anOb?
 // this first iteration will only run the relative tests, not the voice (cantus) tests
-const counterpointSuite = an0b => {
+const counterpointSuite = anOb => {
     let testOb = {}
-    abOb.relations.intervals.forEach((value, index) => {
+    anOb.relations.intervals.forEach((value, index) => {
+        console.log(`I${index}:`, Object.keys(value))
         // if obj.keys.tostring[9]=1 run VertDissBass tests
         // else run VertDissUpper
     })
+
+    return testOb
 }
 
 const testSuites = {
-    cantusFirmusSuite
+    cantusFirmusSuite,
+    counterpointSuite
 }
 module.exports = testSuites

@@ -14,5 +14,9 @@ export default {
   cantusFirmusSuite: (data) => {
     console.log("CFsuite clientAPI", data)
     return axios.post("api/graphs/cantusSuite", data)
+  },
+  counterpointSuite: (data) => {
+    console.log("CPsuite clientAPI", data)
+    return axios.post("api/graphs/counterpointSuite", data)
   }
 };
