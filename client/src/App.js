@@ -44,7 +44,7 @@ if (localStorage.jwtToken) {
 }
 export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    localStorage.getItem('graphcool-auth-token') ? (
+    localStorage.getItem("jwtToken") ? (
       <Component {...props} />
     ) : (
         <Redirect to={{
