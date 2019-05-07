@@ -8,8 +8,8 @@ function Exercise() {
     <div>
       {/* <a href="/home">Dashboard</a> */}
       <h1>EXERCISE</h1>
-      {/* <Graphs />
-      <Midi /> */}
+      {/* <Graphs /> */}
+      <Midi />
       <Piano />
     </div>
   );

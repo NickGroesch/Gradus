@@ -184,7 +184,7 @@ class Midi extends Component {
               placeholder="Masterpiece in G"
               onChange={this.handleInputChange}
               value={this.state.title}
-              // ref={userInput => (this.state.exercise.title = userInput)}
+            // ref={userInput => (this.state.exercise.title = userInput)}
             />
             <label>Composer</label>
             <input
@@ -192,7 +192,7 @@ class Midi extends Component {
               name="composer"
               placeholder="Trad."
               onChange={this.handleInputChange}
-              // ref={userInput => (this.state.composer = userInput)}
+            // ref={userInput => (this.state.composer = userInput)}
             />
             <label>Key</label>
             <input
@@ -200,7 +200,7 @@ class Midi extends Component {
               name="key"
               placeholder="G"
               onChange={this.handleInputChange}
-              // ref={userInput => (this.state.key = userInput)}
+            // ref={userInput => (this.state.key = userInput)}
             />
             <input type="submit" />
           </form>
@@ -212,7 +212,7 @@ class Midi extends Component {
             //X: 1 stave T: title of rendered staff M: time C: composer K: key(G in this case) "|": bar line
             `X:1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this.state
               .composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${
-              this.state.exampleMIDI[0]
+            this.state.exampleMIDI[20] || "z"
             }`
             //Is it really as easy as going through each element of the array?
             //c'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|`

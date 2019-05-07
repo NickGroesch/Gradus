@@ -5,7 +5,7 @@ export default {
   // getGraphs: function(data) {
   //   return axios.post("/api/graphs", data);
   analyze: function (data) {
-    console.log(data);
+    // console.log(data);
 
     //If on local use localhost... if not use /api/graphs
     // on local
