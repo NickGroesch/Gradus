@@ -43,8 +43,14 @@ class Graphs extends Component {
       ],
       exercise: {
         key: "C",
-        midi: [[64, 62, 60], [67, 71, 72], [72, 74, 76], [79, 79, 79]]
-        // which is cantus firmus?
+        midi:
+          // [[60, 67, 69, 67, 60, 62, 62, 60]]
+          [[64, 67, 60],
+          [67, 71, 72],
+          [72, 74, 76],
+          [79, 79, 79]],
+        // which is cantus firmus? NEED FORMAT FIELD
+
       },
       cf: [],
       cp: [],
@@ -63,7 +69,7 @@ class Graphs extends Component {
   setAbc() {
     let abcHeader = `X:1\nT:Counterpoint\nM:4/4\nK:${
       this.state.exercise.key
-    }\nL:1/1\n`;
+      }\nL:1/1\n`;
     let abcBody = "";
     let abcData = this.state.data.voices.abc;
     // for each voice present in the abcData we will alter the header to create a staff for it
@@ -90,78 +96,93 @@ class Graphs extends Component {
     //   }
     // );
     // this.createTable();
-    API.analyze({ exercise: this.state.exercise }).then(res => {
-      this.setState({ data: res.data });
-      console.log("frontEnd", res.data);
-      let infoDelta = res.data.voices.deltas;
-      let voicesDelta = [];
-      // let voicesDeltaNum = [];
-      for (var i = 0; i < infoDelta.length; i++) {
-        // console.log(info[i]);
-        // console.log("voicesDelta.push(info[i].delta" + (i + 1) + ")");
+    API.analyze({ exercise: this.state.exercise }).then(
+      res => {
+        this.setState({ data: res.data })
+        this.setState({ flag: true })
+        console.log("frontEnd", this.state.data)
+        this.setAbc()
+        // // cantus tests
+        // API.cantusFirmusSuite({ cantus: this.state.data }).then(
+        //   res => console.log(res.data)
+        // )
 
-        voicesDelta.push(infoDelta[i][`delta${i + 1}`]);
+        // counterpoint tests
+        API.counterpointSuite({ anOb: this.state.data }).then(res => console.log(res.data))
+        // console.log("frontEnd", this.state.data.voices.duals)
       }
-
-      let deltaC1 = [];
-      let deltaC2 = [];
-      let deltaC3 = [];
-      for (var i = 0; i < voicesDelta.length; i++) {
-        for (var j = 0; j < voicesDelta[i].length; j++) {
-          // console.log(voicesDelta[i][j]);
-          let delta = voicesDelta[i][j];
-          delta = delta.slice(0, 1);
-          // console.log("delta1", delta);
-          delta = delta.toString();
-          deltaC1.push(delta);
-
-          let delta2 = voicesDelta[i][j];
-          delta2 = delta2.slice(1, 2);
-          // console.log("delta2", delta2);
-          delta2 = delta2.toString();
-          deltaC2.push(delta2);
-
-          let delta3 = voicesDelta[i][j];
-          delta3 = delta3.slice(2, 3);
-          // console.log("delta3", delta3);
-          delta3 = delta3.toString();
-          deltaC3.push(delta3);
-        }
-      }
-      this.setState({ deltaC1: deltaC1 });
-      this.setState({ deltaC2: deltaC2 });
-      this.setState({ deltaC3: deltaC3 });
-      // -----------------------
-
-      // Getting Midi and Pitch
-      let infoDuals = res.data.voices.duals;
-      let voicesDuals = [];
-      for (var k = 0; k < infoDuals.length; k++) {
-        // console.log(infoDuals[i]);
-        // eval("voicesDuals.push(infoDuals[k].voice" + (k + 1) + ")");
-        voicesDuals.push(infoDuals[k][`voice${k + 1}`]);
-      }
-      // console.log(voicesDuals);
-      let midi = [];
-      let pitch = [];
-      for (var h = 0; h < voicesDuals.length; h++) {
-        // console.log(voicesDuals[i]);
-        for (var m = 0; m < voicesDuals[h].length; m++) {
-          // console.log(voicesDuals[h][m].midi);
-          midi.push(voicesDuals[h][m].midi);
-          pitch.push(voicesDuals[h][m].pitch);
-        }
-      }
-      this.setState({ midi: midi });
-      this.setState({ pitch: pitch });
-
-      console.log("state", this.state);
-    });
+    )
   };
-
-  componentWillMount() {
-    this.getGraphs();
+  // componentWillMount() {
+  //   this.getGraphs();
+  // }
+  componentDidMount() {
+    this.getGraphs()
+    // console.log(this.state.data)
   }
+
+  //       voicesDelta.push(infoDelta[i][`delta${i + 1}`]);
+  //     }
+
+  //     let deltaC1 = [];
+  //     let deltaC2 = [];
+  //     let deltaC3 = [];
+  //     for (var i = 0; i < voicesDelta.length; i++) {
+  //       for (var j = 0; j < voicesDelta[i].length; j++) {
+  //         // console.log(voicesDelta[i][j]);
+  //         let delta = voicesDelta[i][j];
+  //         delta = delta.slice(0, 1);
+  //         // console.log("delta1", delta);
+  //         delta = delta.toString();
+  //         deltaC1.push(delta);
+
+  //         let delta2 = voicesDelta[i][j];
+  //         delta2 = delta2.slice(1, 2);
+  //         // console.log("delta2", delta2);
+  //         delta2 = delta2.toString();
+  //         deltaC2.push(delta2);
+
+  //         let delta3 = voicesDelta[i][j];
+  //         delta3 = delta3.slice(2, 3);
+  //         // console.log("delta3", delta3);
+  //         delta3 = delta3.toString();
+  //         deltaC3.push(delta3);
+  //       }
+  //     }
+  //     this.setState({ deltaC1: deltaC1 });
+  //     this.setState({ deltaC2: deltaC2 });
+  //     this.setState({ deltaC3: deltaC3 });
+  //     // -----------------------
+
+  //     // Getting Midi and Pitch
+  //     let infoDuals = res.data.voices.duals;
+  //     let voicesDuals = [];
+  //     for (var k = 0; k < infoDuals.length; k++) {
+  //       // console.log(infoDuals[i]);
+  //       // eval("voicesDuals.push(infoDuals[k].voice" + (k + 1) + ")");
+  //       voicesDuals.push(infoDuals[k][`voice${k + 1}`]);
+  //     }
+  //     // console.log(voicesDuals);
+  //     let midi = [];
+  //     let pitch = [];
+  //     for (var h = 0; h < voicesDuals.length; h++) {
+  //       // console.log(voicesDuals[i]);
+  //       for (var m = 0; m < voicesDuals[h].length; m++) {
+  //         // console.log(voicesDuals[h][m].midi);
+  //         midi.push(voicesDuals[h][m].midi);
+  //         pitch.push(voicesDuals[h][m].pitch);
+  //       }
+  //     }
+  //     this.setState({ midi: midi });
+  //     this.setState({ pitch: pitch });
+
+  //     console.log("state", this.state);
+  //   });
+  // };
+
+  // componentWillMount() {
+  //   this.getGraphs();
+  // }
 
   // createTable() {
   //   const { dP, dT, compareIntervals, pD, tD, assessMotion } = this.state.data;
@@ -231,10 +252,10 @@ class Graphs extends Component {
   //   // }
   // }
 
-  displayData() {
-    const { data } = this.state;
-    console.log(data.voices.duals[0]);
-  }
+  // displayData() {
+  //   const { data } = this.state;
+  //   console.log(data.voices.duals[0]);
+  // }
   render() {
     return (
       <div>
@@ -254,8 +275,8 @@ class Graphs extends Component {
             />
           </div>
         ) : (
-          <p>failure</p>
-        )}
+            <p>failure</p>
+          )}
         {/* // [0].voice1[1].pitch} */}
         {/* {this.displayData()} */}
         {/* {Object.keys(data).length > 0 ? (
