@@ -7,14 +7,9 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-<<<<<<< HEAD
-const config = require("./db");
-const users = require("./serverRoutes/user");
-=======
 //const config = require("./db");
 const users = require("./serverRoutes/user");
 
->>>>>>> master
 //=====DB/login dependencies
 if (process.env.NODE_ENV === "production") {
   // Exprees will serve up production assets
@@ -69,28 +64,6 @@ app.use(bodyParser.json());
 
 app.use("/api/users", users);
 app.use("/", routes);
-<<<<<<< HEAD
-app.get("/", function(req, res) {
-  res.send("hello");
-});
-//=====Mongoose======
-
-//If server Port changes you must change the proxy key in the client-side package.json
-// var PORT = process.env.PORT || 3001;
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-// static heroku serve
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
-// Add routes, both API and view
-// app.use("/", routes);
-
-// //app.listen always goes at the end of your code
-// app.listen(PORT, function() {
-//   console.log("App listening on PORT:" + PORT);
-// });
-=======
 
 var databaseURI = "mongodb://localhost/Gradus";
 if (process.env.MONGODB_URI) {
@@ -101,7 +74,6 @@ if (process.env.MONGODB_URI) {
 var db = mongoose.connection;
 db.on("error", err => console.log("mongoose error :", err));
 db.once("open", () => console.log("mongoose connection successful"));
->>>>>>> master
 
 const PORT = process.env.PORT || 5000;
 

@@ -4,17 +4,21 @@ import Abcjs from "react-abcjs";
 //import webmidi from "webmidi";
 
 class Midi extends Component {
-  state = {
-    isConnected: false,
-    MidiArray: [],
-    step: 0,
+  constructor() {
+    super();
+    this.state = {
+      isConnected: false,
+      MidiArray: [],
+      exampleMIDI: ["a", "b", "b", "d"],
 
-    // These 3 are for rendering Abcjs staff
-    title: "",
-    composer: "",
-    key: ""
-  };
-
+      //for rendering Abcjs staff
+      title: "",
+      composer: "",
+      key: ""
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
   componentDidMount = () => {
     this.checkConnect();
     var testArray = [];
@@ -122,49 +126,96 @@ class Midi extends Component {
     }
   };
 
-  // handleInputChange(e) {
-  //   this.setState({
-  //     [e.target.name]: e.target.value
-  //   });
-  // }
+  clearClick = () => {
+    this.setState({
+      MidiArray: []
+    });
+  };
 
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //   const user = {
-  //     email: this.state.email,
-  //     password: this.state.password
-  //   };
-  //   this.props.loginUser(user);
-  // }
+  //BackClick removes last input but doesn't show it on screen until another input clicked
+  backClick = () => {
+    this.state.MidiArray.pop();
+    this.setState({
+      MidiArray: this.state.MidiArray
+    });
+    console.log(this.state.MidiArray);
+  };
+
+  handleInputChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const staff = {
+      title: this.state.title,
+      composer: this.state.composer,
+      key: this.state.key
+    };
+    console.log(`Creating staff... \n
+    creating title: ${staff.title}... \n
+    creating composer: ${staff.composer}... \n
+    creating key: ${staff.key}... \n
+    staff complete!`);
+  }
 
   render() {
     return (
       <div className="container">
+        <div>
+          <button onClick={this.clearClick}>Clear</button>
+          <button onClick={this.backClick}>Back</button>
+        </div>
+
         {/* Check MIDI connection and log notes */}
         <div>Midi connected? {this.state.isConnected.toString()}</div>
         <div>Notes: {this.state.MidiArray}</div>
 
         {/* Set Title, Composer, and Key of exercise */}
-        <div className="container userInput">
+        <div className="container userStaffInput">
+          <h2>Start Exercise</h2>
           <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <input
-                type="input"
-                placeholder="Title"
-                className="title"
-                name="title"
-                onChange={this.handleInputChange}
-                value={this.state.title}
-              />
-            </div>
+            <label>Title</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="Masterpiece in G"
+              onChange={this.handleInputChange}
+              value={this.state.title}
+              // ref={userInput => (this.state.exercise.title = userInput)}
+            />
+            <label>Composer</label>
+            <input
+              type="text"
+              name="composer"
+              placeholder="Trad."
+              onChange={this.handleInputChange}
+              // ref={userInput => (this.state.composer = userInput)}
+            />
+            <label>Key</label>
+            <input
+              type="text"
+              name="key"
+              placeholder="G"
+              onChange={this.handleInputChange}
+              // ref={userInput => (this.state.key = userInput)}
+            />
+            <input type="submit" />
           </form>
         </div>
 
         {/* Render Abcjs music staff */}
         <Abcjs
           abcNotation={
-            //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-            "X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:gc'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|"
+            //X: 1 stave T: title of rendered staff M: time C: composer K: key(G in this case) "|": bar line
+            `X:1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this.state
+              .composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${
+              this.state.exampleMIDI[0]
+            }`
+            //Is it really as easy as going through each element of the array?
+            //c'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|`
           }
           parserParams={{}}
           engraverParams={{ responsive: "resize" }}
