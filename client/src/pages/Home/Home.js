@@ -28,8 +28,13 @@ function ListCard() {
     return (
         <div>
             <ExCard />
-            <ExCard />
-            <ExCard />
+            {/* {friends.map(friend => (
+        <SpongeBobCard
+          obj={friend}
+          key={friend.id}
+        />
+      ))
+      } */}
         </div>
     )
 
