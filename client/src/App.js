@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 // Nick Component
 import Graph from "./components/graphs";
 // // Sarah Component
@@ -44,6 +44,18 @@ if (localStorage.jwtToken) {
     window.location.href = "/login";
   }
 }
+export const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    localStorage.getItem("jwtToken") ? (
+      <Component {...props} />
+    ) : (
+        <Redirect to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }} />
+      )
+  )} />
+)
 
 function App() {
   return (
@@ -52,13 +64,19 @@ function App() {
         <div>
           <Navbar />
           <Route exact path="/" component={Landing} />
-          <Route exact path="/home" component={Home} />
+          <PrivateRoute exact path="/home" component={Home} />
 
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>
+<<<<<<< HEAD
           <Route exact path="/pick-exercise" component={Exercise} />
+=======
+          <PrivateRoute exact path="/pick-exercise" component={Exercise} />
+
+
+>>>>>>> master
         </div>
       </Router>
       <Footer />
