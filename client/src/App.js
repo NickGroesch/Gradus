@@ -5,8 +5,8 @@ import Graph from "./components/graphs";
 // // Sarah Component
 // import Piano from "./components/virtualPiano/virtualPiano";
 
-import Exercise from "./pages/Exercise/index"
-import ExCard from "./components/Exercise-Card/ExCard"
+import Exercise from "./pages/Exercise/index";
+import ExCard from "./components/Exercise-Card/ExCard";
 
 //Mahfouz components
 import Navbar from "./components/Navbar/Navbar";
@@ -51,24 +51,13 @@ function App() {
         <div>
           <Navbar />
           <Route exact path="/" component={Landing} />
-<<<<<<< HEAD
-          <Route exact path="/home" component={Home}>
-            {/* <Toggle text={Graphs} /> */}
-            <Graphs />
-            <Midi />
-          </Route>
-=======
           <Route exact path="/home" component={Home} />
 
-
->>>>>>> master
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>
           <Route exact path="/pick-exercise" component={Exercise} />
-
-
         </div>
       </Router>
     </Provider>

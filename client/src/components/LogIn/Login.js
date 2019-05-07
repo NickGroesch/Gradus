@@ -65,7 +65,6 @@ class Login extends Component {
             Sign Up
           </a>
         </p>
-
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <input
