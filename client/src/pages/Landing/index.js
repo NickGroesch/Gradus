@@ -60,16 +60,16 @@ function Landing() {
             culpa qui officia deserunt mollit anim id est laborum.
           </p>
 
-          <a className="portfolio-link" href="">
+          <a className="portfolio-link" href="...">
             Nick Groesch
           </a>
-          <a className="portfolio-link" href="">
+          <a className="portfolio-link" href="...">
             Michael Campbell
           </a>
-          <a className="portfolio-link" href="">
+          <a className="portfolio-link" href="...">
             Sarah Tam
           </a>
-          <a className="portfolio-link" href="">
+          <a className="portfolio-link" href="...">
             Mahfouz Mahmoud
           </a>
           <a className="portfolio-link" href="www.kyhongle.com">
