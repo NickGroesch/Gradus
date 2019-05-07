@@ -44,11 +44,11 @@ class Graphs extends Component {
       exercise: {
         key: "C",
         midi:
-          // [[60, 67, 69, 67, 60, 59, 60]]
-          [[64, 62, 60],
-          [67, 71, 72],
-          [72, 74, 76],
-          [79, 79, 79]],
+          [[60, 67, 69, 67, 60, 62, 62, 60]]
+        // [[64, 62, 60],
+        // [67, 71, 72],
+        // [72, 74, 76],
+        // [79, 79, 79]],
         // which is cantus firmus? NEED FORMAT FIELD
 
       },
@@ -94,6 +94,9 @@ class Graphs extends Component {
         this.setState({ flag: true })
         console.log("frontEnd", this.state.data)
         this.setAbc()
+        API.cantusFirmusSuite({ cantus: this.state.data }).then(
+          res => console.log(res.data)
+        )
         // console.log("frontEnd", this.state.data.voices.duals)
       }
     )

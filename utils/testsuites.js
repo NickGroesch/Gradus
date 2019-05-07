@@ -3,7 +3,9 @@ const tests = require("./tests")
 
 // cantus only tests-- DO WE NEED MORE SPECIFICITY IN THE RETURN TO USE THE graphs.table?
 const cantusFirmusSuite = anOb => {
-    let keyComb = tests.keyComb(anOb.voices.duals[0].voice1, anOB.key)
+    // result is boolean pass/fail, pass array of arrays, fail array of arrays
+    // let result = [false, [], []]
+    let keyComb = tests.keyComb(anOb.voices.duals[0].voice1, anOb.key)
     if (keyComb[0]) {
         let lengthCF = tests.lengthCF(anOb.voices.duals[0].voice1)
         if (lengthCF[0]) {
@@ -17,6 +19,8 @@ const cantusFirmusSuite = anOb => {
                         if (dissOut[0]) {
                             let noRep = tests.noRepetition(anOb.voices.duals[0].voice1)
                             if (noRep[0]) {
+                                //     result[0] = true
+                                //  result[2].push("cantusSuite passed")
                                 return [true, "cantusSuite passed"]
                             } else { return noRep }
                         } else { return dissOut }
@@ -32,7 +36,7 @@ const cantusFirmusSuite = anOb => {
 const counterpointSuite = an0b => {
     let testOb = {}
     abOb.relations.intervals.forEach((value, index) => {
-        // if obj.keys.string index 9=1 run VertDissBass tests
+        // if obj.keys.tostring[9]=1 run VertDissBass tests
         // else run VertDissUpper
     })
 }

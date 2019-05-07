@@ -25,7 +25,7 @@ const keyComb = (dualArray, key) => {
     })
     if (!results[1].length) {
         results[0] = true
-        results[1] = "key comb pass"
+        results[1] = "pass key comb"
     }
     return results
 }
@@ -35,7 +35,7 @@ const keyComb = (dualArray, key) => {
 // // Cantus Tests
 // Length- cantus create only. submit.
 const lengthCF = (dualArray) => {
-    let result = [true, "length passes"]
+    let result = [true, "pass: length"]
     if (!(dualArray.length < 17 && dualArray.length > 7)) {
         result = [false, "CF Length must be between 8-16 notes"]
     }
@@ -54,7 +54,7 @@ const deltaRange = deltaArray => {
             result[2].push(index)
         }
     })
-    if (!result[1].length) { result[1] = "all deltas within octave" } else { result[0] = false }
+    if (!result[1].length) { result[1] = "pass: all deltas within octave" } else { result[0] = false }
     return result
 }
 // let deltaRangeTestPass = [
@@ -125,7 +125,7 @@ const dissonantOutlines = (dualArray, deltaArray) => {
     }
     if (!result[1].length) {
         result[0] = true
-        result[1] = "no dissonant outlines"
+        result[1] = "pass: no dissonant outlines"
     }
     // console.log("inner index", zeroIndex)
 
@@ -188,7 +188,7 @@ const rangeCF = (dualArray) => {
     if (range > 16) {
         result[0] = false
         result[1] = `range exceeds a tenth`
-    } else { result[1] = `range acceptable (low ${low[0]} at pos. ${low[1]} to high ${high[0]} at pos. ${high[1]}) ` }
+    } else { result[1] = `pass: range acceptable (low ${low[0]} at pos. ${low[1]} to high ${high[0]} at pos. ${high[1]}) ` }
     return result
 }
 // let rangeCFtestPass = [
@@ -218,7 +218,7 @@ const noRepetition = (dualArray) => {
     }
     if (!result[1].length) {
         result[0] = true
-        result[1] = "no repetition detected"
+        result[1] = "pass: no repetition detected"
     }
     return result
 }
@@ -255,7 +255,7 @@ const verticalDissonanceBass = (intervalArray) => {
     })
     if (!result[1].length) {
         result[0] = true
-        result[1] = "pass: no vertical dissonances"
+        result[1] = "pass: no vertical dissonances with bass"
     }
     return result
 }
@@ -292,7 +292,7 @@ const verticalDissonanceUpper = (intervalArray) => {
     })
     if (!result[1].length) {
         result[0] = true
-        result[1] = "pass: no vertical dissonances"
+        result[1] = "pass: no vertical dissonances between upper voices"
     }
     return result
 }
@@ -409,7 +409,7 @@ const verticalSpacingRed = (intervalArray) => {
     }
     if (!result[1].length) {
         result[0] = true
-        result[1] = "pass: no range issues"
+        result[1] = "pass: no severe range issues"
     }
     return result
 }
@@ -537,7 +537,7 @@ const independenceYellow = motionArray => {
     }
     if (!result[1].length) {
         result[0] = true
-        result[1] = "it's a'ight: not too parallel"
+        result[1] = "pass: it's a'ight: not too parallel"
     }
     return result
 }
@@ -551,7 +551,7 @@ const independenceRed = motionArray => {
     }
     if (!result[1].length) {
         result[0] = true
-        result[1] = "it's not way too parallel"
+        result[1] = "pass: it's not way too parallel"
     }
     return result
 }
