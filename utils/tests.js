@@ -489,13 +489,15 @@ const parallel5or8 = (intervalArray, motionArray) => {
     return result
 }
 const direct5or8 = (intervalArray, motionArray) => {
-    let result = [false, []]
+    let result = [false, [], []]
     motionArray.forEach((value, index) => {
         if (value == "similar" && intervalArray[index + 1][2] == "fifth") {
-            result[1].push(`direct octave at pos. ${index + 1} `)
+            result[1].push(`direct fifth at pos. ${index + 1} `)
+            result[2].push(index)
         }
         if (value == "similar" && intervalArray[index + 1][2] == "octave") {
             result[1].push(`direct octave at pos. ${index + 1} `)
+            result[2].push(index)
         }
     })
     if (!result[1].length) {
