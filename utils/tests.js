@@ -1,9 +1,9 @@
 const translators = require("./translators")
-// General tests (key, etc)
 // results will be an array composed of a boolean pass/fail, an array of relevant log messages, and
 // where applicable an array of positions that would be highlighted in the interactive data display 
 
 
+// General test for key: will need to be adapted to allow for leading tone in minor for extensibility
 const keyComb = (testArray, key) => {
     // use the pitch class to tune a comb of nondiatonic pitch classes. tests midi array
     let tonic = translators.pitchClassMidi[key]
@@ -11,8 +11,8 @@ const keyComb = (testArray, key) => {
     let comb = [
         wrap(tonic, 1),
         wrap(tonic, 3),
-        wrap(tonic, 6),
-        wrap(tonic, 8),
+        wrap(tonic, 6),//minor-2
+        wrap(tonic, 8),//minor-1
         wrap(tonic, 10),
     ]
     let results = [false, [], []]
@@ -102,6 +102,79 @@ const deltaDissonantLeaps = deltaArray => {
 // ]
 // console.log(deltaDissonantLeaps(deltaDissLeapTestPass))//pass
 // console.log(deltaDissonantLeaps(deltaDissLeapTestFail))// fail [0,1,3]
+
+// dissonant outlines require the extraction of zeros (points of inflection/change in direction) and application of dissonantLeaps to zeroArray
+const dissonantOutlines = (dualArray, deltaArray) => {
+    let result = [false, [], []]
+    let zeroIndex = [0]
+    let zeroArray = [dualArray[0]]
+    for (var i = 0; i < deltaArray.length - 1; i++) {
+        if (deltaArray[i][3] > 0 && deltaArray[i + 1][3] < 0 || deltaArray[i][3] < 0 && deltaArray[i + 1][3] > 0) {
+            zeroArray.push(dualArray[i + 1])
+            zeroIndex.push(i + 1)
+        }
+    }
+    zeroArray.push(dualArray[dualArray.length - 1])
+    zeroIndex.push(dualArray.length - 1)
+    let intermediate = deltaDissonantLeaps(translators.deltaDual(zeroArray))
+    if (intermediate[2].length) {
+        intermediate[2].forEach((value, index) => {
+            result[1].push(`dissonant outline from pos. ${zeroIndex[value]} to ${zeroIndex[value + 1]}: ${intermediate[1][index]} `)
+            result[2].push(zeroIndex[value + 1])
+        })
+    }
+    if (!result[1].length) {
+        result[0] = true
+        result[1] = "no dissonant outlines"
+    }
+    // console.log("inner index", zeroIndex)
+
+    return result
+}
+
+// dissOutlinesFailDual = [{ midi: 60, pitch: "C.4" },
+// { midi: 67, pitch: "G.4" },
+// { midi: 69, pitch: "A.4" },
+// { midi: 67, pitch: "G.4" },
+// { midi: 60, pitch: "C.4" },
+// { midi: 59, pitch: "B.3" },
+// { midi: 60, pitch: "C.4" }]
+// dissOutlinesFailDelta = [["asc", "perf", "fifth", [7]],
+// ["asc", "maj", "second", [2]],
+// ["desc", "maj", "second", [-2]],
+// ["desc", "perf", "fifth", [-7]],
+// ["desc", "min", "second", [-1]],
+// ["asc", "min", "second", [1]]]
+// dissOutlinesFailDual2 = [{ midi: 60, pitch: "C.4" },
+// { midi: 67, pitch: "G.4" },
+// { midi: 69, pitch: "A.4" },
+// { midi: 67, pitch: "G.4" },
+// { midi: 60, pitch: "C.4" },
+// { midi: 59, pitch: "B.3" },
+// { midi: 65, pitch: "F.4" },
+// { midi: 60, pitch: "C.4" }]
+// dissOutlinesFailDelta2 = [["asc", "perf", "fifth", [7]],
+// ["asc", "maj", "second", [2]],
+// ["desc", "maj", "second", [-2]],
+// ["desc", "perf", "fifth", [-7]],
+// ["desc", "min", "second", [-1]],
+// ["asc", "dim", "fifth", [6]],
+// ["asc", "perf", "fourth", [-5]]]
+// dissOutlinesPassDual3 = [{ midi: 60, pitch: "C.4" },
+// { midi: 67, pitch: "G.4" },
+// { midi: 69, pitch: "A.4" },
+// { midi: 67, pitch: "G.4" },
+// { midi: 60, pitch: "C.4" }]
+// dissOutlinesPassDelta3 = [["asc", "perf", "fifth", [7]],
+// ["asc", "maj", "second", [2]],
+// ["desc", "maj", "second", [-2]],
+// ["desc", "perf", "fifth", [-7]]]
+
+// console.log("outer", dissonantOutlines(dissOutlinesFailDual, dissOutlinesFailDelta))//fail [5]
+// console.log("outer2", dissonantOutlines(dissOutlinesFailDual2, dissOutlinesFailDelta2))//fail [5,6]
+// console.log("outer3", dissonantOutlines(dissOutlinesPassDual3, dissOutlinesPassDelta3))//pass
+
+
 const rangeCF = (dualArray) => {
     let result = [true, []]
     let low = [127, 0]
