@@ -4,7 +4,7 @@ import Graphs from "../../components/graphs";
 import Midi from "../../components/Midi/MidiTest";
 import Piano from "./../../components/virtualPiano/virtualPiano";
 import "./style.css"
-  
+
 function renderInput() {
   navigator.requestMIDIAccess().then(midiAccess => {
     if (midiAccess.inputs.size > 0) {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./virtualPiano.css";
+import Abcjs from "react-abcjs";
 
 class Piano extends Component {
 
@@ -101,19 +102,15 @@ class Piano extends Component {
 
 
     octaveDecrement = () => {
-        // decrease octave count state by 12
         this.setState(prevState => ({
             octaveCount: prevState.octaveCount - 12
         }));
 
-        // map keyID to octave count values
         let newID = this.state.keyID.map(x => x - 12);
 
-        // match the keyID state to newID array
         this.setState(({ keyID: newID }));
     }
 
-    // grabs current id of piano key that is clicked
     pianoKeyClick = (e) => {
         let keysClicked = [...this.state.keysClicked];
         keysClicked.forEach(key => key.clicked = false);
@@ -194,9 +191,7 @@ class Piano extends Component {
                         </svg>
                     </div>
 
-                    {/* see keys played in real-time */}
-                    <div>Current Keys Played: {this.state.MidiArray.toString()}</div>
-                    {/* see octave count in real-time */}
+                    <div>Notes: {this.state.MidiArray.toString()}</div>
                     <div>Current Octave Count: {this.state.octaveCount}</div>
                     <button id="octave-up" onClick={this.state.octaveCount < 60 ? this.octaveIncrement : this.state.octaveCount = 60}>octave +</button>
                     <button id="octave-down" onClick={this.state.octaveCount > -60 ? this.octaveDecrement : this.state.octaveCount = -60}>octave -</button>

@@ -56,13 +56,13 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
       localStorage.getItem("jwtToken") ? (
         <Component {...props} />
       ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location }
-          }}
-        />
-      )
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location }
+            }}
+          />
+        )
     }
   />
 );
@@ -74,13 +74,19 @@ function App() {
         <div>
           <Navbar />
           <Route exact path="/" component={Landing} />
-          <PrivateRoute exact path="/home" component={Home} />
+          {/* use for production */}
+          {/* <PrivateRoute exact path="/home" component={Home} /> */}
+          {/* use for localhost */}
+          <Route exact path="/home" component={Home} />
 
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>
-          <PrivateRoute exact path="/pick-exercise" component={Exercise} />
+          {/* use for production */}
+          {/* <PrivateRoute exact path="/pick-exercise" component={Exercise} /> */}
+          {/* use for localhost */}
+          <Route exact path="/pick-exercise" component={Exercise} />
           <Footer />
         </div>
       </Router>
