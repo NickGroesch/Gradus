@@ -4,7 +4,7 @@ const translators = require("./translators")
 
 
 // General test for key: will need to be adapted to allow for leading tone in minor for extensibility
-const keyComb = (testArray, key) => {
+const keyComb = (dualArray, key) => {
     // use the pitch class to tune a comb of nondiatonic pitch classes. tests midi array
     let tonic = translators.pitchClassMidi[key]
     const wrap = (x, n) => (x + n) % 12
@@ -16,16 +16,16 @@ const keyComb = (testArray, key) => {
         wrap(tonic, 10),
     ]
     let results = [false, [], []]
-    testArray.forEach((midiNote, i) => {
-        if (comb.includes(midiNote % 12)) {
-            let index = `key check fail position ${i} `
+    dualArray.forEach((value, i) => {
+        if (comb.includes(value.midi % 12)) {
+            let index = `key comb fail position ${i} `
             results[1].push(index)
             results[2].push(i)
         }
     })
     if (!results[1].length) {
         results[0] = true
-        results[1] = "key check pass"
+        results[1] = "key comb pass"
     }
     return results
 }
@@ -563,3 +563,23 @@ const independenceRed = motionArray => {
 // console.log(independenceYellow(independence4))//fail
 // console.log(independenceRed(independence4))//pass
 // console.log(independenceRed(independence5))//fail
+const tests = {
+    keyComb,
+    lengthCF,
+    deltaRange,
+    deltaDissonantLeaps,
+    dissonantOutlines,
+    rangeCF,
+    noRepetition,
+    verticalDissonanceBass,
+    verticalDissonanceUpper,
+    detectUnisons,
+    detectVoiceCrossing,
+    verticalSpacingRed,
+    verticalSpacingYellow,
+    parallel5or8,
+    direct5or8,
+    independenceYellow,
+    independenceRed
+}
+module.exports = tests

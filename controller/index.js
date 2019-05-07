@@ -33,6 +33,7 @@ module.exports = {
     let req = request.body.exercise
     // console.log(req)
     let analyticObject = {
+      key: req.key,
       voices: {
         duals: [],
         deltas: [],
