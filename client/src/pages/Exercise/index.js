@@ -6,7 +6,7 @@ import Piano from "./../../components/virtualPiano/virtualPiano"
 function Exercise() {
   return (
     <div>
-      <a href="/home">Dashboard</a>
+      {/* <a href="/home">Dashboard</a> */}
       <h1>EXERCISE</h1>
       {/* <Graphs />
       <Midi /> */}
