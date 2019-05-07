@@ -1,8 +1,9 @@
 .welcome {
   font-family: "Cormorant Unicase", serif;
-  /* font-weight: bold; */
+  font-weight: 500;
   font-size: 100px;
-  margin: 30px 0 0 20px;
+  margin: 50px 0 0 20px;
+  line-height: 110px;
 }
 
 .intro {
@@ -12,16 +13,29 @@
 }
 
 .how-to {
-  width: 60%;
-  margin: 10px 0 0 30px;
+  width: 55%;
   line-height: 20px;
+  float: left;
+  border: solid black 1px;
+  border-left: 0;
+}
+
+ol {
+  margin: 10px 0 0 60px;
+  width: 92%;
+  display: list-item;
+  margin-bottom: 20px;
+}
+li {
+  list-style-type: decimal;
+  margin: 10px;
 }
 
 .title {
   font-family: "Cormorant Unicase", serif;
-}
-
-li {
-  display: list-item;
-  list-style-position: inside;
+  font-weight: 500;
+  padding: 20px;
+  font-size: 50px;
+  padding: 20px;
+  border-bottom: solid black 1px;
 }
