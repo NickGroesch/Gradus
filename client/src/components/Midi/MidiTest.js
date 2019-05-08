@@ -28,12 +28,12 @@ class Midi extends Component {
 
   checkConnect = () => {
     navigator.requestMIDIAccess().then(midiAccess => {
-      console.log("MIDIACCESS: ", midiAccess.inputs);
+      // console.log("MIDIACCESS: ", midiAccess.inputs);
       if (midiAccess.inputs.size > 0) {
         this.setState({ isConnected: true });
         return true;
       } else {
-        console.log("No Midi Connected");
+        // console.log("No Midi Connected");
       }
     });
   };
@@ -44,15 +44,15 @@ class Midi extends Component {
     for (var input of midiAccess.inputs.values()) {
       input.onmidimessage = this.getMIDIMessage;
     }
-    console.log(midiAccess.inputs);
+    // console.log(midiAccess.inputs);
   };
 
   onMIDIFailure = () => {
-    console.log("Error: Could not access MIDI devices.");
+    // console.log("Error: Could not access MIDI devices.");
   };
 
   getMIDIMessage = message => {
-    console.log(message.data);
+    // console.log(message.data);
 
     //command receives instructions from the MIDI instrument to differentiate between keydown and keyup
     var command = message.data[0];

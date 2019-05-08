@@ -35,7 +35,7 @@ class Exercise extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     if (this.state.showPiano) {
       return (

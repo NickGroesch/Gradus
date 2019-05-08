@@ -44,6 +44,7 @@ class ExCard extends Component {
 
     setAbc(tomStuff) {
         let abcHeader = `X:1\nT:Cantus Firmus ${this.props.name}\nM:4/4\nK:${this.props.musicKey}\nL:1/1\n`
+        // let abcHeader = `X:1\nT:Cantus Firmus ${this.props.name}\nM:4/4\nK:F\nL:1/1\n`
         let abcBody = ""
         let abcData = tomStuff
         console.log("line 42", this.state.cantus)

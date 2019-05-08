@@ -100,7 +100,7 @@ class Graphs extends Component {
       res => {
         this.setState({ data: res.data })
         this.setState({ flag: true })
-        console.log("frontEnd", this.state.data)
+        // console.log("frontEnd", this.state.data)
         this.setAbc()
         // // cantus tests
         // API.cantusFirmusSuite({ cantus: this.state.data }).then(
