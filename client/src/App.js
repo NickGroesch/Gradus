@@ -74,10 +74,19 @@ function App() {
         <div>
           <Navbar />
           <Route exact path="/" component={Landing} />
-          <PrivateRoute exact path="/home" component={Home} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <PrivateRoute exact path="/pick-exercise" component={Exercise} />
+          {/* use for production */}
+          {/* <PrivateRoute exact path="/home" component={Home} /> */}
+          {/* use for localhost */}
+          <Route exact path="/home" component={Home} />
+
+          <div className="container">
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </div>
+          {/* use for production */}
+          {/* <PrivateRoute exact path="/pick-exercise" component={Exercise} /> */}
+          {/* use for localhost */}
+          <Route exact path="/pick-exercise" component={Exercise} />
           <Footer />
         </div>
       </Router>

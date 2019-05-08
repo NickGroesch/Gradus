@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import Abcjs from "react-abcjs";
 import dbAPI from "../../utils/API/APIroute1";
 import ExCard from "../../components/Exercise-Card/ExCard";
+// import "./style.css";
 
 class Home extends Component {
   constructor(props) {
