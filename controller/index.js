@@ -1,6 +1,6 @@
 // const db = require("../models");
 const translators = require("../utils/translators");
-const testSuites = require("../utils/testSuites");
+const testSuites = require("../utils/testsuites");
 
 // Defining methods for the booksController
 module.exports = {
