@@ -15,8 +15,11 @@ import "./style.css";
 // }
 
 class Exercise extends Component {
-  state = {
-    showPiano: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      showPiano: false
+    };
   };
   componentWillMount() {
     var self = this;

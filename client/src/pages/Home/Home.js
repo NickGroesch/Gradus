@@ -48,13 +48,6 @@ class Home extends Component {
             />
           );
         })}
-        {/* {friends.map(friend => (
-        <SpongeBobCard
-          obj={friend}
-          key={friend.id}
-        />
-      ))
-      } */}
       </div>
     );
   };
