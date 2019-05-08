@@ -42,8 +42,8 @@ class Exercise extends Component {
           <a href="/home">Dashboard</a>
           <h1>EXERCISE</h1>
           <Graphs />
-          <Piano />
-          <Midi />
+          {/* <Piano /> */}
+          {/* <Midi /> */}
         </div>
       );
     } else {
@@ -52,7 +52,7 @@ class Exercise extends Component {
           <a href="/home">Dashboard</a>
           <h1>EXERCISE</h1>
           <Graphs />
-          <Midi />
+          {/* <Midi /> */}
         </div>
       );
     }

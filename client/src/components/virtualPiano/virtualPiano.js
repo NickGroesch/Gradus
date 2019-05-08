@@ -5,7 +5,7 @@ import "./virtualPiano.css";
 class Piano extends Component {
   state = {
     // displays current keys that user has chosen
-    MidiArray: [],
+    MidiArray: this.props.pianoArray,
     // which octave we are currently working on (multiple of 12)
     octaveCount: 0,
     // starting value of each key in the presented octave
@@ -68,16 +68,16 @@ class Piano extends Component {
   //   }
 
   clearClick = () => {
-    console.log("clear click");
+    // console.log("clear click");
     this.setState({
       MidiArray: []
     });
   };
 
   backClick = () => {
-    console.log("back click");
+    // console.log("back click");
     this.state.MidiArray.pop();
-    console.log("change: ", this.state.MidiArray);
+    // console.log("change: ", this.state.MidiArray);
     this.setState({
       MidiArray: this.state.MidiArray
     });
@@ -85,7 +85,7 @@ class Piano extends Component {
 
   octaveIncrement = () => {
     // double check what the current octave count is, in order to see if it changed later
-    console.log(`Octave count pre-update: ${this.state.octaveCount}`);
+    // console.log(`Octave count pre-update: ${this.state.octaveCount}`);
 
     // create a callback function to reset the octave state and then reset the state id #s
     this.setState(
@@ -116,11 +116,11 @@ class Piano extends Component {
     let keysClicked = [...this.state.keysClicked];
     keysClicked.forEach(key => (key.clicked = false));
     keysClicked.forEach(key => {
-      console.log("clicked: ", e.target.attributes.name.value);
+      // console.log("clicked: ", e.target.attributes.name.value);
       if (
         parseInt(keysClicked.id) === parseInt(e.target.attributes.name.value)
       ) {
-        console.log("key id ", key.id);
+        // console.log("key id ", key.id);
         key.clicked = true;
       }
     });
@@ -128,9 +128,13 @@ class Piano extends Component {
     this.setState({ keysClicked: keysClicked });
     // this.state.MidiArray.forEach(key => )
 
+    // console.log('about to set state of midi aray!!!', e.target.id)
+
+
     this.setState({
-      MidiArray: [...this.state.MidiArray, e.target.id]
+      MidiArray: [...this.state.MidiArray, parseInt(e.target.id)]
     });
+    this.props.x([...this.state.MidiArray, parseInt(e.target.id)])
   };
 
   // if "last visited", remove flag from any other key, and change flag for "this" key from passive/false to active/true, which adds a css class
@@ -160,7 +164,7 @@ class Piano extends Component {
                 points="305,10 335,10 335,220 290,220 290,100 305,100 305,10"
                 className={`white pianoKey ${
                   this.state.keysClicked.key3 ? " playing" : ""
-                }`}
+                  }`}
                 id={this.state.keyID[4]}
                 onClick={this.pianoKeyClick}
               />
