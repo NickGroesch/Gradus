@@ -42,7 +42,7 @@ const counterpointSuite = anOb => {
     intervals.forEach((value, index) => {
         let bass = false
         let obKey = Object.keys(value)[0]
-        // checkto see if interval contains the bass
+        // check to see if interval contains the bass
         if (Object.keys(value)[0][9] == 1) { bass = true }
         if (bass) {
             testOb.testResults.push({ [`vertDissBass${obKey}`]: tests.verticalDissonanceBass(intervals[index][obKey]) })
@@ -77,11 +77,30 @@ const counterpointSuite = anOb => {
             testOb.testResults.push({ [`vertSpaceYellow${obKey}`]: tests.verticalSpacingYellow(intervals[index][obKey]) })
         }
     })
-    // parallel5or8--motions&intervals
-    // direct5or8--motions&intervals
+    // parallel5or8--*motions&intervals
+    motions.forEach((value, index) => {
+        let intObKey = Object.keys(intervals[index])[0]
+        let obKey = Object.keys(value)[0]
+        console.log(intObKey, obKey)
+        testOb.testResults.push({ [`parallel5or8${obKey}`]: tests.parallel5or8(intervals[index][intObKey], motions[index][obKey]) })
+    })
+    // direct5or8--*motions&intervals
+    motions.forEach((value, index) => {
+        let intObKey = Object.keys(intervals[index])[0]
+        let obKey = Object.keys(value)[0]
+        // console.log(intObKey, obKey)
+        testOb.testResults.push({ [`direct5or8${obKey}`]: tests.direct5or8(intervals[index][intObKey], motions[index][obKey]) })
+    })
     //independenceRed--motions
+    motions.forEach((value, index) => {
+        let obKey = Object.keys(value)[0]
+        testOb.testResults.push({ [`independenceRed${obKey}`]: tests.independenceRed(motions[index][obKey]) })
+    })
     //independenceYellow--motions
-
+    motions.forEach((value, index) => {
+        let obKey = Object.keys(value)[0]
+        testOb.testResults.push({ [`independenceYellow${obKey}`]: tests.independenceYellow(motions[index][obKey]) })
+    })
     return testOb
 }
 
