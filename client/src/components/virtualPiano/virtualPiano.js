@@ -8,7 +8,10 @@ class Piano extends Component {
         super(props);
         this.state = {
             // displays current keys that user has chosen
-            MidiArray: [],
+            MidiArray: [60, 60, 60],
+            noteArray: [],
+            cantusExample: [71, 71, 71],
+            cantusKey: "C",
             // which octave we are currently working on (multiple of 12)
             octaveCount: 0,
             // starting value of each key in the presented octave
@@ -27,7 +30,15 @@ class Piano extends Component {
 
     componentDidMount = () => {
         console.log('mounted!!!!!')
-        APIroute1.analyze({ exercise: { midi: [this.state.MidiArray], key: this.state.musicKey } })
+        this.analyzeMIDI()
+    }
+    analyzeMIDI = () => {
+        APIroute1.analyze({
+            exercise: {
+                midi: [this.state.cantusExample, this.state.MidiArray],
+                key: this.state.cantusKey
+            }
+        })
             .then(res => {
                 let abcStuff = res.data.voices.abc;
                 this.setAbc(abcStuff);
@@ -99,15 +110,38 @@ class Piano extends Component {
     }
 
     pianoKeyClick = (e) => {
-        this.setState({
-            MidiArray: [...this.state.MidiArray, e.target.id]
-        })
+        let stateMidi = this.state.MidiArray;
+        console.log("state midi: ", stateMidi)
+        let replaceArray = this.state.noteArray;
+        console.log("replacearr: ", replaceArray)
+        if (replaceArray.length < stateMidi.length) {
+            replaceArray.push(parseInt(e.target.id));
+        } else {
+            console.log("You can't input more values than the cantus firmus allows");
+        }
 
+        this.setState({ noteArray: replaceArray });
+        for (var i = 0; i < stateMidi.length; i++) {
+            if (replaceArray[i] !== stateMidi[i] && replaceArray[i] !== undefined) {
+                stateMidi[i] = replaceArray[i];
+            }
+        }
+
+        this.setState({ MidiArray: stateMidi });
+
+        // console.log("midiArray final: ", this.state.MidiArray);
+        console.log("abc state", this.state.abcjs)
+        // this.setState({
+        //     MidiArray: [...this.state.MidiArray, e.target.id]
+        // })
+        this.analyzeMIDI()
     };
 
     setAbc(musicValues) {
         console.log("setAbc going")
-        let abcHeader = `X:1\nT:Cantus Firmus ${this.state.title}\nM:4/4\nK:${this.state.musicKey}C\nL:1/1\n`
+        let abcHeader = `X:1\nT:Exercise\nM:4/4\nK:${
+            this.state.cantusKey
+            }\nL:1/1\n`;
         // let abcHeader = `X:1\nT:Cantus Firmus ${this.props.name}\nM:4/4\nK:F\nL:1/1\n`
         console.log("header ", abcHeader)
         let abcBody = "";
