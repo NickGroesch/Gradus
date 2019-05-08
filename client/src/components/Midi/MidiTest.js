@@ -22,7 +22,6 @@ class Midi extends Component {
   }
   componentDidMount = () => {
     this.checkConnect();
-    var testArray = [];
     this.runWebMidi();
   };
 

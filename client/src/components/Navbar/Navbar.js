@@ -20,7 +20,7 @@ class Navbar extends Component {
     const authLinks = (
       <React.Fragment>
         <a
-          href="#"
+          href="..."
           className="nav-log signIn"
           onClick={this.onLogout.bind(this)}
         >
