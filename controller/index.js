@@ -1,12 +1,12 @@
 // const db = require("../models");
 const translators = require("../utils/translators");
-const testSuites = require("../utils/testSuites")
+const testSuites = require("../utils/testsuites");
 
 // Defining methods for the booksController
 module.exports = {
   analyze: (request, res) => {
     let req = request.body.exercise;
-    // console.log(req)
+    console.log("REQ: ", req);
     let analyticObject = {
       key: req.key,
       voices: {
@@ -31,16 +31,25 @@ module.exports = {
     let genOb = generativeObject.voices;
     // WORKING here we convert each voice to duals, an abc, and assess its deltas
     req.midi.forEach((voice, index) => {
-      let pitch = translators.evalPitchArray(voice, req.key)
-      let dual = { [`voice${index + 1}`]: translators.formatDual(voice, pitch) }
-      anObV.duals.push(dual)
-      genOb.duals.push(dual[`voice${index + 1}`])
-      let delta = { [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`]) }
-      anObV.deltas.push(delta)
-      genOb.deltas.push(delta[`delta${index + 1}`])
-      let abcVoice = { [`abc${index + 1}`]: translators.abcify(dual[`voice${index + 1}`], req.key) }
-      anObV.abc.push(abcVoice)
-    })
+      let pitch = translators.evalPitchArray(voice, req.key);
+      let dual = {
+        [`voice${index + 1}`]: translators.formatDual(voice, pitch)
+      };
+      anObV.duals.push(dual);
+      genOb.duals.push(dual[`voice${index + 1}`]);
+      let delta = {
+        [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`])
+      };
+      anObV.deltas.push(delta);
+      genOb.deltas.push(delta[`delta${index + 1}`]);
+      let abcVoice = {
+        [`abc${index + 1}`]: translators.abcify(
+          dual[`voice${index + 1}`],
+          req.key
+        )
+      };
+      anObV.abc.push(abcVoice);
+    });
     // here we assess the intervals between each voice pair
     let arrayDuals = generativeObject.voices.duals;
     for (var i = 1; i <= arrayDuals.length; i++) {
@@ -65,15 +74,15 @@ module.exports = {
         anObR.motions.push(motions);
       }
     }
-    res.json(analyticObject)
+    res.json(analyticObject);
   },
   cantusSuite: (request, res) => {
-    results = testSuites.cantusFirmusSuite(request.body.cantus)
-    res.json(results)
+    results = testSuites.cantusFirmusSuite(request.body.cantus);
+    res.json(results);
   },
   counterpointSuite: (request, res) => {
-    console.log("where is it?", request.body)
-    results = testSuites.counterpointSuite(request.body.anOb)
-    res.json(results)
+    console.log("where is it?", request.body);
+    results = testSuites.counterpointSuite(request.body.anOb);
+    res.json(results);
   }
 };

@@ -43,6 +43,7 @@ class Exercise extends Component {
           <h1>EXERCISE</h1>
           <Graphs />
           <Piano />
+          <Midi />
         </div>
       );
     } else {
