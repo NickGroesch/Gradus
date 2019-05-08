@@ -1,6 +1,7 @@
 //import API from "../utils/API/WebMidiAPI";
 import React, { Component } from "react";
 import Abcjs from "react-abcjs";
+import APIroute1 from "../../utils/API/APIroute1";
 //import webmidi from "webmidi";
 
 class Midi extends Component {
@@ -8,27 +9,80 @@ class Midi extends Component {
     super();
     this.state = {
       isConnected: false,
-      MidiArray: [],
+      MidiValArray: [],
       noteArray: [],
-      exampleMIDI: ["a", "b", "b", "d"],
+
+      //To test the analyze API calls
+      exampleMIDI: [60, 59, 90],
+      exampleKey: "C",
 
       //for rendering Abcjs staff
       title: "",
       composer: "",
       key: ""
+
+      //we need this.state.data and this.state.exercise saved for API calls
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount = () => {
     this.checkConnect();
-    var testArray = [];
     this.runWebMidi();
+    this.analyzeMIDI();
   };
+
+  //================Testing analyze functions============================
+  analyzeMIDI = () => {
+    //Calling functions to translate MIDI values to notes
+    // console.log("this is my props in MidiTest!!!!!", this.state);
+    // console.log(
+    //   `MIDITEST ANALYZE OBJECT: ${this.state.exampleMIDI} and ${
+    //     this.state.exampleKey
+    //   }`
+    // );
+    APIroute1.analyze({
+      exercise: {
+        midi: [[60, 59, 60], [50, 49, 50]],
+        key: "C"
+      }
+    }).then(res => {
+      let abcStuff = res.data.voices.abc;
+      console.log(abcStuff);
+      this.setAbc(abcStuff);
+      console.log("state ", this.state);
+    });
+  };
+
+  setAbc(tomStuff) {
+    let abcHeader = `X:1\nT:Cantus Firmus ${this.props.name}\nM:4/4\nK:${
+      this.props.musicKey
+    }\nL:1/1\n`;
+    let abcBody = "";
+    let abcData = tomStuff;
+    console.log("line 42", this.state.cantus);
+    console.log("line 43", abcData);
+    // for each voice present in the abcData we will alter the header to create a staff for it
+    for (let i = abcData.length - 1; i >= 0; i--) {
+      abcHeader.concat(`V:${i + 1} clef=treble name= "Voice${i + 1}"\n`);
+      // having created the staff we will create the contents of the staff and add them to the score body
+      let abcVoice = `[V:${i + 1}] `;
+      abcData[i][`abc${i + 1}`].forEach((value, index) => {
+        let note = `${value}|`;
+        // abcVoice = abcVoice.concat("X")
+        abcVoice = abcVoice.concat(note);
+      });
+      abcBody = abcBody.concat(abcVoice);
+    }
+    let abcScore = abcHeader.concat(abcBody);
+    this.setState({ abcjs: abcScore });
+    console.log("<<<TestMIDI Analyze Function DONE>>> ", this.state.abcjs);
+  }
+  //=============================================================================
 
   checkConnect = () => {
     navigator.requestMIDIAccess().then(midiAccess => {
-      console.log("MIDIACCESS: ", midiAccess.inputs);
+      // console.log("MIDIACCESS: ", midiAccess.inputs);
       if (midiAccess.inputs.size > 0) {
         this.setState({ isConnected: true });
         return true;
@@ -44,7 +98,7 @@ class Midi extends Component {
     for (var input of midiAccess.inputs.values()) {
       input.onmidimessage = this.getMIDIMessage;
     }
-    console.log(midiAccess.inputs);
+    // console.log(midiAccess.inputs);
   };
 
   onMIDIFailure = () => {
@@ -106,20 +160,21 @@ class Midi extends Component {
     console.log("Noteon Note:", note);
     console.log("Noteon Velocity: ", velocity);
 
-    let stateMidi = this.state.MidiArray;
+    let stateMidi = this.state.MidiValArray;
 
     console.log(stateMidi);
 
-    this.setState({ MidiArray: this.state.MidiArray.concat(note) });
-    // this.setState({ MidiArray: stateMidi });
+    this.setState({ MidiValArray: this.state.MidiValArray.concat(note) });
+    // this.setState({ MidiValArray: stateMidi });
 
-    console.log(this.state.MidiArray);
+    console.log(this.state.MidiValArray);
   };
 
+  //============might not need these after the API analyze functions work==========
   mapMidiValues = () => {
     console.log(this.state.noteArray);
     this.setState({
-      noteArray: this.state.MidiArray.map(this.convertToNote)
+      noteArray: this.state.MidiValArray.map(this.convertToNote)
     });
     console.log(this.state.noteArray);
   };
@@ -132,7 +187,7 @@ class Midi extends Component {
         return "G";
     }
   };
-
+  //===================================================================================
   noteOff = (note, velocity) => {
     console.log("noteOff working");
     console.log("Noteoff Note:", note);
@@ -148,17 +203,17 @@ class Midi extends Component {
 
   clearClick = () => {
     this.setState({
-      MidiArray: []
+      MidiValArray: []
     });
   };
 
   //BackClick removes last input but doesn't show it on screen until another input clicked
   backClick = () => {
-    this.state.MidiArray.pop();
+    this.state.MidiValArray.pop();
     this.setState({
-      MidiArray: this.state.MidiArray
+      MidiValArray: this.state.MidiValArray
     });
-    console.log(this.state.MidiArray);
+    console.log("Notes after clicking back: ", this.state.MidiValArray);
   };
 
   handleInputChange = e => {
@@ -174,11 +229,11 @@ class Midi extends Component {
       composer: this.state.composer,
       key: this.state.key
     };
-    console.log(`Creating staff... \n
+    console.log(`Saving staff... \n
     creating title: ${staff.title}... \n
     creating composer: ${staff.composer}... \n
     creating key: ${staff.key}... \n
-    staff complete!`);
+    save complete!`);
   }
 
   render() {
@@ -191,7 +246,7 @@ class Midi extends Component {
 
         {/* Check MIDI connection and log notes */}
         <div>Midi connected? {this.state.isConnected.toString()}</div>
-        <div>Notes: {this.state.MidiArray}</div>
+        <div>Notes: {this.state.MidiValArray}</div>
 
         {/* Set Title, Composer, and Key of exercise */}
         <div className="container userStaffInput">
@@ -204,7 +259,7 @@ class Midi extends Component {
               placeholder="Masterpiece in G"
               onChange={this.handleInputChange}
               value={this.state.title}
-            // ref={userInput => (this.state.exercise.title = userInput)}
+              // ref={userInput => (this.state.exercise.title = userInput)}
             />
             <label>Composer</label>
             <input
@@ -212,7 +267,7 @@ class Midi extends Component {
               name="composer"
               placeholder="Trad."
               onChange={this.handleInputChange}
-            // ref={userInput => (this.state.composer = userInput)}
+              // ref={userInput => (this.state.composer = userInput)}
             />
             <label>Key</label>
             <input
@@ -220,7 +275,7 @@ class Midi extends Component {
               name="key"
               placeholder="G"
               onChange={this.handleInputChange}
-            // ref={userInput => (this.state.key = userInput)}
+              // ref={userInput => (this.state.key = userInput)}
             />
             <input type="submit" />
           </form>
@@ -232,7 +287,7 @@ class Midi extends Component {
             //X: 1 stave L: note length T: title of rendered staff M: time C: composer K: key(G in this case) "|": bar line
             `X:1\nL:1/1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this.state
               .composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${this.state
-                .noteArray[0] || "A"}`
+              .noteArray[0] || "A"}`
             //Is it really as easy as going through each element of the array?
             //c'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|`
           }
