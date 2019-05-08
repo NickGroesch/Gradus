@@ -39,7 +39,6 @@ class Exercise extends Component {
     if (this.state.showPiano) {
       return (
         <div>
-          <a href="/home">Dashboard</a>
           <h1>EXERCISE</h1>
           <Graphs />
           <Piano />
@@ -49,7 +48,6 @@ class Exercise extends Component {
     } else {
       return (
         <div>
-          <a href="/home">Dashboard</a>
           <h1>EXERCISE</h1>
           <Graphs />
           <Midi />

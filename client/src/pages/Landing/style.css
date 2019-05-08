@@ -13,8 +13,6 @@
 }
 
 .info-box {
-  width: 50%;
-  height: 400px;
   line-height: 20px;
   float: left;
   border: solid black 1px;
@@ -22,7 +20,7 @@
 }
 
 ol {
-  margin: 30px 20px 0 60px;
+  margin: 30px 20px 0 30px;
   display: list-item;
   margin-bottom: 20px;
 }
@@ -32,6 +30,7 @@ li {
 }
 
 .title {
+  width: 110%;
   font-family: "Cormorant Unicase", serif;
   font-weight: 500;
   padding: 30px;
@@ -39,8 +38,9 @@ li {
   border-bottom: solid black 1px;
 }
 
-.about-body {
+.landing-body {
   margin: 30px 20px 0 30px;
+  padding: 0 0 50px 0;
 }
 
 .portfolio-link {
