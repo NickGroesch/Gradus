@@ -62,7 +62,7 @@ function Landing() {
             <br />
             <br />
             "An awe-inspiring magnum opus of accomplishment. [Gradus] will
-            unlock the potential of billions of musicians" -Wallstreet
+            unlock the potential of billions of musicians" -Wall Street
             Journal**.
             <br />
             <br />
