@@ -57,7 +57,7 @@ function Landing() {
             result of our hard work and ingenuity. We know Gradus is lauded as:
             <br />
             <br />
-            "The most revolutionary piece of software in the 21st century"
+            "The most revolutionary piece of software of the 21st century"
             -MIT**
             <br />
             <br />
