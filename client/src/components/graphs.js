@@ -45,12 +45,8 @@ class Graphs extends Component {
         key: "C",
         midi:
           // [[60, 67, 69, 67, 60, 62, 62, 60]]
-          [[64, 67, 60],
-          [67, 71, 72],
-          [72, 74, 76],
-          [79, 79, 79]],
+          [[64, 67, 60], [67, 71, 72], [72, 74, 76], [79, 79, 79]]
         // which is cantus firmus? NEED FORMAT FIELD
-
       },
       cf: [],
       cp: [],
@@ -61,7 +57,7 @@ class Graphs extends Component {
       midi: [],
       pitch: [],
       flag: false,
-      data: {},
+      // data: {},
       abcjs: ""
     };
     // this.x = this.x.bind(this)
@@ -96,28 +92,28 @@ class Graphs extends Component {
     //   }
     // );
     // this.createTable();
-    API.analyze({ exercise: this.state.exercise }).then(
-      res => {
-        this.setState({ data: res.data })
-        this.setState({ flag: true })
-        // console.log("frontEnd", this.state.data)
-        this.setAbc()
-        // // cantus tests
-        // API.cantusFirmusSuite({ cantus: this.state.data }).then(
-        //   res => console.log(res.data)
-        // )
+    API.analyze({ exercise: this.state.exercise }).then(res => {
+      this.setState({ data: res.data });
+      this.setState({ flag: true });
+      console.log("frontEnd", this.state.data);
+      this.setAbc();
+      // // cantus tests
+      // API.cantusFirmusSuite({ cantus: this.state.data }).then(
+      //   res => console.log(res.data)
+      // )
 
-        // counterpoint tests
-        API.counterpointSuite({ anOb: this.state.data }).then(res => console.log(res.data))
-        // console.log("frontEnd", this.state.data.voices.duals)
-      }
-    )
+      // counterpoint tests
+      API.counterpointSuite({ anOb: this.state.data }).then(res =>
+        console.log(res.data)
+      );
+      // console.log("frontEnd", this.state.data.voices.duals)
+    });
   };
   // componentWillMount() {
   //   this.getGraphs();
   // }
   componentDidMount() {
-    this.getGraphs()
+    this.getGraphs();
     // console.log(this.state.data)
   }
 

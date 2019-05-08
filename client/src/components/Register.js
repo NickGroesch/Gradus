@@ -61,10 +61,16 @@ class Register extends Component {
     return (
       <div
         className="container signUp-box"
-        style={{ marginTop: "50px", width: "700px" }}
+        style={{ marginTop: "150px", width: "700px" }}
       >
-        <h2 style={{ marginBottom: "40px" }}>Registration</h2>
-        <form onSubmit={this.handleSubmit}>
+        <h2>Registration</h2>
+        <p>
+          Already have an account?{" "}
+          <a className="signIn-link" href="/login">
+            Sign In
+          </a>
+        </p>
+        <form style={{ marginTop: "30px" }} onSubmit={this.handleSubmit}>
           <div className="form-group">
             <input
               type="text"
@@ -126,7 +132,7 @@ class Register extends Component {
             )}
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn submit-button">
               Register User
             </button>
           </div>

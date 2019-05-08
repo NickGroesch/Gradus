@@ -1,19 +1,18 @@
-
 import React, { Component } from "react";
 import Graphs from "../../components/graphs";
 import Midi from "../../components/Midi/MidiTest";
 import Piano from "./../../components/virtualPiano/virtualPiano";
-import "./style.css"
+import "./style.css";
 
-function renderInput() {
-  navigator.requestMIDIAccess().then(midiAccess => {
-    if (midiAccess.inputs.size > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-}
+// function renderInput() {
+//   navigator.requestMIDIAccess().then(midiAccess => {
+//     if (midiAccess.inputs.size > 0) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   });
+// }
 
 class Exercise extends Component {
   state = {
@@ -44,6 +43,7 @@ class Exercise extends Component {
           <h1>EXERCISE</h1>
           <Graphs />
           <Piano />
+          <Midi />
         </div>
       );
     } else {
