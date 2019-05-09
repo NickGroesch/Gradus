@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./virtualPiano.css";
 // import Abcjs from "react-abcjs";
+// import "./virtualPiano.css";
 
 class Piano extends Component {
   state = {
@@ -130,19 +131,18 @@ class Piano extends Component {
 
     // console.log('about to set state of midi aray!!!', e.target.id)
 
-
     this.setState({
       MidiArray: [...this.state.MidiArray, parseInt(e.target.id)]
     });
-    this.props.x([...this.state.MidiArray, parseInt(e.target.id)])
+    this.props.x([...this.state.MidiArray, parseInt(e.target.id)]);
   };
 
   // if "last visited", remove flag from any other key, and change flag for "this" key from passive/false to active/true, which adds a css class
 
   render() {
     return (
-      <div>
-        <div className="virtual-piano">
+      <div className="row piano-container" style={{ marginBottom: "150px" }}>
+        <div className="col-6 virtual-piano">
           <div className="svg-container">
             <svg className="piano">
               <polygon
@@ -164,7 +164,7 @@ class Piano extends Component {
                 points="305,10 335,10 335,220 290,220 290,100 305,100 305,10"
                 className={`white pianoKey ${
                   this.state.keysClicked.key3 ? " playing" : ""
-                  }`}
+                }`}
                 id={this.state.keyID[4]}
                 onClick={this.pianoKeyClick}
               />
@@ -233,7 +233,8 @@ class Piano extends Component {
               />
             </svg>
           </div>
-
+        </div>
+        <div className="col-6 note-nav">
           <div>Notes: {this.state.MidiArray.toString()}</div>
           <div>Current Octave Count: {this.state.octaveCount}</div>
           {/* <button
@@ -260,6 +261,7 @@ class Piano extends Component {
 
           {/* directly changing the state is apparently frowned on by React so changed or condition to setState */}
           <button
+            className="piano-button octave"
             id="octave-up"
             onClick={
               this.state.octaveCount < 61
@@ -270,6 +272,7 @@ class Piano extends Component {
             octave +
           </button>
           <button
+            className="piano-button octave"
             id="octave-down"
             onClick={
               this.state.octaveCount > -61
@@ -279,11 +282,14 @@ class Piano extends Component {
           >
             octave -
           </button>
-        </div>
-
-        <div>
-          <button onClick={this.clearClick}>Clear</button>
-          <button onClick={this.backClick}>Back</button>
+          <div>
+            <button className="piano-button" onClick={this.clearClick}>
+              Clear
+            </button>
+            <button className="piano-button" onClick={this.backClick}>
+              Back
+            </button>
+          </div>
         </div>
       </div>
     );
