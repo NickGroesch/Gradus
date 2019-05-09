@@ -353,9 +353,10 @@ const detectUnisons = (intervalArray) => {
 // console.log(detectUnisons(detectUnisonsFail))//fail [1,2,6]
 
 const detectVoiceCrossing = (dualArray1, dualArray2) => {
+    let shorterArray = dualArray1 >= dualArray2 ? dualArray2 : dualArray1
     let result = [false, [], []]
-    dualArray1.forEach((value, index) => {
-        if (value.midi > dualArray2[index].midi) {
+    shorterArray.forEach((value, index) => {
+        if (dualArray1[index].midi > dualArray2[index].midi) {
             result[1].push(`voices crossed at pos. ${index}`)
             result[2].push(index)
         }
