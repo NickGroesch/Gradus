@@ -2,7 +2,7 @@ import API from "../utils/API/APIroute1";
 import React, { Component } from "react";
 import "./graphs.css";
 import Abcjs from "react-abcjs";
-import Piano from "./virtualPiano/virtualPiano"
+import Piano from "./virtualPiano/nvirtualPiano"
 
 class Graphs extends Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class Graphs extends Component {
   componentDidUpdate(prevProps, prevState) {
 
     if (this.state.pianoArray !== prevState.pianoArray) {
-      console.log('wer uinsidet heif ', this.state.pianoArray)
+      console.log('wer uinsidnet heif ', this.state.pianoArray)
       this.getGraphs()
       // this.doHi()
     }
