@@ -2,7 +2,8 @@ import API from "../utils/API/APIroute1";
 import React, { Component } from "react";
 import "./graphs.css";
 import Abcjs from "react-abcjs";
-import Piano from "./virtualPiano/nvirtualPiano"
+import Piano from "./virtualPiano/nvirtualPiano";
+import Midi from "./Midi/MidiTest";
 
 class Graphs extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class Graphs extends Component {
         key: "C",
         midi:
           // [[60, 67, 69, 67, 60, 62, 62, 60]]
-          [[64, 67, 60], [67, 71, 72], [72, 72, 72]]//, this.state.pianoArray]
+          [[64, 67, 60], [67, 71, 72], [72, 72, 72]] //, this.state.pianoArray]
         // which is cantus firmus? NEED FORMAT FIELD
       },
 
@@ -23,17 +24,16 @@ class Graphs extends Component {
     };
     // this.x = this.x.bind(this)
   }
-  x = (y) => {
+  x = y => {
     this.setState({
-      pianoArray: y,
+      pianoArray: y
       // rerender: true
-    })
-
-  }
+    });
+  };
   setAbc() {
     let abcHeader = `X:1\nT:Counterpoint\nM:4/4\nK:${
       this.state.exercise.key
-      }\nL:1/1\n`;
+    }\nL:1/1\n`;
     let abcBody = "";
     let abcData = this.state.data.voices.abc;
     // for each voice present in the abcData we will alter the header to create a staff for it
@@ -49,26 +49,23 @@ class Graphs extends Component {
       abcBody = abcBody.concat(abcVoice);
     }
     let abcScore = abcHeader.concat(abcBody);
-    console.log("XXX", abcScore)
+    console.log("XXX", abcScore);
     this.setState({ abcjs: abcScore });
-    console.log(this.state)
-
+    console.log(this.state);
   }
   componentDidUpdate(prevProps, prevState) {
-
     if (this.state.pianoArray !== prevState.pianoArray) {
-      console.log('wer uinsidnet heif ', this.state.pianoArray)
-      this.getGraphs()
+      console.log("wer uinsidnet heif ", this.state.pianoArray);
+      this.getGraphs();
       // this.doHi()
     }
   }
 
-
   getGraphs = () => {
     // this.setState({ rerender: false })
 
-    let ex = this.state.exercise
-    ex.midi[3] = this.state.pianoArray
+    let ex = this.state.exercise;
+    ex.midi[3] = this.state.pianoArray;
 
     API.analyze({ exercise: ex }).then(res => {
       this.setState({ data: res.data });
@@ -93,23 +90,23 @@ class Graphs extends Component {
     // console.log(this.state.data)
   }
   doHi = () => {
-
     // this.setState({ rerender: false })
     // this.getGraphs()
-    return (<div>
-      <Abcjs
-        abcNotation={
-          //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-          this.state.abcjs
-          // this.state.abc
-        }
-        parserParams={{}}
-        engraverParams={{ responsive: "resize" }}
-        renderParams={{ viewportHorizontal: true }}
-      />
-    </div>)
-
-  }
+    return (
+      <div>
+        <Abcjs
+          abcNotation={
+            //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+            this.state.abcjs
+            // this.state.abc
+          }
+          parserParams={{}}
+          engraverParams={{ responsive: "resize" }}
+          renderParams={{ viewportHorizontal: true }}
+        />
+      </div>
+    );
+  };
   render() {
     return (
       <div>
@@ -131,10 +128,10 @@ class Graphs extends Component {
             />
           </div>
         ) : (
-            <p>failure</p>
-          )}
+          <p>failure</p>
+        )}
         <Piano pianoArray={this.state.pianoArray} x={this.x} />
-
+        <Midi pianoArray={this.state.pianoArray} x={this.x} />
       </div>
     );
   }

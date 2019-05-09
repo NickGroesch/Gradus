@@ -1,25 +1,18 @@
 //import API from "../utils/API/WebMidiAPI";
 import React, { Component } from "react";
 //component
-import Abcjs from "react-abcjs";
 import TestAbcjs from "./AbcComponent";
-// import Abcjs from "../../../node_modules/abcjs/src";
-//functions to create MIDI player
-// import abcjs from "../../../node_modules/abcjs/src/midi/abc_midi_create";
-
-//C:\Users\mcamp\Desktop\Github\Gradus\client\node_modules\abcjs\src\midi\abc_midi_create.js
 
 import APIroute1 from "../../utils/API/APIroute1";
 
-//import webmidi from "webmidi";
-
 class Midi extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isConnected: false,
       //MidiValArray and exampleMIDI have to be the same length... so we need placeholders (rests) for the user input for the entire length of the cantus firmus
-      MidiValArray: [60, 59, 60, 60, 60, 60, 60],
+      // MidiValArray: [60, 59, 60, 60, 60, 60, 60],
+      MidiValArray: this.props.pianoArray,
       noteArray: [],
 
       //To test the analyze API calls
@@ -175,29 +168,32 @@ class Midi extends Component {
     console.log("Noteon Note:", note);
     console.log("Noteon Velocity: ", velocity);
 
-    let stateMidi = this.state.MidiValArray;
-    console.log(stateMidi);
+    //Loop for generating Abcjs component when you only have fixed data...
+    //i.e. when <Midi /> is not a child component of <Graph />
 
-    let replaceArray = this.state.noteArray;
-    let cantusArray = this.state.exampleMIDI;
-    if (replaceArray.length < cantusArray.length) {
-      replaceArray.push(note);
-    } else {
-      console.log("You can't input more values than the cantus firmus allows");
-    }
-    this.setState({ noteArray: replaceArray });
-    console.log("REPLACEARRAY: ", replaceArray);
-    for (var i = 0; i < stateMidi.length; i++) {
-      if (replaceArray[i] !== stateMidi[i] && replaceArray[i] !== undefined) {
-        stateMidi[i] = replaceArray[i];
-      }
-    }
+    // let stateMidi = this.state.MidiValArray;
+    // console.log(stateMidi);
 
-    console.log("STATEMIDI", stateMidi);
+    // let replaceArray = this.state.noteArray;
+    // let cantusArray = this.state.exampleMIDI;
+    // if (replaceArray.length < cantusArray.length) {
+    //   replaceArray.push(note);
+    // } else {
+    //   console.log("You can't input more values than the cantus firmus allows");
+    // }
+    // this.setState({ noteArray: replaceArray });
+    // console.log("REPLACEARRAY: ", replaceArray);
+    // for (var i = 0; i < stateMidi.length; i++) {
+    //   if (replaceArray[i] !== stateMidi[i] && replaceArray[i] !== undefined) {
+    //     stateMidi[i] = replaceArray[i];
+    //   }
+    // }
+
+    // console.log("STATEMIDI", stateMidi);
 
     // this.setState({ MidiValArray: this.state.MidiValArray.concat(note) });
-    this.setState({ MidiValArray: stateMidi });
-
+    this.setState({ MidiValArray: [...this.state.MidiValArray, note] });
+    this.props.x([...this.state.MidiValArray, note]);
     console.log(this.state.MidiValArray);
 
     this.analyzeMIDI();
@@ -312,32 +308,17 @@ class Midi extends Component {
           </form>
         </div>
 
-        {/* Render Abcjs music staff */}
-        {/* <Abcjs
-          abcNotation={
-            //X: 1 stave L: note length T: title of rendered staff M: time C: composer K: key(G in this case) "|": bar line
-            `X:1\nL:1/1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this.state
-              .composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${this.state
-              .noteArray[0] || "A"}`
-            //Is it really as easy as going through each element of the array?
-            //c'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|`
-          }
-          parserParams={{}}
-          engraverParams={{ responsive: "resize" }}
-          renderParams={{ viewportHorizontal: true }}
-        /> */}
-
         {/* FUTURE INLINE MIDI */}
         {/* <div id="midi" />
         <div id="paper" /> */}
 
-        <Abcjs
+        {/* <Abcjs
           // FUTURE INLINE MIDI
           // onload={this.load()}
           abcNotation={this.state.abcjs}
           engraverParams={{ responsive: "resize" }}
           renderParams={{ viewportHorizontal: true }}
-        />
+        /> */}
         {/* FUTURE WORK DO NOT DELETE */}
         {/* <p>
           -----------------------------------------------------------------------
