@@ -18,7 +18,7 @@ class Home extends Component {
 
   componentDidMount() {
     dbAPI.findAll().then(data => {
-      console.log("XXXXX", data.data)
+      console.log("XXXXX", data)
       // this.setState({ cantus: data.data })
       if (data.data) {
 
@@ -48,8 +48,7 @@ class Home extends Component {
   ListCard = () => {
     return (
       <div>
-        hello
-        {/* {this.state.cantus.map((value, index) => {
+        {this.state.cantus.map((value, index) => {
           console.log("***", value.midiArray)
           return (
             <ExCard
@@ -59,7 +58,7 @@ class Home extends Component {
               key={index}
             />
           );
-        })} */}
+        })}
         {/* {friends.map(friend => (
         <SpongeBobCard
           obj={friend}
