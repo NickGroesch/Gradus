@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 //component
 import TestAbcjs from "./AbcComponent";
-import "style.css";
+// import "style.css";
 import APIroute1 from "../../utils/API/APIroute1";
 
 class Midi extends Component {

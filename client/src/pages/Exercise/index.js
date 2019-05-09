@@ -41,15 +41,8 @@ class Exercise extends Component {
         <div>
           <h1>EXERCISE</h1>
           <Graphs />
-<<<<<<< HEAD
-          <div>
-            <Piano />
-          </div>
-          <Midi />
-=======
           {/* <Piano /> */}
           {/* <Midi /> */}
->>>>>>> master
         </div>
       );
     } else {
