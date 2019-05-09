@@ -17,7 +17,7 @@ class Home extends Component {
 
   componentDidMount() {
     dbAPI.findAll().then(data => {
-      data.data.forEach((element, index) => {
+      data.data.map((element, index) => {
         let cantus = {};
         // console.log("ele: ", element)
         cantus.name = element.name;
