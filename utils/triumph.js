@@ -29,7 +29,9 @@ matrix.forEach(column => {
         trash.push(column.splice(comb[i], 1))
     }
 })
-console.log("keycombed", matrix)
+// console.log("keycombed", matrix)
+
+// we must format the midi cantus into duals for the remaining tests.
 let cantusPitch = translators.evalPitchArray(midiCantus, dummy.key);
 let dualCantus =
     translators.formatDual(midiCantus, cantusPitch)
@@ -46,8 +48,32 @@ for (var i = 0; i < midiCantus.length; i++) {
     vertComb = [...vertComb]
     let trash = []
     for (var k = vertComb.length - 1; k >= 0; k--) {
-        trash.push(matrix[i].splice(vertComb[i], 1))
+        trash.push(matrix[i].splice(vertComb[k], 1))
     }
+    console.log("dissonance combed", matrix[i])
 }
-console.log("dissonance combed", matrix)
+// console.log("dissonance combed", matrix)
+
+// having completed the combing we now need to assess entire linear counterpoints
+
+// -----------------------------------------
+
+// how can we use recursion to populate the mega-array of potential solutions at this point??
+let megaArray = []
+for (let i = 0; i = dualCantus.length; i++) {
+
+}
+// recursion needs a general function that calls itself,
+//  and a conditional to determine the case of bottoming out
+
+// for 2 lines(one of which is fixed, one variable) if there are N options 
+// for each of M variable value, there are N^M possibilities
+
+// ----------------------------------------------
+
+// now we need to formulate a general function that will run a test and 
+// use the results to trim the 
+
+// no repitition will run for now( it will need be be replaced with a more 
+// sensitive function to allow the possibility of infrequent tying)
 
