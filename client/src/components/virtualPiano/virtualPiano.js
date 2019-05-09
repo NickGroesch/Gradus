@@ -24,6 +24,7 @@ class Piano extends Component {
             musicKey: ""
         };
 
+        this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     };
@@ -32,6 +33,12 @@ class Piano extends Component {
         console.log('mounted!!!!!')
         this.analyzeMIDI()
     }
+
+    forceUpdateHandler() {
+        console.log("force update handler")
+        this.forceUpdate();
+    };
+
     analyzeMIDI = () => {
         APIroute1.analyze({
             exercise: {
@@ -135,6 +142,7 @@ class Piano extends Component {
         //     MidiArray: [...this.state.MidiArray, e.target.id]
         // })
         this.analyzeMIDI()
+        // this.forceUpdateHandler()
     };
 
     setAbc(musicValues) {

@@ -5,7 +5,11 @@ import Abcjs from "react-abcjs";
 
 // const ExCard = (props) => {
 class ExCard extends Component {
-    // console.log("hello ", props)
+    constructor(props) {
+        super(props);
+        console.log("hello ", props)
+    }
+
     state = {
         name: "",
         cantus: [],
@@ -66,9 +70,9 @@ class ExCard extends Component {
         this.setState({ abcjs: abcScore });
     }
 
-    render() {
+    render(props) {
         return (
-            <a href="/pick-exercise">
+            <a href={this.props.link}>
                 <div className="card">
                     {/* <div className="card-header">
             Exercise Name: {this.state.name}

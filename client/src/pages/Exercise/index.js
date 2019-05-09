@@ -3,6 +3,7 @@ import Graphs from "../../components/graphs";
 import Midi from "../../components/Midi/MidiTest";
 import Piano from "./../../components/virtualPiano/virtualPiano";
 import "./style.css";
+import APIroute1 from "../../utils/API/APIroute1";
 
 // function renderInput() {
 //   navigator.requestMIDIAccess().then(midiAccess => {
@@ -21,6 +22,12 @@ class Exercise extends Component {
       showPiano: false
     };
   };
+  componentDidMount() {
+    APIroute1.findOne().then(data => {
+      console.log("XXXXXXXXdata: ", data)
+    })
+  }
+
   componentWillMount() {
     var self = this;
     navigator.requestMIDIAccess().then(midiAccess => {

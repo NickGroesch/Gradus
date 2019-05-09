@@ -81,11 +81,12 @@ function App() {
 
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          {/* <Route exact path='/exercise/:id' component={thepage} */}
 
           {/* use for production */}
           {/* <PrivateRoute exact path="/pick-exercise" component={Exercise} /> */}
           {/* use for localhost */}
-          <Route exact path="/pick-exercise" component={Exercise} />
+          <Route exact path='/exercise/:id' component={Exercise} />
           <Footer />
         </div>
       </Router>

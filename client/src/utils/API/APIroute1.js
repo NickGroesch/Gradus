@@ -27,5 +27,9 @@ export default {
   },
   findAll: function () {
     return axios.get("/api/database");
+  },
+
+  findOne: function (id) {
+    return axios.get("/api/database/" + id);
   }
 };

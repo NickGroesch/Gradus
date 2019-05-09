@@ -7,6 +7,10 @@ mongoose.connect("mongodb://localhost/Gradus", { useNewUrlParser: true });
 
 router.route("/")
     .get(databaseController.findAll)
+
+router
+    .route("/:id")
+    .get(databaseController.findOne)
 // router.get("/", )
 
 module.exports = router;
