@@ -58,14 +58,16 @@ class Graphs extends Component {
       pitch: [],
       flag: false,
       // data: {},
-      abcjs: ""
-    };
+      abcjs: "",
+      testArray: []
+    }
+
     // this.x = this.x.bind(this)
   }
   setAbc() {
     let abcHeader = `X:1\nT:Counterpoint\nM:4/4\nK:${
       this.state.exercise.key
-    }\nL:1/1\n`;
+      }\nL:1/1\n`;
     let abcBody = "";
     let abcData = this.state.data.voices.abc;
     // for each voice present in the abcData we will alter the header to create a staff for it
@@ -103,9 +105,30 @@ class Graphs extends Component {
       // )
 
       // counterpoint tests
-      API.counterpointSuite({ anOb: this.state.data }).then(res =>
-        console.log(res.data)
-      );
+      API.counterpointSuite({ anOb: this.state.data }).then(res => {
+        // console.log("XXX", res.data)
+        var test = res.data.testResults
+        console.log("xxx", test);
+        var testArray = []
+        test.forEach(value => {
+          let obKey = Object.keys(value)[0]
+          console.log(`${obKey}`, value[obKey][1]);
+          var test2 = (`${obKey}`, value[obKey][1])
+          var htmlTestTHing = (
+            <div>
+              <h4> {test2}</h4>
+            </div>
+          )
+          testArray.push(htmlTestTHing);
+          // const listItems = test2.map((test2) =>
+          //   <li>{test2}</li>
+          // );
+        })
+
+        this.setState({ testArray: testArray })
+
+
+      });
       // console.log("frontEnd", this.state.data.voices.duals)
     });
   };
@@ -259,6 +282,7 @@ class Graphs extends Component {
           <div>
             success
             {/* {this.kyTable()} */}
+            {this.state.testArray}
             <Abcjs
               abcNotation={
                 //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
@@ -269,10 +293,11 @@ class Graphs extends Component {
               engraverParams={{ responsive: "resize" }}
               renderParams={{ viewportHorizontal: true }}
             />
+
           </div>
         ) : (
-          <p>failure</p>
-        )}
+            <p>failure</p>
+          )}
         {/* // [0].voice1[1].pitch} */}
         {/* {this.displayData()} */}
         {/* {Object.keys(data).length > 0 ? (
