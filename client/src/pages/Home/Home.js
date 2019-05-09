@@ -13,6 +13,7 @@ class Home extends Component {
 
   hidden() {
     this.setState(state => ({ collapse: !state.collapse }));
+    console.log(this.state.collapse)
   }
 
   componentDidMount() {
@@ -47,7 +48,8 @@ class Home extends Component {
   ListCard = () => {
     return (
       <div>
-        {this.state.cantus.map((value, index) => {
+        hello
+        {/* {this.state.cantus.map((value, index) => {
           console.log("***", value.midiArray)
           return (
             <ExCard
@@ -57,7 +59,7 @@ class Home extends Component {
               key={index}
             />
           );
-        })}
+        })} */}
         {/* {friends.map(friend => (
         <SpongeBobCard
           obj={friend}
