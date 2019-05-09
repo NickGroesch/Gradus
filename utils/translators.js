@@ -251,27 +251,32 @@ const assessMotion = (deltasArray1, deltasArray2) => {
     let motion = "yet undefined"
     // console.log(`arr1[${index}]`, delta[3])
     // console.log("arr2", deltasArray2[index][3])
-    let move1 = deltasArray1[index][3]
-    let move2 = deltasArray2[index][3]
-    if (move1 === 0 && move2 === 0) {
-      motion = "Not Motion"
-    } else if (move1 == 0 || move2 == 0) {
-      motion = "oblique"
-    } else if ((move1 > 0 && move2 < 0) || move1 < 0 && move2 > 0) {
-      motion = "contrary"
-    } else {
-      // both similar and parallel
-      let interval1 = delta[2]
-      let interval2 = deltasArray2[index][2]
-      // console.log(interval1)
-      // console.log(interval2)
-      if (interval1 === interval2) {
-        motion = "parallel"
+    // TOMS crazy conditional, why doesit work?????????????? DO I WANT IT??????????
+    console.log('this is the index', index)
+    if (index < 2) {
+      console.log('do we have this arrayyyyyyyy', deltasArray1)
+      let move1 = deltasArray1[index][3]
+      let move2 = deltasArray2[index][3]
+      if (move1 === 0 && move2 === 0) {
+        motion = "Not Motion"
+      } else if (move1 == 0 || move2 == 0) {
+        motion = "oblique"
+      } else if ((move1 > 0 && move2 < 0) || move1 < 0 && move2 > 0) {
+        motion = "contrary"
       } else {
-        motion = "similar"
+        // both similar and parallel
+        let interval1 = delta[2]
+        let interval2 = deltasArray2[index][2]
+        // console.log(interval1)
+        // console.log(interval2)
+        if (interval1 === interval2) {
+          motion = "parallel"
+        } else {
+          motion = "similar"
+        }
       }
+      motionArray.push(motion)
     }
-    motionArray.push(motion)
   })
   return motionArray
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Graphs from "../../components/graphs";
 import Midi from "../../components/Midi/MidiTest";
-import Piano from "./../../components/virtualPiano/virtualPiano";
+import Piano from "../../components/virtualPiano/nvirtualPiano";
 import "./style.css";
 
 // function renderInput() {
@@ -41,10 +41,15 @@ class Exercise extends Component {
         <div>
           <h1>EXERCISE</h1>
           <Graphs />
+<<<<<<< HEAD
           <div>
             <Piano />
           </div>
           <Midi />
+=======
+          {/* <Piano /> */}
+          {/* <Midi /> */}
+>>>>>>> master
         </div>
       );
     } else {
@@ -52,7 +57,7 @@ class Exercise extends Component {
         <div>
           <h1>EXERCISE</h1>
           <Graphs />
-          <Midi />
+          {/* <Midi /> */}
         </div>
       );
     }

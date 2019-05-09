@@ -13,7 +13,6 @@ module.exports = {
         duals: [],
         deltas: [],
         abc: []
-        // WE NEED ABCJS SUPPORT
       },
       relations: {
         intervals: [],
@@ -31,24 +30,30 @@ module.exports = {
     let genOb = generativeObject.voices;
     // WORKING here we convert each voice to duals, an abc, and assess its deltas
     req.midi.forEach((voice, index) => {
-      let pitch = translators.evalPitchArray(voice, req.key);
-      let dual = {
-        [`voice${index + 1}`]: translators.formatDual(voice, pitch)
-      };
-      anObV.duals.push(dual);
-      genOb.duals.push(dual[`voice${index + 1}`]);
-      let delta = {
-        [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`])
-      };
-      anObV.deltas.push(delta);
-      genOb.deltas.push(delta[`delta${index + 1}`]);
-      let abcVoice = {
-        [`abc${index + 1}`]: translators.abcify(
-          dual[`voice${index + 1}`],
-          req.key
-        )
-      };
-      anObV.abc.push(abcVoice);
+      // changed logic here to support empty arrays
+      if (voice.length) {
+        let pitch = translators.evalPitchArray(voice, req.key);
+        let dual = {
+          [`voice${index + 1}`]: translators.formatDual(voice, pitch)
+        };
+        anObV.duals.push(dual);
+        genOb.duals.push(dual[`voice${index + 1}`]);
+        // changed logic here to support singleton arrays
+        if (dual.length > 1) {
+          let delta = {
+            [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`])
+          };
+          anObV.deltas.push(delta);
+          genOb.deltas.push(delta[`delta${index + 1}`]);
+        }
+        let abcVoice = {
+          [`abc${index + 1}`]: translators.abcify(
+            dual[`voice${index + 1}`],
+            req.key
+          )
+        };
+        anObV.abc.push(abcVoice);
+      }
     });
     // here we assess the intervals between each voice pair
     let arrayDuals = generativeObject.voices.duals;
