@@ -29,7 +29,7 @@ matrix.forEach(column => {
         trash.push(column.splice(comb[i], 1))
     }
 })
-console.log("keycombed", matrix)
+// console.log("keycombed", matrix)
 
 // we must format the midi cantus into duals for the remaining tests.
 let cantusPitch = translators.evalPitchArray(midiCantus, dummy.key);
@@ -50,9 +50,11 @@ for (var i = 0; i < midiCantus.length; i++) {
     for (var k = vertComb.length - 1; k >= 0; k--) {
         trash.push(matrix[i].splice(vertComb[k], 1))
     }
-    console.log("dissonance combed", matrix[i])
+    // console.log("dissonance combed", matrix[i])
 }
 // console.log("dissonance combed", matrix)
+
+// WE NEED TO COMB MORE TO REDUCE THE TIME AND SPACE COMPLEXITY TO MANAGEABLE LEVELS
 
 // having completed the combing we now need to assess entire linear counterpoints
 
@@ -68,6 +70,8 @@ for (let i = 0; i = dualCantus.length; i++) {
 
 // for 2 lines(one of which is fixed, one variable) if there are N options 
 // for each of M variable value, there are N^M possibilities
+
+
 
 // ----------------------------------------------
 
