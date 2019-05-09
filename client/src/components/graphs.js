@@ -14,8 +14,8 @@ class Graphs extends Component {
       exercise: {
         key: "C",
         midi:
-          // [[60, 67, 69, 67, 60, 62, 62, 60]]
-          [[64, 67, 60], [67, 71, 72], [72, 72, 72]] //, this.state.pianoArray]
+          [[60, 67, 69, 67, 60, 62, 62, 60]]
+        // [[64, 67, 60], [67, 71, 72], [72, 72, 72]]//, this.state.pianoArray]
         // which is cantus firmus? NEED FORMAT FIELD
       },
 
@@ -33,7 +33,7 @@ class Graphs extends Component {
   setAbc() {
     let abcHeader = `X:1\nT:Counterpoint\nM:4/4\nK:${
       this.state.exercise.key
-    }\nL:1/1\n`;
+      }\nL:1/1\n`;
     let abcBody = "";
     let abcData = this.state.data.voices.abc;
     // for each voice present in the abcData we will alter the header to create a staff for it
@@ -64,8 +64,9 @@ class Graphs extends Component {
   getGraphs = () => {
     // this.setState({ rerender: false })
 
-    let ex = this.state.exercise;
-    ex.midi[3] = this.state.pianoArray;
+    let ex = this.state.exercise
+    // ex.midi[3] = this.state.pianoArray //for four voices
+    ex.midi[1] = this.state.pianoArray//for two voices MVP
 
     API.analyze({ exercise: ex }).then(res => {
       this.setState({ data: res.data });
@@ -90,23 +91,23 @@ class Graphs extends Component {
     // console.log(this.state.data)
   }
   doHi = () => {
-    // this.setState({ rerender: false })
-    // this.getGraphs()
-    return (
-      <div>
-        <Abcjs
-          abcNotation={
-            //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-            this.state.abcjs
-            // this.state.abc
-          }
-          parserParams={{}}
-          engraverParams={{ responsive: "resize" }}
-          renderParams={{ viewportHorizontal: true }}
-        />
-      </div>
-    );
-  };
+
+    // // this.setState({ rerender: false })
+    // // this.getGraphs()
+    // return (<div>
+    //   <Abcjs
+    //     abcNotation={
+    //       //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+    //       this.state.abcjs
+    //       // this.state.abc
+    //     }
+    //     parserParams={{}}
+    //     engraverParams={{ responsive: "resize" }}
+    //     renderParams={{ viewportHorizontal: true }}
+    //   />
+    // </div>)
+
+  }
   render() {
     return (
       <div>
@@ -128,8 +129,8 @@ class Graphs extends Component {
             />
           </div>
         ) : (
-          <p>failure</p>
-        )}
+            <p>failure</p>
+          )}
         <Piano pianoArray={this.state.pianoArray} x={this.x} />
         <Midi pianoArray={this.state.pianoArray} x={this.x} />
       </div>
