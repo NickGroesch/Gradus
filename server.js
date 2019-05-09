@@ -13,7 +13,21 @@ const passport = require("passport");
 const users = require("./serverRoutes/user");
 
 const PORT = process.env.PORT || 5000;
+var databaseURI = "mongodb://localhost/Gradus";
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+} else {
+  mongoose.connect(databaseURI, { useNewUrlParser: true });
+}
+var db = mongoose.connection;
+db.on("error", err => console.log("mongoose error :", err));
+db.once("open", () => console.log("mongoose connection successful"));
 
+app.use(passport.initialize());
+require("./passport")(passport);
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //=====DB/login dependencies
 if (process.env.NODE_ENV === "production") {
   // Exprees will serve up production assets
@@ -50,21 +64,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-var databaseURI = "mongodb://localhost/Gradus";
-if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
-} else {
-  mongoose.connect(databaseURI, { useNewUrlParser: true });
-}
-var db = mongoose.connection;
-db.on("error", err => console.log("mongoose error :", err));
-db.once("open", () => console.log("mongoose connection successful"));
 
-app.use(passport.initialize());
-require("./passport")(passport);
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 app.use("/", routes);
 app.use("/api/users", users);
