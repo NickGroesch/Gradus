@@ -4,7 +4,7 @@ export default {
   // Gets graphs
   // getGraphs: function(data) {
   //   return axios.post("/api/graphs", data);
-  analyze: function(data) {
+  analyze: function (data) {
     console.log("analyze client API", data);
 
     //If on local use localhost... if not use /api/graphs/analyze
@@ -25,7 +25,7 @@ export default {
     return axios.post("/api/graphs/counterpointSuite", data);
     // console.log(data);
   },
-  findAll: function() {
-    return axios.get("/api/database");
+  findAll: function () {
+    return axios.get("/api/database/");
   }
 };
