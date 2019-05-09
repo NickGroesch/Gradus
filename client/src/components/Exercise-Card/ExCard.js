@@ -68,28 +68,27 @@ class ExCard extends Component {
 
   render() {
     return (
-      <div className="card">
-        <div className="card-header">
-          {/* Exercise Name: {this.state.name} */}
+      <a href="/pick-exercise">
+        <div className="card">
+          {/* <div className="card-header">
+            Exercise Name: {this.state.name}
+          </div> */}
+          <div className="card-body">
+            {/* <p>Key: {this.state.key}</p> */}
+            {/* <p>{this.state.cantus}</p> */}
+            <Abcjs
+              abcNotation={
+                //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+                this.state.abcjs
+                // this.state.abc
+              }
+              parserParams={{}}
+              engraverParams={{ responsive: "resize" }}
+              renderParams={{ viewportHorizontal: true }}
+            />
+          </div>
         </div>
-        <div className="card-body">
-          {/* <p>Key: {this.state.key}</p> */}
-          {/* <p>{this.state.cantus}</p> */}
-          <Abcjs
-            abcNotation={
-              //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-              this.state.abcjs
-              // this.state.abc
-            }
-            parserParams={{}}
-            engraverParams={{ responsive: "resize" }}
-            renderParams={{ viewportHorizontal: true }}
-          />
-          <a href="/pick-exercise" className="btn btn-primary">
-            Select
-          </a>
-        </div>
-      </div>
+      </a>
     );
   }
 }
