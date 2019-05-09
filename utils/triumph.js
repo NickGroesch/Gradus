@@ -29,7 +29,7 @@ matrix.forEach(column => {
         trash.push(column.splice(comb[i], 1))
     }
 })
-// console.log("keycombed", matrix)
+console.log("keycombed", matrix)
 
 // we must format the midi cantus into duals for the remaining tests.
 let cantusPitch = translators.evalPitchArray(midiCantus, dummy.key);
