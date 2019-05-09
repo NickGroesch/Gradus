@@ -66,8 +66,8 @@ require("./passport")(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/api/users", users);
 app.use("/", routes);
+app.use("/api/users", users);
 
 // var databaseURI = "mongodb://localhost/Gradus";
 // if (process.env.MONGODB_URI) {
