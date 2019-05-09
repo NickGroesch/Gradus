@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import Abcjs from "react-abcjs";
 import APIroute1 from "../../utils/API/APIroute1";
+import "./style.css";
 //import webmidi from "webmidi";
 
 class Midi extends Component {
@@ -238,15 +239,10 @@ class Midi extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div>
-          <button onClick={this.clearClick}>Clear</button>
-          <button onClick={this.backClick}>Back</button>
-        </div>
-
+      <div className="midi-container container">
         {/* Check MIDI connection and log notes */}
-        <div>Midi connected? {this.state.isConnected.toString()}</div>
-        <div>Notes: {this.state.MidiValArray}</div>
+        {/* <div>Midi connected? {this.state.isConnected.toString()}</div>
+        <div>Notes: {this.state.MidiValArray}</div> */}
 
         {/* Set Title, Composer, and Key of exercise */}
         <div className="container userStaffInput">
@@ -278,6 +274,8 @@ class Midi extends Component {
               // ref={userInput => (this.state.key = userInput)}
             />
             <input type="submit" />
+            <button onClick={this.clearClick}>Clear</button>
+            <button onClick={this.backClick}>Back</button>
           </form>
         </div>
 
