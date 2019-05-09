@@ -29,7 +29,11 @@ export default {
     return axios.get("/api/database");
   },
 
-  findOne: function (id) {
-    return axios.get("/api/database/" + id);
+  // findOne: function (id) {
+  //   return axios.get("/api/database/" + id);
+  // },
+
+  findOne: function () {
+    return axios.get("/api/database/5cd08cdbf597da3ce009361c");
   }
 };

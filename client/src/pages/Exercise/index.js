@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import Graphs from "../../components/graphs";
 import Midi from "../../components/Midi/MidiTest";
+import dbAPI from "../../utils/API/APIroute1";
 import Piano from "./../../components/virtualPiano/virtualPiano";
 import "./style.css";
 import APIroute1 from "../../utils/API/APIroute1";
+import ExCard from "../../components/Exercise-Card/ExCard";
 
 // function renderInput() {
 //   navigator.requestMIDIAccess().then(midiAccess => {
@@ -19,13 +21,23 @@ class Exercise extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showPiano: false
+      showPiano: false,
+      cantus: []
     };
   };
+
   componentDidMount() {
-    APIroute1.findOne().then(data => {
-      console.log("XXXXXXXXdata: ", data)
+    // console.log("++++++++++++++++++")
+    dbAPI.findOne().then(data => {
+      let cantus = {};
+      cantus.name = data.data.name;
+      cantus.midi = [data.data.midiArray];
+      cantus.key = data.data.key;
+      // console.log("--------------data: ", data.data.name)
+      // console.log("--------cantus", cantus.key)
+      this.state.cantus.push(cantus)
     })
+    console.log("++++++++++cantus ", this.state.cantus)
   }
 
   componentWillMount() {
@@ -52,6 +64,10 @@ class Exercise extends Component {
           <a href="/home">Dashboard</a>
           <h1>EXERCISE</h1>
           {/* <Graphs /> */}
+          <ExCard
+            name={this.state.cantus.name}
+            midi={this.state.cantus.midiArray}
+            musicKey={this.state.cantus.key} />
           <Piano />
           {/* <Midi /> */}
         </div>
