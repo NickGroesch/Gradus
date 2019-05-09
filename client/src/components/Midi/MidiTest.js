@@ -255,16 +255,17 @@ class Midi extends Component {
     save complete!`);
   }
 
-  load = () => {
-    let test = `X:1\nL:1/1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this
-      .state.composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${this.state
-      .noteArray[0] || "A"}`;
-    console.log("INLINE MIDI TEST!! ", test);
-    // abcjs.renderMidi("midi", this.state.abcjs, {},{ generateInline: true }, {});
-    // abcjs.renderAbc("paper", this.state.abcjs);
-    //  window.abcjs.renderMidi("id-of-div-to-place-midi-controls", abcString, {}, { generateInline: true }, {});
-    // abcjs.renderMidi("midi", test, {}, { generateInline: true }, {});
-  };
+  //FUTURE INLINE MIDI
+  // load = () => {
+  //   let test = `X:1\nL:1/1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this
+  //     .state.composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${this.state
+  //     .noteArray[0] || "A"}`;
+  //   console.log("INLINE MIDI TEST!! ", test);
+  //   // abcjs.renderMidi("midi", this.state.abcjs, {},{ generateInline: true }, {});
+  //   // abcjs.renderAbc("paper", this.state.abcjs);
+  //   //  window.abcjs.renderMidi("id-of-div-to-place-midi-controls", abcString, {}, { generateInline: true }, {});
+  //   // abcjs.renderMidi("midi", test, {}, { generateInline: true }, {});
+  // };
 
   render() {
     return (
@@ -312,7 +313,7 @@ class Midi extends Component {
         </div>
 
         {/* Render Abcjs music staff */}
-        <Abcjs
+        {/* <Abcjs
           abcNotation={
             //X: 1 stave L: note length T: title of rendered staff M: time C: composer K: key(G in this case) "|": bar line
             `X:1\nL:1/1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this.state
@@ -324,21 +325,26 @@ class Midi extends Component {
           parserParams={{}}
           engraverParams={{ responsive: "resize" }}
           renderParams={{ viewportHorizontal: true }}
-        />
-        <div id="midi" />
-        <div id="paper" />
+        /> */}
+
+        {/* FUTURE INLINE MIDI */}
+        {/* <div id="midi" />
+        <div id="paper" /> */}
+
         <Abcjs
-          onload={this.load()}
+          // FUTURE INLINE MIDI
+          // onload={this.load()}
           abcNotation={this.state.abcjs}
           engraverParams={{ responsive: "resize" }}
           renderParams={{ viewportHorizontal: true }}
         />
-        <p>
+        {/* FUTURE WORK DO NOT DELETE */}
+        {/* <p>
           -----------------------------------------------------------------------
         </p>
         <div id="midi">
           <TestAbcjs id="midi" midiObject={this.state.abcjs} />
-        </div>
+        </div> */}
       </div>
     );
   }

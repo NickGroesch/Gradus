@@ -41,7 +41,7 @@ class Exercise extends Component {
         <div>
           <a href="/home">Dashboard</a>
           <h1>EXERCISE</h1>
-          <Graphs />
+          {/* <Graphs /> */}
           <Piano />
           <Midi />
         </div>
@@ -51,7 +51,7 @@ class Exercise extends Component {
         <div>
           <a href="/home">Dashboard</a>
           <h1>EXERCISE</h1>
-          <Graphs />
+          {/* <Graphs /> */}
           <Midi />
         </div>
       );

@@ -1,3 +1,5 @@
+//FUTURE COMPONENT
+
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import abcjsObj from "abcjs";
@@ -34,7 +36,7 @@ class TestAbcjs extends PureComponent {
 
   Load = midiObject => {
     //   ABCJS.renderAbc("paper", abc);
-    abcjsObj.renderMidi("test", midiObject);
+    // abcjsObj.renderMidi("test", midiObject);
     //   ABCJS.renderMidi(
     //     "midi-download",
     //     abc,
