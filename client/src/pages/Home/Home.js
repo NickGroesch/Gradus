@@ -17,21 +17,30 @@ class Home extends Component {
 
   componentDidMount() {
     dbAPI.findAll().then(data => {
-      data.data.map((element, index) => {
-        let cantus = {};
-        // console.log("ele: ", element)
-        cantus.name = element.name;
-        cantus.midi = [element.midiArray];
-        cantus.key = element.key;
-        // APIroute1.analyze({ exercise: { midi: cantus.midi, key: cantus.key } })
-        //     .then(res => {
-        //         // let abcStuff = res.data.voices.abc;
-        //         // this.setAbc(abcStuff);
-        //     })
-        this.state.cantus.push(cantus);
-      });
-      console.log(this.state.cantus);
-      // this.state.cantus.forEach()
+      console.log("XXXXX", data.data)
+      // this.setState({ cantus: data.data })
+      if (data.data) {
+
+
+        let cantArr = []
+        data.data.map((element, index) => {
+          let cantus = {};
+          // console.log("ele: ", element)
+          cantus.name = element.name;
+          cantus.midi = [element.midiArray];
+          cantus.key = element.key;
+          // APIroute1.analyze({ exercise: { midi: cantus.midi, key: cantus.key } })
+          //     .then(res => {
+          //         // let abcStuff = res.data.voices.abc;
+          //         // this.setAbc(abcStuff);
+          //     })
+          cantArr.push(cantus)
+          // this.setState({ cantus: cantus});
+        });
+        this.setState({ cantus: cantArr });
+        console.log(this.state.cantus);
+        // this.state.cantus.forEach()
+      }
     });
   }
 
@@ -39,6 +48,7 @@ class Home extends Component {
     return (
       <div>
         {this.state.cantus.map((value, index) => {
+          console.log("***", value.midiArray)
           return (
             <ExCard
               name={value.name}
