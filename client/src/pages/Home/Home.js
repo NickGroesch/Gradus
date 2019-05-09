@@ -24,7 +24,45 @@ class Home extends Component {
 
 
         let cantArr = []
-        data.data.map((element, index) => {
+        let test = [{
+          "_id": {
+            "$oid": "5cd49236e7179a2e1964de1c"
+          },
+          "name": "1-21b",
+          "key": "C",
+          "midiArray": [
+            60,
+            62,
+            64,
+            65,
+            67,
+            62,
+            65,
+            64,
+            62,
+            60
+          ]
+        },
+        {
+          "_id": {
+            "$oid": "5cd49236e7179a2e1964de1c"
+          },
+          "name": "1-21b",
+          "key": "C",
+          "midiArray": [
+            60,
+            62,
+            64,
+            65,
+            67,
+            62,
+            65,
+            64,
+            62,
+            60
+          ]
+        }]
+        test.map((element, index) => {
           let cantus = {};
           // console.log("ele: ", element)
           cantus.name = element.name;
@@ -44,8 +82,18 @@ class Home extends Component {
       }
     });
   }
+  // componentDidMount() {
+  //   this.test();
+  // }
+  test = () => {
+    dbAPI.findAll().then(data => {
+      console.log(data.data);
+      this.setState({ cantus: data.data })
+    })
+  }
 
   ListCard = () => {
+    // this.test();
     return (
       <div>
         {this.state.cantus.map((value, index) => {
@@ -54,11 +102,14 @@ class Home extends Component {
             <ExCard
               name={value.name}
               midi={value.midi}
+              // midi={value.midiArray}
               musicKey={value.key}
               key={index}
             />
           );
         })}
+
+
         {/* {friends.map(friend => (
         <SpongeBobCard
           obj={friend}
