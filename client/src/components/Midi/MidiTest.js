@@ -66,7 +66,7 @@ class Midi extends Component {
   setAbc(musicValues) {
     let abcHeader = `X:1\nT:Exercise\nM:4/4\nK:${
       this.state.exampleKey
-    }\nL:1/1\n`;
+      }\nL:1/1\n`;
     let abcBody = "";
     let abcData = musicValues;
     // console.log("line 42", this.state.cantus);
@@ -271,7 +271,7 @@ class Midi extends Component {
         <div>Notes: {this.state.MidiValArray}</div> */}
 
         {/* Set Title, Composer, and Key of exercise */}
-        <div className="container userStaffInput">
+        {/* <div className="container userStaffInput">
           <h2>Start Exercise</h2>
           <form onSubmit={this.handleSubmit}>
             <label>Title</label>
@@ -281,7 +281,7 @@ class Midi extends Component {
               placeholder="Masterpiece in G"
               onChange={this.handleInputChange}
               value={this.state.title}
-              // ref={userInput => (this.state.exercise.title = userInput)}
+            // ref={userInput => (this.state.exercise.title = userInput)}
             />
             <label>Composer</label>
             <input
@@ -289,7 +289,7 @@ class Midi extends Component {
               name="composer"
               placeholder="Trad."
               onChange={this.handleInputChange}
-              // ref={userInput => (this.state.composer = userInput)}
+            // ref={userInput => (this.state.composer = userInput)}
             />
             <label>Key</label>
             <input
@@ -297,13 +297,13 @@ class Midi extends Component {
               name="key"
               placeholder="G"
               onChange={this.handleInputChange}
-              // ref={userInput => (this.state.key = userInput)}
+            // ref={userInput => (this.state.key = userInput)}
             />
             <input type="submit" />
             <button onClick={this.clearClick}>Clear</button>
             <button onClick={this.backClick}>Back</button>
           </form>
-        </div>
+        </div> */}
 
         {/* FUTURE INLINE MIDI */}
         {/* <div id="midi" />
