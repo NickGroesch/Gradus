@@ -17,7 +17,7 @@ class ExCard extends Component {
     };
 
     componentDidMount = () => {
-        console.log("this is my props in excard!!!!!", this.props);
+        // console.log("this is my props in excard!!!!!", this.props);
         APIroute1.analyze({
             exercise: { midi: this.props.midi, key: this.props.musicKey }
         }).then(res => {
@@ -73,6 +73,7 @@ class ExCard extends Component {
     render(props) {
         return (
             <a href={this.props.link}>
+                {console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", this.props.link)}
                 <div className="card">
                     {/* <div className="card-header">
             Exercise Name: {this.state.name}
