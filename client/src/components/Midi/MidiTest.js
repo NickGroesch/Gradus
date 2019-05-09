@@ -1,42 +1,44 @@
 //import API from "../utils/API/WebMidiAPI";
 import React, { Component } from "react";
-import Abcjs from "react-abcjs";
+//component
+import TestAbcjs from "./AbcComponent";
+
 import APIroute1 from "../../utils/API/APIroute1";
 
-//import webmidi from "webmidi";
-
 class Midi extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isConnected: false,
       //MidiValArray and exampleMIDI have to be the same length... so we need placeholders (rests) for the user input for the entire length of the cantus firmus
-      MidiValArray: [60, 60, 60],
+      // MidiValArray: [60, 59, 60, 60, 60, 60, 60],
+      MidiValArray: this.props.pianoArray,
       noteArray: [],
 
       //To test the analyze API calls
-      exampleMIDI: [60, 59, 60],
+      //exampleMIDI will be replaced by cantus firmus(s)
+      exampleMIDI: [60, 59, 60, 60, 60, 60, 60],
       exampleKey: "C",
 
       //for rendering Abcjs staff
       //Always have a placeholder not empty string for these
       title: "",
       composer: "",
-      key: ""
+      key: "",
 
       //state abcjs is created in the setabc function
-
-      //for getgraphs function
-      // exercise: {
-      //   key: this.state.exampleKey,
-      //   midi: [this.state.exampleMIDI, this.state.MidiValArray]
-      // }
-
-      //we need this.state.data and this.state.exercise saved for API calls
+      abcjs: ""
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  //re-render <Abcjs /> when state changes... because we're just passing state as a prop to it
+  //   componentWillReceiveProps(nextProps){
+  //   if (nextProps.abcjs !== this.abcjs){
+  //     this.setState({abcjs: nextProps.abcjs})
+  //   }
+  // }
 
   componentDidMount = () => {
     this.checkConnect();
@@ -46,44 +48,7 @@ class Midi extends Component {
   };
 
   //================Testing analyze functions============================
-  // componentDidUpdate = () => {
-  //   this.getGraphs();
-  // };
-
-  // getGraphs = () => {
-  //   // API.getGraphs({ play: this.state.play, test: this.state.test }).then(
-  //   //   res => {
-  //   //     this.setState({ data: res.data });
-  //   //     console.log(res.data);
-  //   //   }
-  //   // );
-  //   // this.createTable();
-  //   APIroute1.analyze({ exercise: this.state.exercise }).then(res => {
-  //     this.setState({ data: res.data });
-  //     this.setState({ flag: true });
-  //     console.log("frontEnd", this.state.data);
-  //     this.setAbc();
-  //     // // cantus tests
-  //     // APIroute1.cantusFirmusSuite({ cantus: this.state.data }).then(
-  //     //   res => console.log(res.data)
-  //     // )
-
-  //     // counterpoint tests
-  //     APIroute1.counterpointSuite({ anOb: this.state.data }).then(res =>
-  //       console.log(res.data)
-  //     );
-  //     // console.log("frontEnd", this.state.data.voices.duals)
-  //   });
-  // };
-
   analyzeMIDI = () => {
-    //Calling functions to translate MIDI values to notes
-    // console.log("this is my props in MidiTest!!!!!", this.state);
-    // console.log(
-    //   `MIDITEST ANALYZE OBJECT: ${this.state.exampleMIDI} and ${
-    //     this.state.exampleKey
-    //   }`
-    // );
     APIroute1.analyze({
       exercise: {
         midi: [this.state.exampleMIDI, this.state.MidiValArray],
@@ -122,7 +87,6 @@ class Midi extends Component {
     this.setState({ abcjs: abcScore });
     console.log("<<<TestMIDI Analyze Function DONE>>> ", this.state.abcjs);
   }
-  //=============================================================================
 
   checkConnect = () => {
     navigator.requestMIDIAccess().then(midiAccess => {
@@ -204,55 +168,37 @@ class Midi extends Component {
     console.log("Noteon Note:", note);
     console.log("Noteon Velocity: ", velocity);
 
-    let stateMidi = this.state.MidiValArray;
-    console.log(stateMidi);
+    //Loop for generating Abcjs component when you only have fixed data...
+    //i.e. when <Midi /> is not a child component of <Graph />
 
-    //===================================
-    let replaceArray = this.state.noteArray;
-    if (replaceArray.length < stateMidi.length) {
-      replaceArray.push(note);
-    } else {
-      console.log("You can't input more values than the cantus firmus allows");
-    }
-    this.setState({ noteArray: replaceArray });
-    console.log("REPLACEARRAY: ", replaceArray);
-    for (var i = 0; i < stateMidi.length; i++) {
-      if (replaceArray[i] !== stateMidi[i] && replaceArray[i] !== undefined) {
-        stateMidi[i] = replaceArray[i];
-      }
-    }
+    // let stateMidi = this.state.MidiValArray;
+    // console.log(stateMidi);
 
-    console.log("STATEMIDI", stateMidi);
-    //===================================
+    // let replaceArray = this.state.noteArray;
+    // let cantusArray = this.state.exampleMIDI;
+    // if (replaceArray.length < cantusArray.length) {
+    //   replaceArray.push(note);
+    // } else {
+    //   console.log("You can't input more values than the cantus firmus allows");
+    // }
+    // this.setState({ noteArray: replaceArray });
+    // console.log("REPLACEARRAY: ", replaceArray);
+    // for (var i = 0; i < stateMidi.length; i++) {
+    //   if (replaceArray[i] !== stateMidi[i] && replaceArray[i] !== undefined) {
+    //     stateMidi[i] = replaceArray[i];
+    //   }
+    // }
+
+    // console.log("STATEMIDI", stateMidi);
 
     // this.setState({ MidiValArray: this.state.MidiValArray.concat(note) });
-    this.setState({ MidiValArray: stateMidi });
-
+    this.setState({ MidiValArray: [...this.state.MidiValArray, note] });
+    this.props.x([...this.state.MidiValArray, note]);
     console.log(this.state.MidiValArray);
 
-    //===========================
     this.analyzeMIDI();
-    //===========================
   };
 
-  //============might not need these after the API analyze functions work==========
-  // mapMidiValues = () => {
-  //   console.log(this.state.noteArray);
-  //   this.setState({
-  //     noteArray: this.state.MidiValArray.map(this.convertToNote)
-  //   });
-  //   console.log(this.state.noteArray);
-  // };
-
-  // convertToNote = midiValue => {
-  //   switch (midiValue) {
-  //     case midiValue > 55:
-  //       return "C";
-  //     default:
-  //       return "G";
-  //   }
-  // };
-  //===================================================================================
   noteOff = (note, velocity) => {
     console.log("noteOff working");
     console.log("Noteoff Note:", note);
@@ -305,6 +251,18 @@ class Midi extends Component {
     save complete!`);
   }
 
+  //FUTURE INLINE MIDI
+  // load = () => {
+  //   let test = `X:1\nL:1/1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this
+  //     .state.composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${this.state
+  //     .noteArray[0] || "A"}`;
+  //   console.log("INLINE MIDI TEST!! ", test);
+  //   // abcjs.renderMidi("midi", this.state.abcjs, {},{ generateInline: true }, {});
+  //   // abcjs.renderAbc("paper", this.state.abcjs);
+  //   //  window.abcjs.renderMidi("id-of-div-to-place-midi-controls", abcString, {}, { generateInline: true }, {});
+  //   // abcjs.renderMidi("midi", test, {}, { generateInline: true }, {});
+  // };
+
   render() {
     return (
       <div className="container">
@@ -350,25 +308,24 @@ class Midi extends Component {
           </form>
         </div>
 
-        {/* Render Abcjs music staff */}
-        <Abcjs
-          abcNotation={
-            //X: 1 stave L: note length T: title of rendered staff M: time C: composer K: key(G in this case) "|": bar line
-            `X:1\nL:1/1\nT:${this.state.title || "Title"}\nM:4/4\nC:${this.state
-              .composer || "Trad"}.\nK:${this.state.key || "G"}\n|:${this.state
-              .noteArray[0] || "A"}`
-            //Is it really as easy as going through each element of the array?
-            //c'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|`
-          }
-          parserParams={{}}
-          engraverParams={{ responsive: "resize" }}
-          renderParams={{ viewportHorizontal: true }}
-        />
-        <Abcjs
+        {/* FUTURE INLINE MIDI */}
+        {/* <div id="midi" />
+        <div id="paper" /> */}
+
+        {/* <Abcjs
+          // FUTURE INLINE MIDI
+          // onload={this.load()}
           abcNotation={this.state.abcjs}
           engraverParams={{ responsive: "resize" }}
           renderParams={{ viewportHorizontal: true }}
-        />
+        /> */}
+        {/* FUTURE WORK DO NOT DELETE */}
+        {/* <p>
+          -----------------------------------------------------------------------
+        </p>
+        <div id="midi">
+          <TestAbcjs id="midi" midiObject={this.state.abcjs} />
+        </div> */}
       </div>
     );
   }

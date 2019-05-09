@@ -13,8 +13,8 @@ export default {
   },
   cantusFirmusSuite: data => {
     console.log("CFsuite clientAPI", data);
-    // return axios.post("http://localhost:5000/api/graphs/cantusSuite", data);
-    return axios.post("/api/graphs/cantusSuite", data);
+    return axios.post("http://localhost:5000/api/graphs/cantusSuite", data);
+    // return axios.post("/api/graphs/cantusSuite", data);
   },
   counterpointSuite: data => {
     console.log("CPsuite clientAPI", data);
