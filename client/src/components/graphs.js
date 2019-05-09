@@ -13,8 +13,8 @@ class Graphs extends Component {
       exercise: {
         key: "C",
         midi:
-          // [[60, 67, 69, 67, 60, 62, 62, 60]]
-          [[64, 67, 60], [67, 71, 72], [72, 72, 72]]//, this.state.pianoArray]
+          [[60, 67, 69, 67, 60, 62, 62, 60]]
+        // [[64, 67, 60], [67, 71, 72], [72, 72, 72]]//, this.state.pianoArray]
         // which is cantus firmus? NEED FORMAT FIELD
       },
 
@@ -68,7 +68,8 @@ class Graphs extends Component {
     // this.setState({ rerender: false })
 
     let ex = this.state.exercise
-    ex.midi[3] = this.state.pianoArray
+    // ex.midi[3] = this.state.pianoArray //for four voices
+    ex.midi[1] = this.state.pianoArray//for two voices MVP
 
     API.analyze({ exercise: ex }).then(res => {
       this.setState({ data: res.data });
@@ -94,20 +95,20 @@ class Graphs extends Component {
   }
   doHi = () => {
 
-    // this.setState({ rerender: false })
-    // this.getGraphs()
-    return (<div>
-      <Abcjs
-        abcNotation={
-          //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-          this.state.abcjs
-          // this.state.abc
-        }
-        parserParams={{}}
-        engraverParams={{ responsive: "resize" }}
-        renderParams={{ viewportHorizontal: true }}
-      />
-    </div>)
+    // // this.setState({ rerender: false })
+    // // this.getGraphs()
+    // return (<div>
+    //   <Abcjs
+    //     abcNotation={
+    //       //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+    //       this.state.abcjs
+    //       // this.state.abc
+    //     }
+    //     parserParams={{}}
+    //     engraverParams={{ responsive: "resize" }}
+    //     renderParams={{ viewportHorizontal: true }}
+    //   />
+    // </div>)
 
   }
   render() {
