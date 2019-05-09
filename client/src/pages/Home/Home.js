@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import Abcjs from "react-abcjs";
 import dbAPI from "../../utils/API/APIroute1";
 import ExCard from "../../components/Exercise-Card/ExCard";
+import "./style.css";
 
 class Home extends Component {
   constructor(props) {
@@ -60,11 +61,20 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <button id="pickButton" onClick={this.hidden}>
-          PICK
-        </button>
+      <div className="container">
+        <div id="wrapper">
+          <button id="pickButton" onClick={this.hidden}>
+            PICK EXERCISE
+          </button>
+        </div>
         {this.state.collapse && this.ListCard()}
+
+        <div id="wrapper">
+          <button id="createButton">
+            <p>CREATE EXERCISE</p>
+            <p> (coming soon)</p>
+          </button>
+        </div>
       </div>
     );
   }

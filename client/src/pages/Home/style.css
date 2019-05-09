@@ -1,0 +1,41 @@
+#pickButton {
+  margin-top: 150px;
+  width: 50%;
+  height: 120px;
+  background-color: #ad8e79; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+}
+
+#createButton {
+  margin-top: 50px;
+  width: 50%;
+  height: 120px;
+  background-color: darkgray; /* Green */
+  border: none;
+  color: gray;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 9px;
+}
+
+#wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  border: solid grey 1px;
+  border-radius: 0;
+  margin: 30px;
+}

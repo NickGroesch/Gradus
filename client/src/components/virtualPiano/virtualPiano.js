@@ -141,10 +141,10 @@ class Piano extends Component {
 
   render() {
     return (
-      <div>
-        <div className="virtual-piano">
+      <div className="row piano-container" style={{ marginBottom: "150px" }}>
+        <div className="col-6 virtual-piano">
           <div className="svg-container">
-            <svg className="piano">
+            <svg viewbox="0 0 10 10" className="piano">
               <polygon
                 name="0"
                 points="200,10 230,10 230,100 245,100 245,220 200,220 200,10"
@@ -233,9 +233,14 @@ class Piano extends Component {
               />
             </svg>
           </div>
-
-          <div>Notes: {this.state.MidiArray.toString()}</div>
-          <div>Current Octave Count: {this.state.octaveCount}</div>
+        </div>
+        <div className="col-3 note-nav">
+          <div style={{ fontWeight: "bold" }}>
+            Notes: {this.state.MidiArray.toString()}
+          </div>
+          <div style={{ fontWeight: "bold" }}>
+            Current Octave Count: {this.state.octaveCount}
+          </div>
           {/* <button
             id="octave-up"
             onClick={
@@ -260,6 +265,7 @@ class Piano extends Component {
 
           {/* directly changing the state is apparently frowned on by React so changed or condition to setState */}
           <button
+            className="piano-button octave"
             id="octave-up"
             onClick={
               this.state.octaveCount < 61
@@ -270,6 +276,7 @@ class Piano extends Component {
             octave +
           </button>
           <button
+            className="piano-button octave"
             id="octave-down"
             onClick={
               this.state.octaveCount > -61
@@ -279,11 +286,15 @@ class Piano extends Component {
           >
             octave -
           </button>
-        </div>
 
-        <div>
-          <button onClick={this.clearClick}>Clear</button>
-          <button onClick={this.backClick}>Back</button>
+          <div>
+            <button className="piano-button" onClick={this.clearClick}>
+              Clear
+            </button>
+            <button className="piano-button" onClick={this.backClick}>
+              Back
+            </button>
+          </div>
         </div>
       </div>
     );

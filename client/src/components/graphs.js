@@ -2,7 +2,8 @@ import API from "../utils/API/APIroute1";
 import React, { Component } from "react";
 import "./graphs.css";
 import Abcjs from "react-abcjs";
-import Piano from "./virtualPiano/nvirtualPiano"
+import Piano from "./virtualPiano/nvirtualPiano";
+import Midi from "./Midi/MidiTest";
 
 class Graphs extends Component {
   constructor(props) {
@@ -23,13 +24,12 @@ class Graphs extends Component {
     };
     // this.x = this.x.bind(this)
   }
-  x = (y) => {
+  x = y => {
     this.setState({
-      pianoArray: y,
+      pianoArray: y
       // rerender: true
-    })
-
-  }
+    });
+  };
   setAbc() {
     let abcHeader = `X:1\nT:Counterpoint\nM:4/4\nK:${
       this.state.exercise.key
@@ -49,20 +49,17 @@ class Graphs extends Component {
       abcBody = abcBody.concat(abcVoice);
     }
     let abcScore = abcHeader.concat(abcBody);
-    console.log("XXX", abcScore)
+    console.log("XXX", abcScore);
     this.setState({ abcjs: abcScore });
-    console.log(this.state)
-
+    console.log(this.state);
   }
   componentDidUpdate(prevProps, prevState) {
-
     if (this.state.pianoArray !== prevState.pianoArray) {
-      console.log('wer uinsidnet heif ', this.state.pianoArray)
-      this.getGraphs()
+      console.log("wer uinsidnet heif ", this.state.pianoArray);
+      this.getGraphs();
       // this.doHi()
     }
   }
-
 
   getGraphs = () => {
     // this.setState({ rerender: false })
@@ -135,7 +132,7 @@ class Graphs extends Component {
             <p>failure</p>
           )}
         <Piano pianoArray={this.state.pianoArray} x={this.x} />
-
+        <Midi pianoArray={this.state.pianoArray} x={this.x} />
       </div>
     );
   }

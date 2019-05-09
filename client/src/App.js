@@ -71,7 +71,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div>
+        <div className="main-container">
           <Navbar />
           <Route exact path="/" component={Landing} />
           {/* use for production */}
@@ -79,10 +79,9 @@ function App() {
           {/* use for localhost */}
           {/* <Route exact path="/home" component={Home} /> */}
 
-          <div className="container">
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-          </div>
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+
           {/* use for production */}
           <PrivateRoute exact path="/pick-exercise" component={Exercise} />
           {/* use for localhost */}

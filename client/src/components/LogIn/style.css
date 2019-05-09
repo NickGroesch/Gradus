@@ -1,8 +1,6 @@
-.container .logIn-box {
-  width: 50%;
+.logIn-box {
   background-color: #ebeadd;
   padding: 40px;
-  margin-top: 100px;
 }
 
 h2 {
@@ -11,6 +9,6 @@ h2 {
 }
 
 .signUp-link {
-  color: #0143cf;
+  color: #ad8e79;
   text-decoration: underline;
 }

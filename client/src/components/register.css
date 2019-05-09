@@ -1,6 +1,15 @@
-.container .signUp-box {
-  width: 50%;
+.signUp-box {
   background-color: #ebeadd;
   padding: 40px;
-  margin-top: 150px;
+}
+
+.signIn-link {
+  color: #ad8e79;
+  text-decoration: underline;
+}
+
+.submit-button {
+  margin-top: 10px;
+  color: white;
+  background-color: black;
 }
