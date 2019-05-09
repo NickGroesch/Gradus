@@ -45,9 +45,10 @@ class Home extends Component {
               midi={value.midi}
               musicKey={value.key}
               key={value._id}
-              // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++THE LINK IS NOT RIGHT+++++++++++++++++++++++
+              // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++HARD CODED LINK TO 1ST CF+++++++++++++++++++++++
               // link={'/exercise/' + value.params.id} />
-              link={'/exercise/' + value._id} />
+              // link={'/exercise/' + value._id} />
+              link={'/exercise/5cd08cdbf597da3ce009361c'} />
             // link={`/exercise/${value._id}`} />
           );
         })}
