@@ -10,30 +10,72 @@ class Midi extends Component {
     super();
     this.state = {
       isConnected: false,
-      MidiValArray: [],
+      //MidiValArray and exampleMIDI have to be the same length... so we need placeholders (rests) for the user input for the entire length of the cantus firmus
+      MidiValArray: [60, 60, 60],
       noteArray: [],
 
       //To test the analyze API calls
-      exampleMIDI: [60, 59, 90],
+      exampleMIDI: [60, 59, 60],
       exampleKey: "C",
 
       //for rendering Abcjs staff
+      //Always have a placeholder not empty string for these
       title: "",
       composer: "",
       key: ""
+
+      //state abcjs is created in the setabc function
+
+      //for getgraphs function
+      // exercise: {
+      //   key: this.state.exampleKey,
+      //   midi: [this.state.exampleMIDI, this.state.MidiValArray]
+      // }
 
       //we need this.state.data and this.state.exercise saved for API calls
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   componentDidMount = () => {
     this.checkConnect();
+    // this.getGraphs();
     this.runWebMidi();
     this.analyzeMIDI();
   };
 
   //================Testing analyze functions============================
+  // componentDidUpdate = () => {
+  //   this.getGraphs();
+  // };
+
+  // getGraphs = () => {
+  //   // API.getGraphs({ play: this.state.play, test: this.state.test }).then(
+  //   //   res => {
+  //   //     this.setState({ data: res.data });
+  //   //     console.log(res.data);
+  //   //   }
+  //   // );
+  //   // this.createTable();
+  //   APIroute1.analyze({ exercise: this.state.exercise }).then(res => {
+  //     this.setState({ data: res.data });
+  //     this.setState({ flag: true });
+  //     console.log("frontEnd", this.state.data);
+  //     this.setAbc();
+  //     // // cantus tests
+  //     // APIroute1.cantusFirmusSuite({ cantus: this.state.data }).then(
+  //     //   res => console.log(res.data)
+  //     // )
+
+  //     // counterpoint tests
+  //     APIroute1.counterpointSuite({ anOb: this.state.data }).then(res =>
+  //       console.log(res.data)
+  //     );
+  //     // console.log("frontEnd", this.state.data.voices.duals)
+  //   });
+  // };
+
   analyzeMIDI = () => {
     //Calling functions to translate MIDI values to notes
     // console.log("this is my props in MidiTest!!!!!", this.state);
@@ -44,24 +86,25 @@ class Midi extends Component {
     // );
     APIroute1.analyze({
       exercise: {
-        midi: [[60, 59, 60], [50, 49, 50]],
-        key: "C"
+        midi: [this.state.exampleMIDI, this.state.MidiValArray],
+        key: this.state.exampleKey
       }
     }).then(res => {
       let abcStuff = res.data.voices.abc;
-      console.log(abcStuff);
+      console.log("ABCSTUFF", abcStuff);
+      // console.log("LOOK HERE!!: ", this.state.exampleMIDI);
       this.setAbc(abcStuff);
       console.log("state ", this.state);
     });
   };
 
-  setAbc(tomStuff) {
-    let abcHeader = `X:1\nT:Cantus Firmus ${this.props.name}\nM:4/4\nK:${
-      this.props.musicKey
+  setAbc(musicValues) {
+    let abcHeader = `X:1\nT:Exercise\nM:4/4\nK:${
+      this.state.exampleKey
     }\nL:1/1\n`;
     let abcBody = "";
-    let abcData = tomStuff;
-    console.log("line 42", this.state.cantus);
+    let abcData = musicValues;
+    // console.log("line 42", this.state.cantus);
     console.log("line 43", abcData);
     // for each voice present in the abcData we will alter the header to create a staff for it
     for (let i = abcData.length - 1; i >= 0; i--) {
@@ -139,7 +182,7 @@ class Midi extends Component {
       case 145: // note on
         if (velocity > 0) {
           this.noteOn(note, velocity);
-          this.mapMidiValues();
+          // this.mapMidiValues();
         } else {
           this.noteOff(note, velocity);
         }
@@ -162,32 +205,53 @@ class Midi extends Component {
     console.log("Noteon Velocity: ", velocity);
 
     let stateMidi = this.state.MidiValArray;
-
     console.log(stateMidi);
 
-    this.setState({ MidiValArray: this.state.MidiValArray.concat(note) });
-    // this.setState({ MidiValArray: stateMidi });
+    //===================================
+    let replaceArray = this.state.noteArray;
+    if (replaceArray.length < stateMidi.length) {
+      replaceArray.push(note);
+    } else {
+      console.log("You can't input more values than the cantus firmus allows");
+    }
+    this.setState({ noteArray: replaceArray });
+    console.log("REPLACEARRAY: ", replaceArray);
+    for (var i = 0; i < stateMidi.length; i++) {
+      if (replaceArray[i] !== stateMidi[i] && replaceArray[i] !== undefined) {
+        stateMidi[i] = replaceArray[i];
+      }
+    }
+
+    console.log("STATEMIDI", stateMidi);
+    //===================================
+
+    // this.setState({ MidiValArray: this.state.MidiValArray.concat(note) });
+    this.setState({ MidiValArray: stateMidi });
 
     console.log(this.state.MidiValArray);
+
+    //===========================
+    this.analyzeMIDI();
+    //===========================
   };
 
   //============might not need these after the API analyze functions work==========
-  mapMidiValues = () => {
-    console.log(this.state.noteArray);
-    this.setState({
-      noteArray: this.state.MidiValArray.map(this.convertToNote)
-    });
-    console.log(this.state.noteArray);
-  };
+  // mapMidiValues = () => {
+  //   console.log(this.state.noteArray);
+  //   this.setState({
+  //     noteArray: this.state.MidiValArray.map(this.convertToNote)
+  //   });
+  //   console.log(this.state.noteArray);
+  // };
 
-  convertToNote = midiValue => {
-    switch (midiValue) {
-      case midiValue > 55:
-        return "C";
-      default:
-        return "G";
-    }
-  };
+  // convertToNote = midiValue => {
+  //   switch (midiValue) {
+  //     case midiValue > 55:
+  //       return "C";
+  //     default:
+  //       return "G";
+  //   }
+  // };
   //===================================================================================
   noteOff = (note, velocity) => {
     console.log("noteOff working");
@@ -204,14 +268,18 @@ class Midi extends Component {
 
   clearClick = () => {
     this.setState({
-      MidiValArray: []
+      noteArray: [],
+      // MidiValArray: ["z", "z", "z"]
+      MidiValArray: [60, 60, 60]
     });
   };
 
   //BackClick removes last input but doesn't show it on screen until another input clicked
   backClick = () => {
     this.state.MidiValArray.pop();
+    // this.state.noteArray.pop()
     this.setState({
+      // noteArray: this.state.noteArray,
       MidiValArray: this.state.MidiValArray
     });
     console.log("Notes after clicking back: ", this.state.MidiValArray);
@@ -290,6 +358,11 @@ class Midi extends Component {
             //c'c,c dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|`
           }
           parserParams={{}}
+          engraverParams={{ responsive: "resize" }}
+          renderParams={{ viewportHorizontal: true }}
+        />
+        <Abcjs
+          abcNotation={this.state.abcjs}
           engraverParams={{ responsive: "resize" }}
           renderParams={{ viewportHorizontal: true }}
         />
