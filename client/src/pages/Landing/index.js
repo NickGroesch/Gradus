@@ -1,4 +1,10 @@
 import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  // Switch,
+  Redirect
+} from "react-router-dom";
 import "./style.css";
 
 function Landing() {
@@ -68,19 +74,22 @@ function Landing() {
               Gradus' power has worn off, please check out our other projects.
             </p>
 
-            <a className="portfolio-link" href="...">
+            <a className="portfolio-link" href="https://github.com/NickGroesch">
               Nick Groesch
             </a>
-            <a className="portfolio-link" href="...">
+            <a className="portfolio-link" href="https://github.com/mc0918">
               Michael Campbell
             </a>
-            <a className="portfolio-link" href="...">
+            <a
+              className="portfolio-link"
+              href="https://www.linkedin.com/in/sarah-tam/"
+            >
               Sarah Tam
             </a>
-            <a className="portfolio-link" href="...">
+            <a className="portfolio-link" href="https://github.com/mamahmoud04">
               Mahfouz Mahmoud
             </a>
-            <a className="portfolio-link" href="www.kyhongle.com">
+            <a className="portfolio-link" href="http://www.kyhongle.com">
               Ky Le
             </a>
           </div>
