@@ -39,7 +39,7 @@ let dualCantus =
 // to assess multiple notes against each voice by making each note an array of 
 // iterations of that note equal to the length of the comparativematrix column
 for (var i = 0; i < midiCantus.length; i++) {
-    console.log("note", dualCantus[i]);
+    // console.log("note", dualCantus[i]);
     let trivialArray = []
     for (var j = 0; j < matrix[i].length; j++) {
         trivialArray.push(dualCantus[i])
@@ -50,7 +50,7 @@ for (var i = 0; i < midiCantus.length; i++) {
     for (var k = vertComb.length - 1; k >= 0; k--) {
         trash.push(matrix[i].splice(vertComb[k], 1))
     }
-    console.log("dissonance combed", matrix[i])
+    // console.log("dissonance combed", matrix[i])
 }
 // console.log("dissonance combed", matrix)
 
@@ -59,16 +59,52 @@ for (var i = 0; i < midiCantus.length; i++) {
 // -----------------------------------------
 
 // how can we use recursion to populate the mega-array of potential solutions at this point??
-let megaArray = []
-for (let i = 0; i = dualCantus.length; i++) {
+// let megaArray = []
+// for (let i = 0; i = dualCantus.length; i++) {
 
-}
+// }
 // recursion needs a general function that calls itself,
 //  and a conditional to determine the case of bottoming out
 
 // for 2 lines(one of which is fixed, one variable) if there are N options 
 // for each of M variable value, there are N^M possibilities
 
+// practice ala poornima--stack overflows
+// let arrOfArr = [["a", "b", "c"], ["A", "B", "C"], [1, 2, 3]]
+let arrOfArr = [[1, 2], [1, 2]]
+// let combinatorialRoutes = (arrayOfArrays) => {
+//     let z = [];
+//     for (let i = 0; i < arrayOfArrays.length; i++) {
+//         y = combinatorialRoutes(arrayOfArrays[i]),
+//             z.push(y)
+//     }
+//     return z
+// }
+// console.log(combinatorialRoutes(arrOfArr))
+let xxx = (aOA) => {
+    let solutions = []
+    for (let i = 0; i < aOA.length; i++) {
+        let temp = []
+        for (let j = 0; j < aOA[i].length; j++) {
+            temp.push(aOA[i][j])
+        }
+        solutions.push(temp)
+        // let x = []
+        // aOA.forEach((value, index) => {
+        //     let y = value
+        //     // y.push(aOA[index])
+        //     value.forEach((v, i) => {
+        //         let z = v
+        //         x.push([, z])
+        //         console.log("z", z)
+        //     })
+        //     // console.log("y", y)
+        // })
+        // console.log("x", x)
+    }
+    return solutions
+}
+console.log(xxx(arrOfArr))
 // ----------------------------------------------
 
 // now we need to formulate a general function that will run a test and 
@@ -76,4 +112,3 @@ for (let i = 0; i = dualCantus.length; i++) {
 
 // no repitition will run for now( it will need be be replaced with a more 
 // sensitive function to allow the possibility of infrequent tying)
-
