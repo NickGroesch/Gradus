@@ -39,7 +39,8 @@ module.exports = {
         anObV.duals.push(dual);
         genOb.duals.push(dual[`voice${index + 1}`]);
         // changed logic here to support singleton arrays
-        if (dual.length > 1) {
+        console.log("xxx", dual.length)
+        if (dual[`voice${index + 1}`].length > 1) {
           let delta = {
             [`delta${index + 1}`]: translators.deltaDual(dual[`voice${index + 1}`])
           };
