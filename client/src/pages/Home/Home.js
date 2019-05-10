@@ -43,25 +43,11 @@ class Home extends Component {
             60
           ]
         },
-        {
-          "_id": {
-            "$oid": "5cd49236e7179a2e1964de1c"
-          },
-          "name": "1-21b",
-          "key": "C",
-          "midiArray": [
-            60,
-            62,
-            64,
-            65,
-            67,
-            62,
-            65,
-            64,
-            62,
-            60
-          ]
-        }]
+        { name: "1-21a", composer: "Schenker", key: "C", midiArray: [60, 62, 65, 64, 65, 67, 69, 67, 64, 62, 60] },
+        { name: "1-21c", key: "Eb", midiArray: [60, 62, 65, 63, 68, 67, 65, 62, 63, 62, 60] },
+        { name: "1-21d", key: "D", midiArray: [62, 67, 66, 71, 69, 66, 67, 66, 64, 62] },
+        { name: "1-21e", composer: "Fux", key: "F", midiArray: [62, 65, 64, 62, 67, 65, 69, 67, 65, 64, 62] }
+        ]
         test.map((element, index) => {
           let cantus = {};
           // console.log("ele: ", element)
