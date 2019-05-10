@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./virtualPiano.css";
 // import Abcjs from "react-abcjs";
+// import "./virtualPiano.css";
 
 class Piano extends Component {
   state = {
@@ -130,11 +131,10 @@ class Piano extends Component {
 
     // console.log('about to set state of midi aray!!!', e.target.id)
 
-
     this.setState({
       MidiArray: [...this.state.MidiArray, parseInt(e.target.id)]
     });
-    this.props.x([...this.state.MidiArray, parseInt(e.target.id)])
+    this.props.x([...this.state.MidiArray, parseInt(e.target.id)]);
   };
 
   // if "last visited", remove flag from any other key, and change flag for "this" key from passive/false to active/true, which adds a css class
@@ -144,7 +144,7 @@ class Piano extends Component {
       <div className="row piano-container" style={{ marginBottom: "150px" }}>
         <div className="col-6 virtual-piano">
           <div className="svg-container">
-            <svg viewbox="0 0 10 10" className="piano">
+            <svg className="piano">
               <polygon
                 name="0"
                 points="200,10 230,10 230,100 245,100 245,220 200,220 200,10"
@@ -164,7 +164,7 @@ class Piano extends Component {
                 points="305,10 335,10 335,220 290,220 290,100 305,100 305,10"
                 className={`white pianoKey ${
                   this.state.keysClicked.key3 ? " playing" : ""
-                  }`}
+                }`}
                 id={this.state.keyID[4]}
                 onClick={this.pianoKeyClick}
               />
@@ -234,13 +234,9 @@ class Piano extends Component {
             </svg>
           </div>
         </div>
-        <div className="col-3 note-nav">
-          <div style={{ fontWeight: "bold" }}>
-            Notes: {this.state.MidiArray.toString()}
-          </div>
-          <div style={{ fontWeight: "bold" }}>
-            Current Octave Count: {this.state.octaveCount}
-          </div>
+        <div className="col-6 note-nav">
+          <div>Notes: {this.state.MidiArray.toString()}</div>
+          <div>Current Octave Count: {this.state.octaveCount}</div>
           {/* <button
             id="octave-up"
             onClick={
@@ -286,7 +282,6 @@ class Piano extends Component {
           >
             octave -
           </button>
-
           <div>
             <button className="piano-button" onClick={this.clearClick}>
               Clear

@@ -61,7 +61,7 @@ class Register extends Component {
     return (
       <div
         className="container signUp-box"
-        style={{ marginTop: "150px", width: "700px" }}
+        style={{ marginTop: "130px", width: "700px" }}
       >
         <h2>Registration</h2>
         <p>
