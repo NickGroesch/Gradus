@@ -105,11 +105,15 @@ console.log(xxx(arrOfArr))
 yyy = (aOA) => {
     let solutions = [];
     for (let j0 = 0; j0 < aOA.length; j0++) {
-        for (let j1 = 0; j1 < aOA.length; j1++) {
-            // console.log("x", j0);
-            // console.log("y", j1);
-            console.log([aOA[0][j0], aOA[1][j1]])
-        }
+        //    run tests
+        // if (fails test){remove element from array}
+        // else{
+        //// if(i bottoms out){
+        //// evaluate solutions.push
+        //// }else{
+        //// keep up the recursion
+        //// }
+        // }
     }
 
     return solutions
