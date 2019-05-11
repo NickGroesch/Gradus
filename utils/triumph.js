@@ -70,42 +70,55 @@ for (var i = 0; i < midiCantus.length; i++) {
 // for each of M variable value, there are N^M possibilities
 
 // practice ala poornima--stack overflows
-// let arrOfArr = [["a", "b", "c"], ["A", "B", "C"], [1, 2, 3]]
-let arrOfArr = [[1, 2], [1, 2]]
-// let combinatorialRoutes = (arrayOfArrays) => {
-//     let z = [];
-//     for (let i = 0; i < arrayOfArrays.length; i++) {
-//         y = combinatorialRoutes(arrayOfArrays[i]),
-//             z.push(y)
-//     }
-//     return z
-// }
-// console.log(combinatorialRoutes(arrOfArr))
+
+let arrOfArr = [["a", "b", "c"], ["A", "B", "C"], [1, 2, 3, 4], ["X", "Y", "Z"]]
+// we are shooting for solutions=[[a,A,1][a,A,2],[a,A,3],[a,B,1]...]
+
+// let arrOfArr = [[1, 2], [1, 2]]//return [[1,1],[1,2],[2,1],[2,2]]
+
 let xxx = (aOA) => {
     let solutions = []
-    for (let i = 0; i < aOA.length; i++) {
-        let temp = []
-        for (let j = 0; j < aOA[i].length; j++) {
-            temp.push(aOA[i][j])
+    let polymorphicBegin = ``
+    let polymorphicMiddle = `solutions.push([`
+    let polymorphicEnd = `])`
+    for (let i = 0; i <= aOA.length; i++) {
+        if (i == aOA.length) {
+            let polyCode = (polymorphicBegin + polymorphicMiddle + polymorphicEnd)
+
+            eval(polyCode)
+        } else {
+            let k = `j${i}`
+            polymorphicBegin += `for(let j${i}=0; j${i}<aOA[${i}].length; j${i}++){`
+            polymorphicEnd += `}`
+            if (i == aOA.length - 1) {
+                polymorphicMiddle += `aOA[${i}][${k}]`
+            } else {
+                polymorphicMiddle += `aOA[${i}][${k}],`
+            }
         }
-        solutions.push(temp)
-        // let x = []
-        // aOA.forEach((value, index) => {
-        //     let y = value
-        //     // y.push(aOA[index])
-        //     value.forEach((v, i) => {
-        //         let z = v
-        //         x.push([, z])
-        //         console.log("z", z)
-        //     })
-        //     // console.log("y", y)
-        // })
-        // console.log("x", x)
     }
+    // console.log(polyCode)
+    // eval(polyCode)
     return solutions
 }
 console.log(xxx(arrOfArr))
+yyy = (aOA) => {
+    let solutions = [];
+    for (let j0 = 0; j0 < aOA.length; j0++) {
+        for (let j1 = 0; j1 < aOA.length; j1++) {
+            // console.log("x", j0);
+            // console.log("y", j1);
+            console.log([aOA[0][j0], aOA[1][j1]])
+        }
+    }
+
+    return solutions
+}
+// console.log(yyy(arrOfArr))
+// yyy(arrOfArr)
 // ----------------------------------------------
+// let e = "me"
+// eval(`console.log('hey its ${e}')`)
 
 // now we need to formulate a general function that will run a test and 
 // use the results to trim the 
