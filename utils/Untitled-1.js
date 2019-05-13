@@ -1,0 +1,1 @@
+for (let j0 = 0; j0 < aOA[0].length; j0++) { for (let j1 = 0; j1 < aOA[1].length; j1++) { for (let j2 = 0; j2 < aOA[2].length; j2++) { for (let j3 = 0; j3 < aOA[3].length; j3++) { solutions.push([aOA[0][j0], aOA[1][j1], aOA[2][j2], aOA[3][j3]]) } } } }
