@@ -5,8 +5,10 @@ let db = require("../serverModels")
 module.exports = {
     findAll: function (req, res) {
         db.CantusFirmus.find({}).then(
-            data => res.json(data)
-            // console.log("data: ", data)
+            data => {
+                res.json(data)
+                console.log("data: ", data)
+            }
         )
     }
 
