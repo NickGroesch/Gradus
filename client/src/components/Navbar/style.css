@@ -23,12 +23,10 @@ nav {
 
 .nav-log.signUp {
   background-color: #ebeadd;
-  /* flex: end; */
 }
 
 .nav-log.signIn {
   background-color: #c7bba5;
-  /* flex: end; */
 }
 
 .nav-log.dashboard {
