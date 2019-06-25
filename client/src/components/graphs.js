@@ -10,12 +10,14 @@ class Graphs extends Component {
     super(props);
     this.state = {
       rerender: false,
-      pianoArray: [],
+      pianoArray: [60],
       exercise: {
-        key: "C",
+        key: this.props.key,
+        // "C",
         midi:
-          // [[60, 67, 69, 67, 60, 62, 62, 60]]
-          [[64, 67, 60], [67, 71, 72], [72, 72, 72]] //, this.state.pianoArray]
+          this.props.midi
+        // [[60, 67, 69, 67, 60, 62, 62, 60]]
+        // [[64, 67, 60], [67, 71, 72], [72, 72, 72]] //, this.state.pianoArray]
         // which is cantus firmus? NEED FORMAT FIELD
       },
 
@@ -31,7 +33,7 @@ class Graphs extends Component {
     });
   };
   setAbc() {
-    let abcHeader = `X:1\nT:Counterpoint\nM:4/4\nK:${
+    let abcHeader = `X:1\nT:${this.props.name}\nM:4/4\nK:${
       this.state.exercise.key
       }\nL:1/1\n`;
     let abcBody = "";
@@ -63,9 +65,10 @@ class Graphs extends Component {
 
   getGraphs = () => {
     // this.setState({ rerender: false })
-
-    let ex = this.state.exercise;
-    ex.midi[3] = this.state.pianoArray;
+    console.log(this.props)
+    let ex = { key: this.props.key, midi: [[this.props.midi], [this.state.pianoArray]] };
+    // let ex = this.state.exercise;
+    // ex.midi[1] = this.state.pianoArray;
 
     API.analyze({ exercise: ex }).then(res => {
       this.setState({ data: res.data });

@@ -1,7 +1,7 @@
 .welcome {
   font-family: "Cormorant Unicase", serif;
   font-weight: 500;
-  font-size: 100px;
+  font-size: 5rem;
   margin: 50px 0 0 20px;
   line-height: 110px;
 }
@@ -14,7 +14,6 @@
 
 .info-box {
   width: 50%;
-  height: 400px;
   line-height: 20px;
   float: left;
   border: solid black 1px;
@@ -35,7 +34,8 @@ li {
   font-family: "Cormorant Unicase", serif;
   font-weight: 500;
   padding: 30px;
-  font-size: 50px;
+  font-size: 3rem;
+  line-height: 2.5rem;
   border-bottom: solid black 1px;
 }
 

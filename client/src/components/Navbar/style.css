@@ -10,23 +10,25 @@
 }
 
 nav {
+  /* display: block; */
+  display: flex;
 }
 .nav-log {
   width: 150px;
   height: 66px;
   text-align: center;
-  display: inline-block;
-  float: right;
   padding: 20px;
   color: black;
 }
 
 .nav-log.signUp {
   background-color: #ebeadd;
+  /* flex: end; */
 }
 
 .nav-log.signIn {
   background-color: #c7bba5;
+  /* flex: end; */
 }
 
 .nav-log.dashboard {

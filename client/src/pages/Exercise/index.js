@@ -35,9 +35,9 @@ class Exercise extends Component {
       cantus.key = data.data.key;
       // console.log("--------------data: ", data.data.name)
       // console.log("--------cantus", cantus.key)
-      this.state.cantus.push(cantus)
+      this.setState({ cantus: cantus })
+      console.log("++++++++++cantus ", this.state.cantus)
     })
-    console.log("++++++++++cantus ", this.state.cantus)
   }
 
   componentWillMount() {
@@ -63,12 +63,16 @@ class Exercise extends Component {
         <div>
           <a href="/home">Dashboard</a>
           <h1>EXERCISE</h1>
-          {/* <Graphs /> */}
-          <ExCard
+          <Graphs
             name={this.state.cantus.name}
             midi={this.state.cantus.midiArray}
-            musicKey={this.state.cantus.key} />
-          <Piano />
+            musicKey={this.state.cantus.key}
+          />
+          {/* <ExCard
+            name={this.state.cantus.name}
+            midi={this.state.cantus.midiArray}
+            musicKey={this.state.cantus.key} /> */}
+          {/* <Piano /> */}
           {/* <Midi /> */}
         </div>
       );
