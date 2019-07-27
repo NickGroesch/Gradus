@@ -54,6 +54,8 @@ for (var i = 0; i < midiCantus.length; i++) {
 }
 // console.log("dissonance combed", matrix)
 
+// WE NEED TO COMB MORE TO REDUCE THE TIME AND SPACE COMPLEXITY TO MANAGEABLE LEVELS
+
 // having completed the combing we now need to assess entire linear counterpoints
 
 // -----------------------------------------
@@ -68,6 +70,7 @@ for (var i = 0; i < midiCantus.length; i++) {
 
 // for 2 lines(one of which is fixed, one variable) if there are N options 
 // for each of M variable value, there are N^M possibilities
+
 
 // practice ala poornima--stack overflows
 
@@ -182,6 +185,10 @@ yyy = (aOA) => {
 }
 // console.log(yyy(arrOfArr))
 // yyy(arrOfArr)
+=======
+
+
+
 // ----------------------------------------------
 // let e = "me"
 // eval(`console.log('hey its ${e}')`)

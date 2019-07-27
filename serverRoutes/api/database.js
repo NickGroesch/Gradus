@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 let databaseController = require("../../serverController/methods_DB")
 const router = require("express").Router();
-mongoose.connect("mongodb://localhost/Gradus", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/Gradus", { useNewUrlParser: true });
 
 
 

@@ -271,7 +271,7 @@ class Midi extends Component {
         <div>Notes: {this.state.MidiValArray}</div> */}
 
         {/* Set Title, Composer, and Key of exercise */}
-        <div className="container userStaffInput">
+        {/* <div className="container userStaffInput">
           <h2>Start Exercise</h2>
           <form onSubmit={this.handleSubmit}>
             <label>Title</label>
@@ -303,7 +303,7 @@ class Midi extends Component {
             <button onClick={this.clearClick}>Clear</button>
             <button onClick={this.backClick}>Back</button>
           </form>
-        </div>
+        </div> */}
 
         {/* FUTURE INLINE MIDI */}
         {/* <div id="midi" />

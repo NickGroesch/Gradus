@@ -23,11 +23,13 @@ Gradus is a music composition software run entirely within the browser (just Chr
 
 - In `client/src/utils/API/APIroute1.js` axios post routes may have to be switched between localhost and deployed api routes depending on how your front and back ends handle proxying. Restarting the server will often fix proxying errors. We're not sure why it's so tempermental yet.
 
-- back button does not work for external MIDI inputs
+- Back button does not work for external MIDI inputs
 
-- external MIDI octave range limited to keyboard size
+- External MIDI octave range limited to keyboard size
 
 - Graphs component needs timeout or something as it will fail to render initially but render upon refreshing when app is first started (maybe local only?)
+
+- Database routes to load unique cantus firmuses on the pick exercise page from the pick page need to be created
 
 ## How to Use
 

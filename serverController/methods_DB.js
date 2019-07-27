@@ -3,10 +3,13 @@ let db = require("../serverModels")
 //controller should only export functions to query the DB
 
 module.exports = {
-    findAll: function (res, res) {
+    findAll: function (req, res) {
         db.CantusFirmus.find({}).then(
-            data => res.json(data)
-            // console.log("data: ", data)
+            data => {
+                res.json(data)
+                console.log("data: ", data)
+            }
         )
     }
+
 }

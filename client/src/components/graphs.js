@@ -14,7 +14,7 @@ class Graphs extends Component {
       exercise: {
         key: "C",
         midi:
-          [[60, 67, 69, 67, 60, 62, 62, 60]]
+          [[60, 62, 64, 65, 67, 62, 65, 64, 62, 60]]
         // [[64, 67, 60], [67, 71, 72], [72, 72, 72]]//, this.state.pianoArray]
         // which is cantus firmus? NEED FORMAT FIELD
       },
@@ -111,26 +111,26 @@ class Graphs extends Component {
   render() {
     return (
       <div>
-        {this.state.flag ? (
+        {/* {this.state.flag ? (
           <div>
-            success: {this.state.pianoArray.toString()}
-            {/* NOTE=if this.state.rerender(flag) render agains ; the change of state changes the flag*/}
-            {/* {this.state.rerender ? this.doHi() : <div>nope</div>} */}
-            {/* {this.doHi()} */}
-            <Abcjs
-              abcNotation={
-                //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
-                this.state.abcjs
-                // this.state.abc
-              }
-              parserParams={{}}
-              engraverParams={{ responsive: "resize" }}
-              renderParams={{ viewportHorizontal: true }}
-            />
-          </div>
+            success: {this.state.pianoArray.toString()} */}
+        {/* NOTE=if this.state.rerender(flag) render agains ; the change of state changes the flag*/}
+        {/* {this.state.rerender ? this.doHi() : <div>nope</div>} */}
+        {/* {this.doHi()} */}
+        <Abcjs
+          abcNotation={
+            //X: 1 stave T: title of rendered staff C: composer K: key(G in this case) "|": bar line
+            this.state.abcjs
+            // this.state.abc
+          }
+          parserParams={{}}
+          engraverParams={{ responsive: "resize" }}
+          renderParams={{ viewportHorizontal: true }}
+        />
+        {/* </div>
         ) : (
             <p>failure</p>
-          )}
+          )} */}
         <Piano pianoArray={this.state.pianoArray} x={this.x} />
         <Midi pianoArray={this.state.pianoArray} x={this.x} />
       </div>
